@@ -5,4 +5,13 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="DataLayer\**" />
+    <Compile Remove="WebService\**" />
+    <EmbeddedResource Remove="DataLayer\**" />
+    <EmbeddedResource Remove="WebService\**" />
+    <None Remove="DataLayer\**" />
+    <None Remove="WebService\**" />
+  </ItemGroup>
+
 </Project>
