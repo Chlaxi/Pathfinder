@@ -7,7 +7,7 @@ namespace DataLayer
     public class Class
     {
         public string Name { get; set; }
-        public int level { get; set; }
+     //   public int level { get; set; }
 
         public int HitDie { get; set; }
         public int SkillsPerLevel { get; set; }
@@ -15,7 +15,11 @@ namespace DataLayer
         public string WeaponProficiency {get;set;}
         public string ArmourProficiency { get; set; }
 
-        public List<int> SpecialAbilityIds { get; set; }
-        public List<SpecialAbility> SpecialAbilities { get; set; }
+      //  public List<int> SpecialAbilityIds { get; set; }
+       // public List<SpecialAbility> SpecialAbilities { get; set; }
+
+        public bool Spells { get; set; }
+        public string source { get; set; }
+
     }
 }

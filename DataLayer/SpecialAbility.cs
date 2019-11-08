@@ -9,8 +9,11 @@ namespace DataLayer
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Race Race { get; set; }
-
-
+        public string Type { get; set; }
+        public string Category { get; set; }
+        
+        
+        public string ClassName { get;set;}
+        public string Source { get; set; }
     }
 }

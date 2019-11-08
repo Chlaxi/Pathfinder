@@ -9,10 +9,12 @@ namespace DataLayer
         public string Name { get; set; }
         public string Description { get; set; }
         public Size Size { get; set; }
-        public List<SpecialAbility> Traits { get; set; }
-
-        public string LanguagesKnown { get; set; }
-        public string LanguagesAvailable { get; set; }
+        
+        public int Speed { get; set; } 
+       // public List<SpecialAbility> Traits { get; set; }
+        
+        public List<string> LanguagesKnown { get; set; }
+        public List<string> LanguagesAvailable { get; set; }
 
         public int? Strength { get; set; }
         public int? Dexterity { get; set; }

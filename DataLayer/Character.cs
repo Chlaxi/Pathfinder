@@ -6,7 +6,7 @@ namespace DataLayer
 {
 
     public enum AbilityEnum { Str, Dex, Con, Int, Wis, Cha }
-    public enum Size { Small, Medium, Large}
+    public enum Size { small, medium, large}
 
     public enum Alignment { LawfulGood, LawfulNeutral, LawfulEvil
                             ,NeutralGood, Neutral, NeutralEvil
@@ -137,9 +137,9 @@ namespace DataLayer
         {
             switch (size)
             {
-                case Size.Small:
+                case Size.small:
                     return 1;
-                case Size.Large:
+                case Size.large:
                     return -1;
 
                 default:
@@ -151,9 +151,9 @@ namespace DataLayer
         {
             switch (size)
             {
-                case Size.Small:
+                case Size.small:
                     return -1;
-                case Size.Large:
+                case Size.large:
                     return 1;
 
                 default:
