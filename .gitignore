@@ -9,3 +9,4 @@ Pathfinder/obj/Pathfinder.csproj.nuget.g.props
 Pathfinder/obj/Pathfinder.csproj.nuget.cache
 .vs/
 obj/
+WebService/bin/

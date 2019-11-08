@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{43DB1F7A-3FA6-4EE9-B1CB-E9A33695EACF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "WebService\WebService.csproj", "{CC8736D4-7F4A-4602-A8F4-D508C0D5A45D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{43DB1F7A-3FA6-4EE9-B1CB-E9A33695EACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43DB1F7A-3FA6-4EE9-B1CB-E9A33695EACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43DB1F7A-3FA6-4EE9-B1CB-E9A33695EACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC8736D4-7F4A-4602-A8F4-D508C0D5A45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8736D4-7F4A-4602-A8F4-D508C0D5A45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8736D4-7F4A-4602-A8F4-D508C0D5A45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8736D4-7F4A-4602-A8F4-D508C0D5A45D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
