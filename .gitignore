@@ -10,3 +10,4 @@ Pathfinder/obj/Pathfinder.csproj.nuget.cache
 .vs/
 obj/
 WebService/bin/
+DataLayer/bin/
