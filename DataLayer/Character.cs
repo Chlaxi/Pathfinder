@@ -13,13 +13,16 @@ namespace DataLayer
                             ,ChaoticGood, ChaoticNeutral, ChaoticEvil}
     public class Character
     {
+        public int PlayerId { get; set; }
         public Player Player { get; set; }
         public int Id { get; set; }
+        public string Name { get; set; }
 
+        public string RaceName { get; set; }
         public Race Race { get; set; }
         public List<Class> Class{ get;set;}
 
-        public string Name { get; set; }
+  
         public Alignment Alignment { get; set; }
 
         public string Gender { get; set; }
@@ -31,7 +34,7 @@ namespace DataLayer
         public string Weight { get; set; }
         public string Hair { get; set; }
         public string Eyes { get; set; }
-
+        public string Experience { get; set; }
 
         public Ability Strength { get; set; }
         public Ability Dexterity { get; set; }
@@ -48,7 +51,7 @@ namespace DataLayer
 
         public List<Feat> Feats { get; set; }
         public List<SpecialAbility> SpecialAbilities {get; set;}
-
+        #region Skills
         public Skills Acrobatic { get; set; } //Dex
         public Skills Appraise { get; set; } //Int
         public Skills Bluff { get; set; } //Cha
@@ -84,6 +87,7 @@ namespace DataLayer
         public Skills Survival { get; set; } //Wis 
         public Skills Swim { get; set; } //Str 
         public Skills UseMagicDevice { get; set; } //Int *
+        #endregion
 
         public HitPoints HitPoints { get; set; }
 
@@ -101,7 +105,18 @@ namespace DataLayer
 
         public int? SpellResistance { get; set; }
         public string DamageReduction { get; set; }
+
+        public string Resistance { get; set; }
+        public string Immunity { get; set; }
     
+        public int? Platinum { get; set; }
+        public int? Gold { get; set; }
+        public int? Silver { get; set; }
+        public int? Copper { get; set; }
+
+        public string Languages { get; set; }
+
+        public string Note { get; set; }
 
         /// <summary>
         /// Converts the ability enum to the corrosponding ability
@@ -248,7 +263,7 @@ namespace DataLayer
 
         public Character character;
 
-        public int? total
+        public int? Total
         { 
             get
             { return BaseAttackBonus + Strength + Size + Misc; } 
@@ -258,6 +273,7 @@ namespace DataLayer
         public int? Size { get { return character.GetSizeOffensiveModifier(character.Size); } }
 
         public int? Misc { get; set; }
+        public int? Temp { get; set; }
     }
 
     public class CombatManeuverDefence
@@ -269,7 +285,7 @@ namespace DataLayer
 
         public Character character;
 
-        public int? total
+        public int? Total
         {
             get
             { return 10 + BaseAttackBonus + Strength + Dexterity + Size + Misc; }
@@ -280,6 +296,7 @@ namespace DataLayer
         public int? Size { get { return character.GetSizeDefensiveModifier(character.Size); } }
 
         public int? Misc { get; set; }
+        public int? Temp { get; set; }
     }
 
     public class Speed
@@ -298,6 +315,7 @@ namespace DataLayer
         public int? CurrentHitPoints { get; set; }
         public int? MaxHitPoints { get; set; }
         public int? NonLethalDamage { get; set; }
+        public string Wounds { get; set; }
     }
 
     public class Ability

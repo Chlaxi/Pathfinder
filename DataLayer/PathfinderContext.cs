@@ -11,8 +11,8 @@ namespace DataLayer
     {
 //        Defines the database sets we want to use
 
-      //  public DbSet<Character> Characters { get; set; }
-       // public DbSet<Player> Players { get; set; }
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<Player> Players { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Feat> Feats { get; set; }
@@ -28,6 +28,173 @@ namespace DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //Player
+            modelBuilder.Entity<Player>().ToTable("players");
+            modelBuilder.Entity<Player>().Property(m => m.Id).HasColumnName("playerid");
+            modelBuilder.Entity<Player>().Property(m => m.Username).HasColumnName("username");
+            modelBuilder.Entity<Player>().HasKey(m => m.Id);
+            //Add Password, salt
+
+            #region Character
+            //Character
+            modelBuilder.Entity<Character>().ToTable("character");
+            modelBuilder.Entity<Character>().Property(m => m.PlayerId).HasColumnName("playerid");
+            modelBuilder.Entity<Character>().Property(m => m.Id).HasColumnName("characterid");
+            modelBuilder.Entity<Character>().Property(m => m.Name).HasColumnName("character_name");
+            modelBuilder.Entity<Character>().Property(m => m.RaceName).HasColumnName("race");
+            //            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("playerid"); Use conversion thingy
+         #region abilities 
+            modelBuilder.Entity<Character>().Property(m => m.Strength.BaseScore).HasColumnName("base_str");
+            modelBuilder.Entity<Character>().Property(m => m.Strength.BaseModifier).HasColumnName("str_str");
+            modelBuilder.Entity<Character>().Property(m => m.Strength.TempScore).HasColumnName("temp_str");
+            modelBuilder.Entity<Character>().Property(m => m.Strength.TempModifier).HasColumnName("temp_str_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Dexterity.BaseScore).HasColumnName("base_dex");
+            modelBuilder.Entity<Character>().Property(m => m.Dexterity.BaseModifier).HasColumnName("str_dex");
+            modelBuilder.Entity<Character>().Property(m => m.Dexterity.TempScore).HasColumnName("temp_dex");
+            modelBuilder.Entity<Character>().Property(m => m.Dexterity.TempModifier).HasColumnName("temp_dex_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Constitution.BaseScore).HasColumnName("base_con");
+            modelBuilder.Entity<Character>().Property(m => m.Constitution.BaseModifier).HasColumnName("str_con");
+            modelBuilder.Entity<Character>().Property(m => m.Constitution.TempScore).HasColumnName("temp_con");
+            modelBuilder.Entity<Character>().Property(m => m.Constitution.TempModifier).HasColumnName("temp_con_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Intelligence.BaseScore).HasColumnName("base_int");
+            modelBuilder.Entity<Character>().Property(m => m.Intelligence.BaseModifier).HasColumnName("str_int");
+            modelBuilder.Entity<Character>().Property(m => m.Intelligence.TempScore).HasColumnName("temp_int");
+            modelBuilder.Entity<Character>().Property(m => m.Intelligence.TempModifier).HasColumnName("temp_int_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Wisdom.BaseScore).HasColumnName("base_wis");
+            modelBuilder.Entity<Character>().Property(m => m.Wisdom.BaseModifier).HasColumnName("str_wis");
+            modelBuilder.Entity<Character>().Property(m => m.Wisdom.TempScore).HasColumnName("temp_wis");
+            modelBuilder.Entity<Character>().Property(m => m.Wisdom.TempModifier).HasColumnName("temp_wis_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Charisma.BaseScore).HasColumnName("base_cha");
+            modelBuilder.Entity<Character>().Property(m => m.Charisma.BaseModifier).HasColumnName("str_cha");
+            modelBuilder.Entity<Character>().Property(m => m.Charisma.TempScore).HasColumnName("temp_cha");
+            modelBuilder.Entity<Character>().Property(m => m.Charisma.TempModifier).HasColumnName("temp_cha_mod");
+         #endregion
+
+            modelBuilder.Entity<Character>().Property(m => m.Experience).HasColumnName("experience");
+            modelBuilder.Entity<Character>().Property(m => m.Size).HasColumnName("size").HasConversion(v => v.ToString(), v => (Size)Enum.Parse(typeof(Size), v));
+            modelBuilder.Entity<Character>().Property(m => m.Gender).HasColumnName("gender");
+            modelBuilder.Entity<Character>().Property(m => m.Age).HasColumnName("age");
+            modelBuilder.Entity<Character>().Property(m => m.Height).HasColumnName("height");
+            modelBuilder.Entity<Character>().Property(m => m.Weight).HasColumnName("weight");
+            modelBuilder.Entity<Character>().Property(m => m.Hair).HasColumnName("hair");
+            modelBuilder.Entity<Character>().Property(m => m.Eyes).HasColumnName("eyes");
+         
+        #region AC
+            modelBuilder.Entity<Character>().Property(m => m.AC.Armour).HasColumnName("ac_armour_bonus");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Shield).HasColumnName("ac_shield_bonus");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Size).HasColumnName("ac_size_modifier");
+            modelBuilder.Entity<Character>().Property(m => m.AC.NaturalArmour).HasColumnName("ac_natural_armour");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Deflection).HasColumnName("ac_deflection");
+            //modelBuilder.Entity<Character>().Property(m => m.AC.).HasColumnName("ac_temp_armour");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Misc).HasColumnName("ac_misc");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Total).HasColumnName("ac_total");
+            modelBuilder.Entity<Character>().Property(m => m.AC.Touch).HasColumnName("ac_touch");
+            modelBuilder.Entity<Character>().Property(m => m.AC.FlatFooted).HasColumnName("ac_flat_footed");
+        
+            modelBuilder.Entity<Character>().Ignore(m => m.AC.TouchMisc);
+            modelBuilder.Entity<Character>().Ignore(m => m.AC.FlatFootedMisc);
+            modelBuilder.Entity<Character>().Ignore(m => m.AC.Note);
+
+            modelBuilder.Entity<Character>().Ignore(m => m.AC.Dex);
+        #endregion
+
+        #region Hit Points
+            modelBuilder.Entity<Character>().Property(m => m.HitPoints.MaxHitPoints).HasColumnName("hp_total");
+            modelBuilder.Entity<Character>().Property(m => m.HitPoints.CurrentHitPoints).HasColumnName("hp_current");
+            modelBuilder.Entity<Character>().Property(m => m.HitPoints.NonLethalDamage).HasColumnName("hp_non_lethal");
+            modelBuilder.Entity<Character>().Property(m => m.HitPoints.Wounds).HasColumnName("hp_wounds");
+        #endregion
+
+         #region Saves
+            #region Fortitude
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Total).HasColumnName("fortitude_total");
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Base).HasColumnName("fortitude_base");
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Ability).HasColumnName("fortitude_con_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Magic).HasColumnName("fortitude_magic_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Temporary).HasColumnName("fotritude_temp_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Misc).HasColumnName("fortitude_other");
+            #endregion
+            #region Reflex
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Total).HasColumnName("reflex_total");
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Base).HasColumnName("reflex_base");
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Ability).HasColumnName("reflex_dex_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Magic).HasColumnName("reflex_magic_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Temporary).HasColumnName("reflex_temp_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Reflex.Misc).HasColumnName("reflex_other");
+            #endregion
+            #region Will
+            modelBuilder.Entity<Character>().Property(m => m.Will.Total).HasColumnName("will_total");
+            modelBuilder.Entity<Character>().Property(m => m.Will.Base).HasColumnName("will_base");
+            modelBuilder.Entity<Character>().Property(m => m.Will.Ability).HasColumnName("will_con_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Will.Magic).HasColumnName("will_magic_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Will.Temporary).HasColumnName("will_temp_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Will.Misc).HasColumnName("will_other");
+            #endregion
+        #endregion
+
+            modelBuilder.Entity<Character>().Property(m => m.DamageReduction).HasColumnName("damage_reduction");
+            modelBuilder.Entity<Character>().Property(m => m.SpellResistance).HasColumnName("spell_resistance");
+            modelBuilder.Entity<Character>().Property(m => m.Resistance).HasColumnName("resistance");
+            modelBuilder.Entity<Character>().Property(m => m.Immunity).HasColumnName("immunity");
+
+            modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("bab");
+    //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("range_bab");
+    //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("melee_bab");
+
+
+
+            #region Combat Maneuver Bonus (CMB)
+            modelBuilder.Entity<Character>().Property(m => m.CMB.Total).HasColumnName("cmb_total");
+            modelBuilder.Entity<Character>().Property(m => m.CMB.BaseAttackBonus).HasColumnName("cmb_bab");
+            modelBuilder.Entity<Character>().Property(m => m.CMB.Strength).HasColumnName("cmb_str");
+            modelBuilder.Entity<Character>().Property(m => m.CMB.Size).HasColumnName("cmb_size_mod");
+            modelBuilder.Entity<Character>().Property(m => m.CMB.Misc).HasColumnName("cmb_misc");
+            modelBuilder.Entity<Character>().Property(m => m.CMB.Temp).HasColumnName("cmb_temp");
+
+            #endregion
+
+            #region Combat Maneuver Defence (CMD
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Total).HasColumnName("cmd_total");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.BaseAttackBonus).HasColumnName("cmd_bab");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Strength).HasColumnName("cmd_str");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Strength).HasColumnName("cmd_dex");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Size).HasColumnName("cmd_size_mod");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Misc).HasColumnName("cmd_misc");
+            modelBuilder.Entity<Character>().Property(m => m.CMD.Temp).HasColumnName("cmd_temp");
+
+            #endregion
+
+            modelBuilder.Entity<Character>().Property(m => m.Initiative).HasColumnName("initiative_total");
+            modelBuilder.Entity<Character>().Property(m => m.InitiativeMiscModifier).HasColumnName("initiative_misc");
+
+            #region Speed
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Base).HasColumnName("speed_base");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Armour).HasColumnName("speed_armour");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Fly).HasColumnName("speed_fly");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Swim).HasColumnName("speed_swim");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Climb).HasColumnName("speed_climb");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Burrow).HasColumnName("speed_burrow");
+            modelBuilder.Entity<Character>().Property(m => m.Speed.Temporary).HasColumnName("speed_misc");
+            #endregion
+
+            modelBuilder.Entity<Character>().Property(m => m.Languages).HasColumnName("languages");
+            modelBuilder.Entity<Character>().Property(m => m.Platinum).HasColumnName("platinum");
+            modelBuilder.Entity<Character>().Property(m => m.Gold).HasColumnName("gold");
+            modelBuilder.Entity<Character>().Property(m => m.Silver).HasColumnName("silver");
+            modelBuilder.Entity<Character>().Property(m => m.Copper).HasColumnName("copper");
+            modelBuilder.Entity<Character>().Property(m => m.Note).HasColumnName("notes");
+
+            #region Skills
+            modelBuilder.Entity<Character>().Ignore(m => m.Acrobatic);
+
+
+            #endregion
+
+            #endregion
+
+
+            #region Spells
             //Spells
             modelBuilder.Entity<Spell>().ToTable("spells");
             modelBuilder.Entity<Spell>().Property(m => m.Id).HasColumnName("spellid").IsRequired(true);
@@ -119,8 +286,9 @@ namespace DataLayer
             modelBuilder.Entity<Spell>().Property(m => m.).HasColumnName("sonic");
             modelBuilder.Entity<Spell>().Property(m => m.).HasColumnName("water");
             */
+            #endregion
 
-
+            #region Feats
             //Feats
             modelBuilder.Entity<Feat>().ToTable("feats");
             modelBuilder.Entity<Feat>().Property(m => m.Id).HasColumnName("featid").IsRequired(true);
@@ -138,8 +306,10 @@ namespace DataLayer
             modelBuilder.Entity<Feat>().Property(m => m.RaceNames).HasColumnName("race_name");
             modelBuilder.Entity<Feat>().Property(m => m.Source).HasColumnName("source");
             modelBuilder.Entity<Feat>().HasKey(m => m.Id);
+            #endregion
 
 
+            #region Special Abilities
             //Special Abilities
             modelBuilder.Entity<SpecialAbility>().ToTable("specialabilities");
             modelBuilder.Entity<SpecialAbility>().Property(m => m.Id).HasColumnName("said").IsRequired(true);
@@ -150,7 +320,9 @@ namespace DataLayer
             modelBuilder.Entity<SpecialAbility>().Property(m => m.ClassName).HasColumnName("class");
             modelBuilder.Entity<SpecialAbility>().Property(m => m.Source).HasColumnName("source");
             modelBuilder.Entity<SpecialAbility>().HasKey(m => m.Id);
+            #endregion
 
+            #region Race
             //Race
             modelBuilder.Entity<Race>().ToTable("races");
             modelBuilder.Entity<Race>().Property(m => m.Name).HasColumnName("race_name").IsRequired(true);
@@ -167,8 +339,9 @@ namespace DataLayer
             modelBuilder.Entity<Race>().Property(m => m.SpecialModifier).HasColumnName("varied_attribute");
             modelBuilder.Entity<Race>().Property(m => m.Description).HasColumnName("race_description");
             modelBuilder.Entity<Race>().HasKey(m => m.Name);
+            #endregion
 
-
+            #region Classes
             //Class
             modelBuilder.Entity<Class>().ToTable("classes");
             modelBuilder.Entity<Class>().Property(m => m.Name).HasColumnName("class");
@@ -180,25 +353,24 @@ namespace DataLayer
             modelBuilder.Entity<Class>().Property(m => m.Spells).HasColumnName("spells");
             modelBuilder.Entity<Class>().Property(m => m.source).HasColumnName("source");
             modelBuilder.Entity<Class>().HasKey(m => m.Name);
+            #endregion
 
 
-
-
-
-
-            //Orders
-
-
-
-            //    modelBuilder.Entity<Order>().ToTable("orders");
-            // modelBuilder.Entity<Order>().Property(m => m.Shipped).HasColumnName("shippeddate").IsRequired(false);
-            // modelBuilder.Entity<Order>().Ignore(m => m.OrderDetails);
-            // modelBuilder.Entity<Order>().HasKey(m => m.Id);
-
-
-            //   modelBuilder.Entity<OrderDetails>().HasKey(m => new { m.OrderId, m.ProductId });
 
         }
+
+        /*public void MapClass(this ModelBuilder modelBuilder, Skills skill, string identifier)
+        {
+            Console.WriteLine(nameof(skill));
+            string skillName = nameof(skill);
+            
+            modelBuilder.Entity<Character>().Property(m => skill.Total).HasColumnName(identifier + "_total");
+            modelBuilder.Entity<Character>().Property(m => m.Acrobatic.Ranks).HasColumnName(identifier + "_ranks");
+            modelBuilder.Entity<Character>().Property(m => m.Acrobatic.AbilityModifier).HasColumnName(identifier + "_mod");
+            modelBuilder.Entity<Character>().Property(m => m.Acrobatic.Racial).HasColumnName(identifier + "_racial");
+            modelBuilder.Entity<Character>().Property(m => m.Acrobatic.IsClassSkill).HasColumnName(identifier + "_traits"); //name should be "_classSkill"
+            modelBuilder.Entity<Character>().Property(m => m.Acrobatic.Misc).HasColumnName(identifier + "_misc");
+        }*/
 
     }
 }

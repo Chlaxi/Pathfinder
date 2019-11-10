@@ -7,8 +7,8 @@ namespace DataLayer
     public class Player
     {
         public int Id { get; set; }
+        public string Username { get; set; }
 
-        public List<int> CharacterId { get; set; }
         public List<Character> Characters { get; set; }
 
     }
