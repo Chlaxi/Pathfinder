@@ -37,12 +37,15 @@ namespace DataLayer
         public string Experience { get; set; }
 
         public Ability Strength { get; set; }
+
+                
+
         public Ability Dexterity { get; set; }
         public Ability Constitution { get; set; }
         public Ability Intelligence { get; set; }
         public Ability Wisdom { get; set; }
         public Ability Charisma { get; set; }
-
+        /*
         public ArmourClass AC { get; set; }
 
         public Save Fortitude { get; set; }
@@ -92,7 +95,7 @@ namespace DataLayer
         public HitPoints HitPoints { get; set; }
 
         public Speed Speed { get; set; }
-
+        */
         public int? Initiative { get; set; }
         public int? InitiativeMiscModifier { get; set; }
 
@@ -100,8 +103,8 @@ namespace DataLayer
 
         public Size Size { get; set; }
         
-        public CombatManeuverBonus CMB { get; set; }
-        public CombatManeuverDefence CMD { get; set; }
+   //     public CombatManeuverBonus CMB { get; set; }
+   //     public CombatManeuverDefence CMD { get; set; }
 
         public int? SpellResistance { get; set; }
         public string DamageReduction { get; set; }
@@ -144,8 +147,10 @@ namespace DataLayer
 
                 case AbilityEnum.Cha:
                     return Charisma;
+                    
+                default: return Strength; 
             }
-            return null;
+            
         }
 
         public int? GetSizeDefensiveModifier(Size size)
@@ -164,6 +169,7 @@ namespace DataLayer
 
         public int? GetSizeOffensiveModifier(Size size)
         {
+            
             switch (size)
             {
                 case Size.small:
@@ -224,7 +230,7 @@ namespace DataLayer
         {
             get
             {
-                return 10  + Dex + Size + Deflection + TouchMisc;
+                return 10 + Dex + Size + Deflection + TouchMisc;
             }
         }
 
@@ -288,7 +294,8 @@ namespace DataLayer
         public int? Total
         {
             get
-            { return 10 + BaseAttackBonus + Strength + Dexterity + Size + Misc; }
+            { return 10 + BaseAttackBonus + Strength + Dexterity + Size + Misc; 
+            }
         }
         public int? BaseAttackBonus { get { return character.BaseAttackBonus; } }
         public int? Strength { get { return character.Strength.Modifier; } }
@@ -327,10 +334,15 @@ namespace DataLayer
         public int? BaseModifier
         {
             get { return (BaseScore - 10) / 2; }
+           // set { BaseModifier = value; }
         }
 
         public int? TempScore { get; set; }
-        public int? TempModifier { get { return (TempScore - 10) / 2; } }
+        public int? TempModifier
+        {
+            get { return (TempScore - 10) / 2; }
+           // set { TempModifier = value; }
+        }
 
         /// <summary>
         /// The current modifer. Uses the normal modifier by default, but if a temporary score is in place, the temporary modifier will be used.
@@ -346,6 +358,7 @@ namespace DataLayer
 
                 return BaseModifier;
             }
+            //set { Modifier = value; }
         }
 
     }

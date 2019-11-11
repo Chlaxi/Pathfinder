@@ -1,11 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.DataService
 {
     public class DataService : IDataService
     {
+        public Player GetPlayer(int id)
+        {
+            using var db = new PathfinderContext();
+            Player player = db.Players.Find(id);
+            if (player == null) return null;
+
+           // var characters = GetCharactersByPlayer(id);
+          //  player.Characters = characters;
+            return player;
+        }
+
+        public Player CreatePlayer(string username)
+        {
+            using var db = new PathfinderContext();
+            Player player = new Player();
+            player.Id = db.Players.Max(x => x.Id) + 1;
+            player.Username = username;
+
+            Console.WriteLine("Creating a new player, {0}, with id {1}", player.Username, player.Id);
+
+            //add here?
+            //var i = db.Players.Add(player);
+            //            db.PlayerCharacterRelation.Add().
+            
+            //db.SaveChanges;
+            return player;
+        }
+
+        public Character GetCharacter(int id)
+        {
+            using var db = new PathfinderContext();
+            Character character = db.Characters.Find(id);
+            if (character == null) return null;
+
+            character.Player = GetPlayer(character.PlayerId);
+          //  character.Race = GetRace(character.RaceName);
+
+            //CharacterClasses relation to set character's classes
+
+            character.Class = null;
+
+            return character;
+        }
+
+        public Character CreateCharacter (int playerId)
+        {
+            using var db = new PathfinderContext();
+            Player player = GetPlayer(playerId);
+            if (player == null) return null;
+
+            Character character = new Character()
+            {
+                Player = player,
+                PlayerId = playerId,
+                Id = db.Characters.Max(x => x.Id) + 1
+            };
+            //TODO Use the function in sql?
+
+            Console.WriteLine("Creating a new Character owned by player {0}.", player.Username);
+
+            //Add to character
+            //add to player character relation
+            //db.SaveChanges();
+            return character;
+        }
+
+        public List<Character> GetCharactersByPlayer(int playerId)
+        {
+            using var db = new PathfinderContext();
+            List <Character> characters = new List<Character>();
+            int i = 0;
+            foreach(var character in db.Characters)
+            {
+                if (character.PlayerId.Equals(playerId))
+                {
+                    characters.Add(character);
+                    i++;
+                }
+            }
+            Console.WriteLine("{0) characters added to the player",i);
+            foreach(var c in characters)
+            {
+                Console.WriteLine("* {0} ({1})",c.Name, c.Id);
+            }
+            return characters;
+        }
+
+
        
         //Spells
         public List<Spell> GetSpells()

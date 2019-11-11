@@ -9,8 +9,8 @@ namespace DataLayer
 {
     public class PathfinderContext : DbContext
     {
-//        Defines the database sets we want to use
-
+        //        Defines the database sets we want to use
+    
         public DbSet<Character> Characters { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Class> Classes { get; set; }
@@ -28,7 +28,7 @@ namespace DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
             //Player
             modelBuilder.Entity<Player>().ToTable("players");
             modelBuilder.Entity<Player>().Property(m => m.Id).HasColumnName("playerid");
@@ -43,43 +43,106 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Id).HasColumnName("characterid");
             modelBuilder.Entity<Character>().Property(m => m.Name).HasColumnName("character_name");
             modelBuilder.Entity<Character>().Property(m => m.RaceName).HasColumnName("race");
-            //            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("playerid"); Use conversion thingy
-         #region abilities 
-            modelBuilder.Entity<Character>().Property(m => m.Strength.BaseScore).HasColumnName("base_str");
-            modelBuilder.Entity<Character>().Property(m => m.Strength.BaseModifier).HasColumnName("str_str");
-            modelBuilder.Entity<Character>().Property(m => m.Strength.TempScore).HasColumnName("temp_str");
-            modelBuilder.Entity<Character>().Property(m => m.Strength.TempModifier).HasColumnName("temp_str_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Dexterity.BaseScore).HasColumnName("base_dex");
-            modelBuilder.Entity<Character>().Property(m => m.Dexterity.BaseModifier).HasColumnName("str_dex");
-            modelBuilder.Entity<Character>().Property(m => m.Dexterity.TempScore).HasColumnName("temp_dex");
-            modelBuilder.Entity<Character>().Property(m => m.Dexterity.TempModifier).HasColumnName("temp_dex_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Constitution.BaseScore).HasColumnName("base_con");
-            modelBuilder.Entity<Character>().Property(m => m.Constitution.BaseModifier).HasColumnName("str_con");
-            modelBuilder.Entity<Character>().Property(m => m.Constitution.TempScore).HasColumnName("temp_con");
-            modelBuilder.Entity<Character>().Property(m => m.Constitution.TempModifier).HasColumnName("temp_con_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Intelligence.BaseScore).HasColumnName("base_int");
-            modelBuilder.Entity<Character>().Property(m => m.Intelligence.BaseModifier).HasColumnName("str_int");
-            modelBuilder.Entity<Character>().Property(m => m.Intelligence.TempScore).HasColumnName("temp_int");
-            modelBuilder.Entity<Character>().Property(m => m.Intelligence.TempModifier).HasColumnName("temp_int_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Wisdom.BaseScore).HasColumnName("base_wis");
-            modelBuilder.Entity<Character>().Property(m => m.Wisdom.BaseModifier).HasColumnName("str_wis");
-            modelBuilder.Entity<Character>().Property(m => m.Wisdom.TempScore).HasColumnName("temp_wis");
-            modelBuilder.Entity<Character>().Property(m => m.Wisdom.TempModifier).HasColumnName("temp_wis_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Charisma.BaseScore).HasColumnName("base_cha");
-            modelBuilder.Entity<Character>().Property(m => m.Charisma.BaseModifier).HasColumnName("str_cha");
-            modelBuilder.Entity<Character>().Property(m => m.Charisma.TempScore).HasColumnName("temp_cha");
-            modelBuilder.Entity<Character>().Property(m => m.Charisma.TempModifier).HasColumnName("temp_cha_mod");
-         #endregion
+            modelBuilder.Entity<Character>().Ignore(m => m.Alignment);  //Add to DB
+            modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
+            modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
 
+            //            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("playerid"); Use conversion thingy
+
+            #region abilities 
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Strength, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_str");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("str_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_str");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_str_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Dexterity, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_dex");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("dex_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_dex");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_dex_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Constitution, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_con");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("con_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_con");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_con_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Intelligence, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_int");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("int_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_int");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_int_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Wisdom, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_wis");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("wis_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_wis");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_wis_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Charisma, Ability =>
+                {
+                    Ability.Property(e => e.BaseScore).HasColumnName("base_cha");
+                    Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("cha_mod");
+                    Ability.Property(e => e.TempScore).HasColumnName("temp_cha");
+                    Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_cha_mod");
+                    Ability.Ignore(e => e.Modifier);
+                    Ability.Ignore(e => e.RacialModifier);
+                });
+            });
+ 
+            #endregion
+            /*
             modelBuilder.Entity<Character>().Property(m => m.Experience).HasColumnName("experience");
-            modelBuilder.Entity<Character>().Property(m => m.Size).HasColumnName("size").HasConversion(v => v.ToString(), v => (Size)Enum.Parse(typeof(Size), v));
+            modelBuilder.Entity<Character>().Ignore(m => m.Size);
+
+            //modelBuilder.Entity<Character>().Property(m => m.Size).HasColumnName("size").HasConversion(v => v.ToString(), v => (Size)Enum.Parse(typeof(Size), v));
             modelBuilder.Entity<Character>().Property(m => m.Gender).HasColumnName("gender");
             modelBuilder.Entity<Character>().Property(m => m.Age).HasColumnName("age");
             modelBuilder.Entity<Character>().Property(m => m.Height).HasColumnName("height");
             modelBuilder.Entity<Character>().Property(m => m.Weight).HasColumnName("weight");
             modelBuilder.Entity<Character>().Property(m => m.Hair).HasColumnName("hair");
             modelBuilder.Entity<Character>().Property(m => m.Eyes).HasColumnName("eyes");
-         
+
+/*         
         #region AC
             modelBuilder.Entity<Character>().Property(m => m.AC.Armour).HasColumnName("ac_armour_bonus");
             modelBuilder.Entity<Character>().Property(m => m.AC.Shield).HasColumnName("ac_shield_bonus");
@@ -98,7 +161,8 @@ namespace DataLayer
 
             modelBuilder.Entity<Character>().Ignore(m => m.AC.Dex);
         #endregion
-
+*/
+/*
         #region Hit Points
             modelBuilder.Entity<Character>().Property(m => m.HitPoints.MaxHitPoints).HasColumnName("hp_total");
             modelBuilder.Entity<Character>().Property(m => m.HitPoints.CurrentHitPoints).HasColumnName("hp_current");
@@ -132,7 +196,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Will.Misc).HasColumnName("will_other");
             #endregion
         #endregion
-
+*/
             modelBuilder.Entity<Character>().Property(m => m.DamageReduction).HasColumnName("damage_reduction");
             modelBuilder.Entity<Character>().Property(m => m.SpellResistance).HasColumnName("spell_resistance");
             modelBuilder.Entity<Character>().Property(m => m.Resistance).HasColumnName("resistance");
@@ -143,7 +207,7 @@ namespace DataLayer
     //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("melee_bab");
 
 
-
+/*
             #region Combat Maneuver Bonus (CMB)
             modelBuilder.Entity<Character>().Property(m => m.CMB.Total).HasColumnName("cmb_total");
             modelBuilder.Entity<Character>().Property(m => m.CMB.BaseAttackBonus).HasColumnName("cmb_bab");
@@ -164,10 +228,10 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.CMD.Temp).HasColumnName("cmd_temp");
 
             #endregion
-
+*/
             modelBuilder.Entity<Character>().Property(m => m.Initiative).HasColumnName("initiative_total");
             modelBuilder.Entity<Character>().Property(m => m.InitiativeMiscModifier).HasColumnName("initiative_misc");
-
+/*
             #region Speed
             modelBuilder.Entity<Character>().Property(m => m.Speed.Base).HasColumnName("speed_base");
             modelBuilder.Entity<Character>().Property(m => m.Speed.Armour).HasColumnName("speed_armour");
@@ -177,7 +241,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Speed.Burrow).HasColumnName("speed_burrow");
             modelBuilder.Entity<Character>().Property(m => m.Speed.Temporary).HasColumnName("speed_misc");
             #endregion
-
+            */
             modelBuilder.Entity<Character>().Property(m => m.Languages).HasColumnName("languages");
             modelBuilder.Entity<Character>().Property(m => m.Platinum).HasColumnName("platinum");
             modelBuilder.Entity<Character>().Property(m => m.Gold).HasColumnName("gold");
@@ -186,7 +250,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Note).HasColumnName("notes");
 
             #region Skills
-            modelBuilder.Entity<Character>().Ignore(m => m.Acrobatic);
+         //   modelBuilder.Entity<Character>().Ignore(m => m.Acrobatic);
 
 
             #endregion
