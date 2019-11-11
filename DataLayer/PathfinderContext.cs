@@ -128,9 +128,9 @@ namespace DataLayer
                     Ability.Ignore(e => e.RacialModifier);
                 });
             });
- 
+
             #endregion
-            /*
+            
             modelBuilder.Entity<Character>().Property(m => m.Experience).HasColumnName("experience");
             modelBuilder.Entity<Character>().Ignore(m => m.Size);
 
@@ -142,26 +142,41 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Hair).HasColumnName("hair");
             modelBuilder.Entity<Character>().Property(m => m.Eyes).HasColumnName("eyes");
 
-/*         
-        #region AC
-            modelBuilder.Entity<Character>().Property(m => m.AC.Armour).HasColumnName("ac_armour_bonus");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Shield).HasColumnName("ac_shield_bonus");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Size).HasColumnName("ac_size_modifier");
-            modelBuilder.Entity<Character>().Property(m => m.AC.NaturalArmour).HasColumnName("ac_natural_armour");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Deflection).HasColumnName("ac_deflection");
-            //modelBuilder.Entity<Character>().Property(m => m.AC.).HasColumnName("ac_temp_armour");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Misc).HasColumnName("ac_misc");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Total).HasColumnName("ac_total");
-            modelBuilder.Entity<Character>().Property(m => m.AC.Touch).HasColumnName("ac_touch");
-            modelBuilder.Entity<Character>().Property(m => m.AC.FlatFooted).HasColumnName("ac_flat_footed");
-        
-            modelBuilder.Entity<Character>().Ignore(m => m.AC.TouchMisc);
-            modelBuilder.Entity<Character>().Ignore(m => m.AC.FlatFootedMisc);
-            modelBuilder.Entity<Character>().Ignore(m => m.AC.Note);
 
-            modelBuilder.Entity<Character>().Ignore(m => m.AC.Dex);
+            #region AC
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.AC, AC =>
+                {
+                    
+                    AC.Property(m => m.Armour).HasColumnName("ac_armour_bonus");
+                    AC.Property(m => m.Shield).HasColumnName("ac_shield_bonus");
+                    AC.Property(m => m.NaturalArmour).HasColumnName("ac_natural_armour");
+                    AC.Property(m => m.Deflection).HasColumnName("ac_deflection");
+                    //AC.Property(m => m.).HasColumnName("ac_temp_armour"); //TODO Reavluate whether needed, and add field/database
+                    AC.Property(m => m.Misc).HasColumnName("ac_misc");
+
+                    //Ignore the totals, since they don't have a getter.
+                    //TODO: Remove from Database.
+                    AC.Ignore(m => m.Total);
+                    AC.Ignore(m => m.Touch);
+                    AC.Ignore(m => m.FlatFooted);
+                    
+                    //Not added to Database yet.
+                    AC.Ignore(m => m.TouchMisc);
+                    AC.Ignore(m => m.FlatFootedMisc);
+                    AC.Ignore(m => m.Note);
+
+                    //Ignore since it has no setter
+                    //TODO remove from database
+                    AC.Ignore(m => m.Dex);
+                    AC.Ignore(m => m.Size);
+                });
+            });
+
+
         #endregion
-*/
+
 /*
         #region Hit Points
             modelBuilder.Entity<Character>().Property(m => m.HitPoints.MaxHitPoints).HasColumnName("hp_total");

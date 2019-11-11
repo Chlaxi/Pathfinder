@@ -43,6 +43,7 @@ namespace DataLayer.DataService
             if (character == null) return null;
 
             character.Player = GetPlayer(character.PlayerId);
+            character.AC = new Character.ArmourClass(character);
           //  character.Race = GetRace(character.RaceName);
 
             //CharacterClasses relation to set character's classes

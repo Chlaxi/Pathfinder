@@ -45,9 +45,10 @@ namespace DataLayer
         public Ability Intelligence { get; set; }
         public Ability Wisdom { get; set; }
         public Ability Charisma { get; set; }
-        /*
-        public ArmourClass AC { get; set; }
 
+        public ArmourClass AC { get; set; }
+        
+        /*
         public Save Fortitude { get; set; }
         public Save Reflex { get; set; }
         public Save Will { get; set; }
@@ -153,7 +154,7 @@ namespace DataLayer
             
         }
 
-        public int? GetSizeDefensiveModifier(Size size)
+        public static int? GetSizeDefensiveModifier(Size size)
         {
             switch (size)
             {
@@ -167,7 +168,7 @@ namespace DataLayer
             }
         }
 
-        public int? GetSizeOffensiveModifier(Size size)
+        public static int? GetSizeOffensiveModifier(Size size)
         {
             
             switch (size)
@@ -180,6 +181,109 @@ namespace DataLayer
                 default:
                     return 0;
             }
+        }
+
+
+        public class ArmourClass
+        {
+            //Empty constructor, so the Mapping works
+            private ArmourClass() {}
+
+            //Constructor to add a character. Should be done in the DataService for GetCharacter.
+            /// <summary>
+            /// Construtor that allows the ArmourClass to get information dirctly from the character.
+            /// Useful for automatically calculating dexterity as part of the total.
+            /// </summary>
+            /// <param name="character">The character you want to add the armour class for</param>
+            public ArmourClass(Character character)
+            {
+                this.character = character;
+                Armour = character.AC.Armour;
+                Shield = character.AC.Shield;
+                NaturalArmour = character.AC.NaturalArmour;
+                Deflection = character.AC.Deflection;
+                Misc = character.AC.Misc;
+                TouchMisc = character.AC.TouchMisc;
+                FlatFootedMisc = character.AC.FlatFootedMisc;
+                Note = character.Note;
+            }
+
+            private Character character;
+
+            public int? Total
+            {
+                get
+                {
+                    int result = 10;
+                    result += (Armour == null) ? 0 : (int)Armour;
+                    result += (Dex == null) ? 0 : (int)Dex;
+                    result += (Shield == null) ? 0 : (int)Shield;
+                    result += (Size == null) ? 0 : (int)Size;
+                    result += (NaturalArmour == null) ? 0 : (int)NaturalArmour;
+                    result += (Deflection == null) ? 0 : (int)Deflection;
+                    result += (Misc == null) ? 0 : (int)Misc;
+                    return result;
+                    //return 10 + Armour + Dex + Shield + Size + NaturalArmour + Deflection + Misc;
+                }
+            }
+
+            public int? Touch
+            {
+                get
+                {
+                    int result = 10;
+                    result += (Dex == null) ? 0 : (int)Dex;
+                    result += (Size == null) ? 0 : (int)Size;
+                    result += (Deflection == null) ? 0 : (int)Deflection;
+                    result += (TouchMisc == null) ? 0 : (int)TouchMisc;
+                    return result;
+
+                    //return 10 + Dex + Size + Deflection + TouchMisc;
+                }
+            }
+
+            public int? FlatFooted
+            {
+                get
+                {
+                    int result = 10;
+                    result += (Armour == null) ? 0 : (int)Armour;
+                    result += (Shield == null) ? 0 : (int)Shield;
+                    result += (Size == null) ? 0 : (int)Size;
+                    result += (NaturalArmour == null) ? 0 : (int)NaturalArmour;
+                    result += (Deflection == null) ? 0 : (int)Deflection;
+                    result += (FlatFootedMisc == null) ? 0 : (int)FlatFootedMisc;
+                    return result;
+
+                    //return 10 + Armour + Shield + Size + NaturalArmour + Deflection + FlatFootedMisc;
+                }
+            }
+
+            public int? Armour { get; set; }
+            public int? Shield { get; set; }
+            public int? Dex { 
+                get 
+                {
+                    return character.Dexterity.Modifier; 
+                } 
+            }
+
+            public int? Size { 
+                get 
+                {
+                    return GetSizeDefensiveModifier(character.Size); 
+                } 
+            }
+
+            public int? NaturalArmour { get; set; }
+            public int? Deflection { get; set; }
+            public int? Misc { get; set; }
+
+            public int? TouchMisc { get; set; }
+            public int? FlatFootedMisc { get; set; }
+
+            public string Note { get; set; }
+
         }
 
 
@@ -211,53 +315,7 @@ namespace DataLayer
     }
 
 
-    public class ArmourClass
-    { 
-        public ArmourClass(Character character)
-        {
-            this.character = character;
-        }
 
-        public Character character;
-
-        public int? Total { get 
-            {
-                return 10 + Armour + Dex + Shield + Size + NaturalArmour + Deflection + Misc;
-            } 
-        }
-
-        public int? Touch
-        {
-            get
-            {
-                return 10 + Dex + Size + Deflection + TouchMisc;
-            }
-        }
-
-        public int? FlatFooted
-        {
-            get
-            {
-                return 10 + Armour + Shield + Size + NaturalArmour + Deflection + FlatFootedMisc;
-            }
-        }
-
-        public int? Armour { get; set; }
-        public int? Shield { get; set; }
-        public int? Dex { get { return character.Dexterity.Modifier;  } }
-    
-        public int? Size { get { return character.GetSizeDefensiveModifier(character.Size);  } }
-
-        public int? NaturalArmour { get; set; }
-        public int? Deflection { get; set; }
-        public int? Misc { get; set; }
-
-        public int? TouchMisc { get; set; }
-        public int? FlatFootedMisc { get; set; }
-
-        public string Note { get; set; }
-
-    }
 
 
     public class CombatManeuverBonus 
@@ -276,7 +334,7 @@ namespace DataLayer
         }
         public int? BaseAttackBonus { get { return character.BaseAttackBonus; } }
         public int? Strength { get { return character.Strength.Modifier;  } }
-        public int? Size { get { return character.GetSizeOffensiveModifier(character.Size); } }
+        public int? Size { get { return Character.GetSizeOffensiveModifier(character.Size); } }
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
@@ -290,6 +348,7 @@ namespace DataLayer
         }
 
         public Character character;
+        
 
         public int? Total
         {
@@ -300,7 +359,7 @@ namespace DataLayer
         public int? BaseAttackBonus { get { return character.BaseAttackBonus; } }
         public int? Strength { get { return character.Strength.Modifier; } }
         public int? Dexterity { get { return character.Dexterity.Modifier; } }
-        public int? Size { get { return character.GetSizeDefensiveModifier(character.Size); } }
+        public int? Size { get { return Character.GetSizeDefensiveModifier(character.Size); } }
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
@@ -331,6 +390,10 @@ namespace DataLayer
 
         public int? RacialModifier { get; set; }
 
+        /// <summary>
+        /// Gets the base modifier.
+        /// For the current modifer, consider calling Modifier instead.
+        /// </summary>
         public int? BaseModifier
         {
             get { return (BaseScore - 10) / 2; }
@@ -338,6 +401,11 @@ namespace DataLayer
         }
 
         public int? TempScore { get; set; }
+
+        /// <summary>
+        /// Gets the temporary modifier.
+        /// For the current modifer, consider calling Modifier instead
+        /// </summary>
         public int? TempModifier
         {
             get { return (TempScore - 10) / 2; }
@@ -345,7 +413,7 @@ namespace DataLayer
         }
 
         /// <summary>
-        /// The current modifer. Uses the normal modifier by default, but if a temporary score is in place, the temporary modifier will be used.
+        /// Gets the current modifer. Uses the normal modifier by default, but if a temporary score is in place, the temporary modifier will be used.
         /// </summary>
         public int? Modifier
         {
