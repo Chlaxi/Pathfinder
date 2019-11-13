@@ -76,7 +76,7 @@ namespace DataLayer.DataService
 
             //CharacterClasses relation to set character's classes
 
-            character.Class = null;
+         //   character.Class = null;
 
             return character;
         }
@@ -259,9 +259,45 @@ namespace DataLayer.DataService
             Class _class = db.Classes.Find(name);
             if (_class == null) return null;
 
+            List<ClassInfo> _classInfo =  GetAllClassInfo(_class.Name);
+            _class.LevelInfo = _classInfo;
             return _class;
         }
 
+        public List<ClassInfo> GetAllClassInfo(string name)
+        {
+            using var db = new PathfinderContext();
 
+            List<ClassInfo> classInfo = new List<ClassInfo>();
+
+            var query = from info in db.ClassInfo
+                        where info.ClassName.Equals(name)
+                        select info;
+             
+            if(query == null)
+            {
+                Console.WriteLine("----NO RESULT FOR FOR CLASS INFO, WHEN SEARCHING FOR THE CLASS {0}", name);
+                return null;
+            }
+
+            foreach(var i in query)
+            {
+                classInfo.Add(GetClassInfoForLevel(name, i.Level));
+            }
+
+            return classInfo;
+        }
+        
+        public ClassInfo GetClassInfoForLevel(string name, int level)
+        {
+            using var db = new PathfinderContext();
+
+            ClassInfo classInfo = db.ClassInfo.Find(name, level);
+            if (classInfo == null) return null;
+
+            //TODO Add special abilities to the class info
+            return classInfo;
+
+        }
     }
 }

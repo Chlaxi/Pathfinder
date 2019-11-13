@@ -14,6 +14,8 @@ namespace DataLayer
         public DbSet<Character> Characters { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Class> Classes { get; set; }
+        public DbSet<ClassInfo> ClassInfo { get; set; }
+      //  public DbSet<CharacterClasses> CharacterClasses { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Feat> Feats { get; set; }
         public DbSet<Spell> Spells { get; set; }
@@ -493,6 +495,7 @@ namespace DataLayer
             modelBuilder.Entity<SpecialAbility>().Property(m => m.ClassName).HasColumnName("class");
             modelBuilder.Entity<SpecialAbility>().Property(m => m.Source).HasColumnName("source");
             modelBuilder.Entity<SpecialAbility>().HasKey(m => m.Id);
+            
             #endregion
 
             #region Race
@@ -528,9 +531,25 @@ namespace DataLayer
             modelBuilder.Entity<Class>().HasKey(m => m.Name);
             #endregion
 
+          /*  modelBuilder.Entity<CharacterClasses>().ToTable("characterclasses");
+            modelBuilder.Entity<CharacterClasses>().Property(m => m.CharacterId).HasColumnName("characterid");
+            modelBuilder.Entity<CharacterClasses>().Property(m => m.Class).HasColumnName("class");
+            modelBuilder.Entity<CharacterClasses>().Property(m => m.Level).HasColumnName("level");
+            modelBuilder.Entity<CharacterClasses>().HasKey(m => new { m.CharacterId, m.Class });*/
 
-
+            modelBuilder.Entity<ClassInfo>().ToTable("class_levels");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.ClassName).HasColumnName("class");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.Level).HasColumnName("level");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.BaseAttackBonus).HasColumnName("base_attack_bonus");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.BaseFortitude).HasColumnName("fortitude");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.BaseReflex).HasColumnName("reflex");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.BaseWill).HasColumnName("will");
+            modelBuilder.Entity<ClassInfo>().Property(m => m.Specials).HasColumnName("special");
+            //TODO Add spells
+            modelBuilder.Entity<ClassInfo>().HasKey(m => new { m.ClassName, m.Level });
         }
+
+            
 
         /*public void MapClass(this ModelBuilder modelBuilder, Skills skill, string identifier)
         {

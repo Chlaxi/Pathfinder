@@ -7,8 +7,7 @@ namespace DataLayer
     public class Class
     {
         public string Name { get; set; }
-     //   public int level { get; set; }
-
+        public List<ClassInfo> LevelInfo { get; set; }
         public int HitDie { get; set; }
         public int SkillsPerLevel { get; set; }
         public string ClassSkills { get; set; }
