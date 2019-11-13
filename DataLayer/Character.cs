@@ -38,9 +38,6 @@ namespace DataLayer
         public string Experience { get; set; }
 
         public Ability Strength { get; set; }
-
-                
-
         public Ability Dexterity { get; set; }
         public Ability Constitution { get; set; }
         public Ability Intelligence { get; set; }
@@ -309,7 +306,10 @@ namespace DataLayer
         public class Save
         {
             //Empty constructor, so the Mapping works
-            private Save() { }
+            private Save() //, string Note)
+            {
+
+            }
 
             /// <summary>
             /// The ability, where the required modifier is in.
@@ -318,9 +318,13 @@ namespace DataLayer
             /// Will = Wisdom
             /// </summary>
             /// <param name="ability"></param>
-            public Save(Ability ability) //Add base from class levels
+            public Save(Save save, Ability ability)  //Add base from class levels
             {
                 this.ability = ability;
+                this.Magic = Magic;
+                this.Temporary = Temporary;
+                this.Misc = Misc;
+                // this.Note = Note;
             }
 
             private Ability ability;
@@ -369,11 +373,16 @@ namespace DataLayer
 
     public class CombatManeuverBonus 
     {
-        private CombatManeuverBonus() { }
+        private CombatManeuverBonus()
+        {
+
+        }
         
         public CombatManeuverBonus(Character character)
         {
             this.character = character;
+           // Misc = character.CMB.Misc;
+           // Temp = character.CMB.Temp;
         }
 
         public Character character;
@@ -424,6 +433,8 @@ namespace DataLayer
         public CombatManeuverDefence(Character character)
         {
             this.character = character;
+         //   Misc = character.CMD.Misc;
+         //   Temp = character.CMD.Temp;
         }
 
         public Character character;
@@ -484,7 +495,36 @@ namespace DataLayer
 
     public class Speed
     {
-        public int? Base { get; set; }
+        private Speed() { }
+
+        public Speed(Speed speed, Race race)
+        {
+            this.race = race;
+            BaseModifier = speed.BaseModifier;
+            BaseTempModifier = speed.BaseTempModifier;
+            Armour = speed.Armour;
+            Fly = speed.Fly;
+            Swim = speed.Swim;
+            Climb = speed.Climb;
+            Burrow = speed.Burrow;
+            Temporary = speed.Temporary;
+        }
+
+        private Race race;
+        public int? Base
+        {
+            get
+            {
+                int? result = RacialModifier;
+                result += (BaseModifier == null) ? 0 : BaseModifier;
+                result += (BaseTempModifier == null) ? 0 : BaseTempModifier;
+                return  result;
+            } 
+        }
+        public int? RacialModifier { get { return (race == null) ? null : (int?)race.Speed; } }
+        public int? BaseModifier { get; set; }
+        public int? BaseTempModifier { get; set; }
+
         public int? Armour { get; set; }
         public int? Fly { get; set; }
         public int? Swim { get; set; }
@@ -495,6 +535,14 @@ namespace DataLayer
 
     public class HitPoints
     {
+        private HitPoints(int? CurrentHitPoints, int? MaxHitPoints, int? NonLethalDamage, string Wounds)
+        {
+           this.CurrentHitPoints = CurrentHitPoints;
+           this.MaxHitPoints = MaxHitPoints;
+           this.NonLethalDamage = NonLethalDamage;
+           this.Wounds = Wounds;
+        }
+
         public int? CurrentHitPoints { get; set; }
         public int? MaxHitPoints { get; set; }
         public int? NonLethalDamage { get; set; }
@@ -503,18 +551,72 @@ namespace DataLayer
 
     public class Ability
     {
+        private Ability(int? BaseScore, int? TempScore)
+        {
+            this.BaseScore = BaseScore;
+            this.TempScore = TempScore;
+            CanEditRacial = true;
+        }
+
+        public Ability(Ability ability, Race race, int? racialModifier) : this(ability.BaseScore, ability.TempScore)
+        {
+            if (race != null)
+            {
+                if (race.SpecialModifier == null)
+                {
+                    CanEditRacial = false;
+                    RacialModifier = racialModifier;
+                    return;
+                }
+            }
+            
+            RacialModifier = null;
+            
+           
+            
+        }
+
         public int? BaseScore { get; set; }
 
-        public int? RacialModifier { get; set; }
+        public bool CanEditRacial;
+        
+        public int? RacialModifier {
+            get;
+            set;
+        }
 
+        /// <summary>
+        /// The total score, consisting of the base + the racial
+        /// </summary>
+        public int TotalScore
+        {
+            get
+            {
+                int score = (BaseScore == null) ? 0 : (int)BaseScore;
+                score += (RacialModifier == null) ? 0 : (int)RacialModifier;
+                return score;
+            }
+        }
         /// <summary>
         /// Gets the base modifier.
         /// For the current modifer, consider calling Modifier instead.
         /// </summary>
         public int? BaseModifier
         {
-            get { return (BaseScore - 10) / 2; }
-           // set { BaseModifier = value; }
+            get
+            {
+                if (BaseScore == null)
+                    return null;
+
+                float score = (BaseScore == null) ? 0 : (int)BaseScore;
+                score += (RacialModifier == null) ? 0: (int)RacialModifier;
+
+                int result = (int)MathF.Floor((score - 10) / 2);
+
+                return result;
+
+               // return (score - 10) / 2;
+            }
         }
 
         public int? TempScore { get; set; }
@@ -525,8 +627,18 @@ namespace DataLayer
         /// </summary>
         public int? TempModifier
         {
-            get { return (TempScore - 10) / 2; }
-           // set { TempModifier = value; }
+
+            get {
+                if (TempScore == null)
+                    return null;
+
+                float score = (TempScore == null) ? 0 : (int)TempScore;
+                score += (RacialModifier == null) ? 0 : (int)RacialModifier;
+
+                int result = (int)MathF.Floor((score -10)/2);
+
+                return result;
+            }
         }
 
         /// <summary>
@@ -542,8 +654,7 @@ namespace DataLayer
                 }
 
                 return BaseModifier;
-            }
-            //set { Modifier = value; }
+            }    
         }
 
     }

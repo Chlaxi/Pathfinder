@@ -51,14 +51,28 @@ namespace DataLayer.DataService
             Character character = db.Characters.Find(id);
             if (character == null) return null;
 
-           // character.Player = GetPlayer(character.PlayerId);
+            // character.Player = GetPlayer(character.PlayerId);
+            character.Race = GetRace(character.RaceName);
+            //character.Class = GetClass("");
+            Race race = character.Race;
+            if (race != null)
+            {
+                character.Strength = new Ability(character.Strength, race, race.Strength);
+                character.Dexterity = new Ability(character.Dexterity, race, race.Dexterity);
+                character.Constitution = new Ability(character.Constitution, race, race.Constitution);
+                character.Intelligence = new Ability(character.Intelligence, race, race.Intelligence);
+                character.Wisdom = new Ability(character.Wisdom, race, race.Wisdom);
+                character.Charisma = new Ability(character.Charisma, race, race.Charisma);
+            }
+
             character.AC = new Character.ArmourClass(character);
-            character.Fortitude = new Character.Save(character.Constitution);
-            character.Reflex = new Character.Save(character.Dexterity);
-            character.Will = new Character.Save(character.Wisdom);
+            character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
+            character.Reflex = new Character.Save(character.Reflex, character.Dexterity);
+            character.Will = new Character.Save(character.Will, character.Wisdom);
             character.CMB = new CombatManeuverBonus(character);
             character.CMD = new CombatManeuverDefence(character);
-          //  character.Race = GetRace(character.RaceName);
+
+            character.Speed = new Speed(character.Speed, character.Race);
 
             //CharacterClasses relation to set character's classes
 

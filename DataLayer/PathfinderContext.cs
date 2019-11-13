@@ -61,6 +61,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_str_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    
                 });
             });
 
@@ -74,6 +75,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_dex_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    Ability.Ignore(e => e.TotalScore);
                 });
             });
 
@@ -87,6 +89,8 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_con_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    Ability.Ignore(e => e.TotalScore);
+                    
                 });
             });
 
@@ -100,6 +104,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_int_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    Ability.Ignore(e => e.TotalScore);
                 });
             });
 
@@ -113,6 +118,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_wis_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    Ability.Ignore(e => e.TotalScore);
                 });
             });
 
@@ -126,6 +132,8 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_cha_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
+                    Ability.Ignore(e => e.TotalScore);
+
                 });
             });
 
@@ -324,15 +332,20 @@ namespace DataLayer
             #region Speed
             modelBuilder.Entity<Character>(m =>
             {
-                m.OwnsOne(e => e.Speed, Will =>
+                m.OwnsOne(e => e.Speed, Speed =>
                 {
-                    Will.Property(m => m.Base).HasColumnName("speed_base");
-                    Will.Property(m => m.Armour).HasColumnName("speed_armour");
-                    Will.Property(m => m.Fly).HasColumnName("speed_fly");
-                    Will.Property(m => m.Swim).HasColumnName("speed_swim");
-                    Will.Property(m => m.Climb).HasColumnName("speed_climb");
-                    Will.Property(m => m.Burrow).HasColumnName("speed_burrow");
-                    Will.Property(m => m.Temporary).HasColumnName("speed_misc");
+                    //Gets value from race.
+                    Speed.Ignore(m => m.Base);
+                    Speed.Property(m => m.BaseModifier).HasColumnName("speed_base");
+
+                    //TODO Add to DB.                    
+                    Speed.Ignore(m => m.BaseTempModifier);   //Property(m => m.BaseTempModifier).HasColumnName("speed_base_temporary");
+                    Speed.Property(m => m.Armour).HasColumnName("speed_armour");
+                    Speed.Property(m => m.Fly).HasColumnName("speed_fly");
+                    Speed.Property(m => m.Swim).HasColumnName("speed_swim");
+                    Speed.Property(m => m.Climb).HasColumnName("speed_climb");
+                    Speed.Property(m => m.Burrow).HasColumnName("speed_burrow");
+                    Speed.Property(m => m.Temporary).HasColumnName("speed_misc");
                 });
             });
             
