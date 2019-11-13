@@ -21,9 +21,23 @@ namespace DataLayer
 
         public string RaceName { get; set; }
         public Race Race { get; set; }
-        public List<Class> Class{ get;set;}
-
-  
+        public List<CharacterClasses> Class { get; set; }
+        public int EffectiveLevel
+        {
+            get
+            {
+                int level = 0;
+                if (Class.Count > 0)
+                {
+                    
+                    foreach(var l in Class)
+                    {
+                        level += l.Level;
+                    }
+                }
+                return level;
+            }
+        } 
         public Alignment Alignment { get; set; }
 
         public string Gender { get; set; }

@@ -53,8 +53,11 @@ namespace DataLayer.DataService
 
             // character.Player = GetPlayer(character.PlayerId);
             character.Race = GetRace(character.RaceName);
-            //character.Class = GetClass("");
+
             Race race = character.Race;
+
+            character.Class = FindCharacterClasses(id);
+
             if (race != null)
             {
                 character.Strength = new Ability(character.Strength, race, race.Strength);
@@ -76,7 +79,7 @@ namespace DataLayer.DataService
 
             //CharacterClasses relation to set character's classes
 
-         //   character.Class = null;
+            
 
             return character;
         }
@@ -128,6 +131,39 @@ namespace DataLayer.DataService
             return characters;
         }
 
+        public List<CharacterClasses> FindCharacterClasses(int characterId)
+        {
+            using var db = new PathfinderContext();
+
+            var query = from classes in db.CharacterClasses
+                        where classes.CharacterId == characterId
+                        select classes;
+
+            if (query == null) {
+                Console.WriteLine("---------------------------\n Character has no classes yet\n------------------");
+                return null;
+            }
+
+            Console.WriteLine("------------Classes found for the character with {0}",characterId);
+            
+
+            List<CharacterClasses> _classes = new List<CharacterClasses>();
+            //List<Class> _classes = new List<Class>();
+            foreach (var i in query){
+                CharacterClasses _class = new CharacterClasses()
+                {
+                    CharacterId = i.CharacterId,
+                    ClassName = i.ClassName,
+                    Level = i.Level,
+                    Class = GetClass(i.ClassName, i.Level)
+                };
+                _classes.Add(_class);    
+               
+                Console.WriteLine("{0}* {1} {2}", i.CharacterId ,i.ClassName, i.Level);
+            }
+
+            return _classes;
+        }
 
        
         //Spells
@@ -252,14 +288,18 @@ namespace DataLayer.DataService
         }
 
 
-        public Class GetClass(string name)
+        public Class GetClass(string name, int level=20)
         {
             using var db = new PathfinderContext();
 
             Class _class = db.Classes.Find(name);
             if (_class == null) return null;
 
-            List<ClassInfo> _classInfo =  GetAllClassInfo(_class.Name);
+            List<ClassInfo> _classInfo = new List<ClassInfo>(); //GetAllClassInfo(_class.Name);
+            for(int i = 1; i <=level; i++)
+            {
+                _classInfo.Add(GetClassInfoForLevel(_class.Name, i));
+            }
             _class.LevelInfo = _classInfo;
             return _class;
         }

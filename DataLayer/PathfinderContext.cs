@@ -15,7 +15,7 @@ namespace DataLayer
         public DbSet<Player> Players { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<ClassInfo> ClassInfo { get; set; }
-      //  public DbSet<CharacterClasses> CharacterClasses { get; set; }
+        public DbSet<CharacterClasses> CharacterClasses { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Feat> Feats { get; set; }
         public DbSet<Spell> Spells { get; set; }
@@ -43,9 +43,11 @@ namespace DataLayer
             modelBuilder.Entity<Character>().ToTable("character");
             modelBuilder.Entity<Character>().Property(m => m.PlayerId).HasColumnName("playerid");
             modelBuilder.Entity<Character>().Property(m => m.Id).HasColumnName("characterid");
+            modelBuilder.Entity<Character>().HasKey(m => m.Id);
             modelBuilder.Entity<Character>().Property(m => m.Name).HasColumnName("character_name");
             modelBuilder.Entity<Character>().Property(m => m.RaceName).HasColumnName("race");
-           // modelBuilder.Entity<Character>().Ignore(m => m.Alignment);  //Add to DB
+            modelBuilder.Entity<Character>().Ignore(m => m.Class);
+            modelBuilder.Entity<Character>().Ignore(m => m.EffectiveLevel);
             modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
 
@@ -531,11 +533,11 @@ namespace DataLayer
             modelBuilder.Entity<Class>().HasKey(m => m.Name);
             #endregion
 
-          /*  modelBuilder.Entity<CharacterClasses>().ToTable("characterclasses");
+            modelBuilder.Entity<CharacterClasses>().ToTable("characterclasses");
             modelBuilder.Entity<CharacterClasses>().Property(m => m.CharacterId).HasColumnName("characterid");
-            modelBuilder.Entity<CharacterClasses>().Property(m => m.Class).HasColumnName("class");
+            modelBuilder.Entity<CharacterClasses>().Property(m => m.ClassName).HasColumnName("class");
             modelBuilder.Entity<CharacterClasses>().Property(m => m.Level).HasColumnName("level");
-            modelBuilder.Entity<CharacterClasses>().HasKey(m => new { m.CharacterId, m.Class });*/
+            modelBuilder.Entity<CharacterClasses>().HasKey(m => new { m.CharacterId, m.ClassName });
 
             modelBuilder.Entity<ClassInfo>().ToTable("class_levels");
             modelBuilder.Entity<ClassInfo>().Property(m => m.ClassName).HasColumnName("class");
