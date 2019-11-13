@@ -14,8 +14,17 @@ namespace DataLayer.DataService
             Player player = db.Players.Find(id);
             if (player == null) return null;
 
-           // var characters = GetCharactersByPlayer(id);
-          //  player.Characters = characters;
+            var characters = GetCharactersByPlayer(id);
+            player.Characters = characters;
+            return player;
+        }
+
+        public Player GetSimplePlayer(int id)
+        {
+            using var db = new PathfinderContext();
+            Player player = db.Players.Find(id);
+            if (player == null) return null;
+
             return player;
         }
 
@@ -42,7 +51,7 @@ namespace DataLayer.DataService
             Character character = db.Characters.Find(id);
             if (character == null) return null;
 
-            character.Player = GetPlayer(character.PlayerId);
+           // character.Player = GetPlayer(character.PlayerId);
             character.AC = new Character.ArmourClass(character);
             character.Fortitude = new Character.Save(character.Constitution);
             character.Reflex = new Character.Save(character.Dexterity);
@@ -66,7 +75,7 @@ namespace DataLayer.DataService
 
             Character character = new Character()
             {
-                Player = player,
+                //Player = player,
                 PlayerId = playerId,
                 Id = db.Characters.Max(x => x.Id) + 1
             };
@@ -82,6 +91,7 @@ namespace DataLayer.DataService
 
         public List<Character> GetCharactersByPlayer(int playerId)
         {
+            Console.WriteLine("------------\n Getting characters from player");
             using var db = new PathfinderContext();
             List <Character> characters = new List<Character>();
             int i = 0;
@@ -89,15 +99,18 @@ namespace DataLayer.DataService
             {
                 if (character.PlayerId.Equals(playerId))
                 {
-                    characters.Add(character);
+                    Console.WriteLine("Character found");
+                    characters.Add(GetCharacter(character.Id));
                     i++;
+                    Console.WriteLine("Character Added");
                 }
             }
-            Console.WriteLine("{0) characters added to the player",i);
+            Console.WriteLine("{0} characters added to the player",i);
             foreach(var c in characters)
             {
                 Console.WriteLine("* {0} ({1})",c.Name, c.Id);
             }
+            Console.WriteLine("-----------");
             return characters;
         }
 

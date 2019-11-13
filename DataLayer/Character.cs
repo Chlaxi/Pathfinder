@@ -15,7 +15,7 @@ namespace DataLayer
     public class Character
     {
         public int PlayerId { get; set; }
-        public Player Player { get; set; }
+       // public Player Player { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
 
