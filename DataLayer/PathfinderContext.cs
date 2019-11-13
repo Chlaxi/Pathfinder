@@ -43,11 +43,11 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Id).HasColumnName("characterid");
             modelBuilder.Entity<Character>().Property(m => m.Name).HasColumnName("character_name");
             modelBuilder.Entity<Character>().Property(m => m.RaceName).HasColumnName("race");
-            modelBuilder.Entity<Character>().Ignore(m => m.Alignment);  //Add to DB
+           // modelBuilder.Entity<Character>().Ignore(m => m.Alignment);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
 
-            //            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("playerid"); Use conversion thingy
+            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("alignment").HasConversion(v => v.ToString(), v => (Alignment)Enum.Parse(typeof(Alignment), v.Replace(" ", String.Empty), true));
 
             #region abilities 
 
@@ -175,88 +175,169 @@ namespace DataLayer
             });
 
 
-        #endregion
+            #endregion
 
-/*
-        #region Hit Points
-            modelBuilder.Entity<Character>().Property(m => m.HitPoints.MaxHitPoints).HasColumnName("hp_total");
-            modelBuilder.Entity<Character>().Property(m => m.HitPoints.CurrentHitPoints).HasColumnName("hp_current");
-            modelBuilder.Entity<Character>().Property(m => m.HitPoints.NonLethalDamage).HasColumnName("hp_non_lethal");
-            modelBuilder.Entity<Character>().Property(m => m.HitPoints.Wounds).HasColumnName("hp_wounds");
-        #endregion
 
-         #region Saves
+            #region Hit Points
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.HitPoints, HP =>
+                {
+                    HP.Property(m => m.MaxHitPoints).HasColumnName("hp_total");
+                    HP.Property(m => m.CurrentHitPoints).HasColumnName("hp_current");
+                    HP.Property(m => m.NonLethalDamage).HasColumnName("hp_non_lethal");
+                    HP.Property(m => m.Wounds).HasColumnName("hp_wounds");
+                });
+            });
+            #endregion
+
+            #region Saves
             #region Fortitude
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Total).HasColumnName("fortitude_total");
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Base).HasColumnName("fortitude_base");
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Ability).HasColumnName("fortitude_con_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Magic).HasColumnName("fortitude_magic_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Temporary).HasColumnName("fotritude_temp_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Fortitude.Misc).HasColumnName("fortitude_other");
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Fortitude, Fortitude =>
+                {
+                    Fortitude.Ignore(m => m.Total);     //.HasColumnName("fortitude_total");
+                    Fortitude.Ignore(m => m.Base);      //.HasColumnName("fortitude_base");
+                    Fortitude.Ignore(m => m.Ability);   //.HasColumnName("fortitude_con_mod");
+                    Fortitude.Property(m => m.Magic).HasColumnName("fortitude_magic_mod");
+                    Fortitude.Property(m => m.Temporary).HasColumnName("fortitude_temp_mod");
+                    Fortitude.Property(m => m.Misc).HasColumnName("fortitude_other");
+
+                    //TODO Add the DB
+                    Fortitude.Ignore(m => m.Note);
+                });
+            });
+
+
             #endregion
             #region Reflex
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Total).HasColumnName("reflex_total");
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Base).HasColumnName("reflex_base");
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Ability).HasColumnName("reflex_dex_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Magic).HasColumnName("reflex_magic_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Temporary).HasColumnName("reflex_temp_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Reflex.Misc).HasColumnName("reflex_other");
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Reflex, Reflex =>
+                {
+                    Reflex.Ignore(m => m.Total);
+                    Reflex.Ignore(m => m.Base);
+                    Reflex.Ignore(m => m.Ability);
+                    Reflex.Property(m => m.Magic).HasColumnName("reflex_magic_mod");
+                    Reflex.Property(m => m.Temporary).HasColumnName("reflex_temp_mod");
+                    Reflex.Property(m => m.Misc).HasColumnName("reflex_other");
+                    
+                    //TODO Add the DB
+                    Reflex.Ignore(m => m.Note);
+
+                    //Remove from DB
+//                    Reflex.Ignore(m => m.Total).HasColumnName("reflex_total");
+//                    Reflex.Ignore(m => m.Base).HasColumnName("reflex_base");
+//                    Reflex.Ignore(m => m.Ability).HasColumnName("reflex_dex_mod");
+                });
+            });
+
             #endregion
             #region Will
-            modelBuilder.Entity<Character>().Property(m => m.Will.Total).HasColumnName("will_total");
-            modelBuilder.Entity<Character>().Property(m => m.Will.Base).HasColumnName("will_base");
-            modelBuilder.Entity<Character>().Property(m => m.Will.Ability).HasColumnName("will_con_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Will.Magic).HasColumnName("will_magic_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Will.Temporary).HasColumnName("will_temp_mod");
-            modelBuilder.Entity<Character>().Property(m => m.Will.Misc).HasColumnName("will_other");
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Will, Will =>
+                {
+                    Will.Ignore(m => m.Total);    //.HasColumnName("will_total");
+                    Will.Ignore(m => m.Base);     //.HasColumnName("will_base");
+                    Will.Ignore(m => m.Ability);  //.HasColumnName("will_con_mod");
+                    Will.Property(m => m.Magic).HasColumnName("will_magic_mod");
+                    Will.Property(m => m.Temporary).HasColumnName("will_temp_mod");
+                    Will.Property(m => m.Misc).HasColumnName("will_other");
+
+                    //TODO Add the DB
+                    Will.Ignore(m => m.Note);
+                });
+            });
+
             #endregion
         #endregion
-*/
+
             modelBuilder.Entity<Character>().Property(m => m.DamageReduction).HasColumnName("damage_reduction");
             modelBuilder.Entity<Character>().Property(m => m.SpellResistance).HasColumnName("spell_resistance");
             modelBuilder.Entity<Character>().Property(m => m.Resistance).HasColumnName("resistance");
             modelBuilder.Entity<Character>().Property(m => m.Immunity).HasColumnName("immunity");
 
-            modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("bab");
-    //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("range_bab");
-    //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("melee_bab");
+            modelBuilder.Entity<Character>().Ignore(m => m.BaseAttackBonus);
+            //TODO: Remove from DB, since it has no setter, and gets info from the class. Maybe change to Misc attack bonus?
+            //Property(m => m.BaseAttackBonus).HasColumnName("bab");
+            //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("range_bab");
+            //        modelBuilder.Entity<Character>().Property(m => m.BaseAttackBonus).HasColumnName("melee_bab");
 
-
-/*
+            
             #region Combat Maneuver Bonus (CMB)
-            modelBuilder.Entity<Character>().Property(m => m.CMB.Total).HasColumnName("cmb_total");
-            modelBuilder.Entity<Character>().Property(m => m.CMB.BaseAttackBonus).HasColumnName("cmb_bab");
-            modelBuilder.Entity<Character>().Property(m => m.CMB.Strength).HasColumnName("cmb_str");
-            modelBuilder.Entity<Character>().Property(m => m.CMB.Size).HasColumnName("cmb_size_mod");
-            modelBuilder.Entity<Character>().Property(m => m.CMB.Misc).HasColumnName("cmb_misc");
-            modelBuilder.Entity<Character>().Property(m => m.CMB.Temp).HasColumnName("cmb_temp");
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.CMB, CMB =>
+                {
+                    //Ignored since they don't have settersm since they rely on information from the character
+                    CMB.Ignore(m => m.Total);           
+                    CMB.Ignore(m => m.BaseAttackBonus); 
+                    CMB.Ignore(m => m.Strength);        
+                    CMB.Ignore(m => m.Size);            
+                    
+                    CMB.Property(m => m.Misc).HasColumnName("cmb_misc");
+                    CMB.Property(m => m.Temp).HasColumnName("cmb_temp");
 
+
+                    //TODO Remove from DB
+                    //.HasColumnName("cmb_total");
+                    //.HasColumnName("cmb_bab");
+                    //.HasColumnName("cmb_str");
+                    //.HasColumnName("cmb_size_mod");
+                });
+            });
             #endregion
 
-            #region Combat Maneuver Defence (CMD
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Total).HasColumnName("cmd_total");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.BaseAttackBonus).HasColumnName("cmd_bab");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Strength).HasColumnName("cmd_str");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Strength).HasColumnName("cmd_dex");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Size).HasColumnName("cmd_size_mod");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Misc).HasColumnName("cmd_misc");
-            modelBuilder.Entity<Character>().Property(m => m.CMD.Temp).HasColumnName("cmd_temp");
+            #region Combat Maneuver Defence (CMD)
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.CMD, CMD =>
+                {
+                    //Ignored since they don't have settersm since they rely on information from the character
+                    CMD.Ignore(m => m.Total);
+                    CMD.Ignore(m => m.BaseAttackBonus);
+                    CMD.Ignore(m => m.Strength);
+                    CMD.Ignore(m => m.Dexterity);
+                    CMD.Ignore(m => m.Size);
 
+                    CMD.Property(m => m.Misc).HasColumnName("cmd_misc");
+                    CMD.Property(m => m.Temp).HasColumnName("cmd_temp");
+
+
+                    //TODO Remove from DB
+                    //.HasColumnName("cmd_total");
+                    //.HasColumnName("cmd_bab");
+                    //.HasColumnName("cmd_str");
+                    //.HasColumnName("cmd_dex");
+                    //.HasColumnName("cmd_size_mod");
+                });
+            });
             #endregion
-*/
-            modelBuilder.Entity<Character>().Property(m => m.Initiative).HasColumnName("initiative_total");
+
+            modelBuilder.Entity<Character>().Ignore(m => m.Initiative);
+                //TODO: Remove from DB, since it doesn't have a setter.
+                //.HasColumnName("initiative_total");
             modelBuilder.Entity<Character>().Property(m => m.InitiativeMiscModifier).HasColumnName("initiative_misc");
-/*
+
             #region Speed
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Base).HasColumnName("speed_base");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Armour).HasColumnName("speed_armour");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Fly).HasColumnName("speed_fly");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Swim).HasColumnName("speed_swim");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Climb).HasColumnName("speed_climb");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Burrow).HasColumnName("speed_burrow");
-            modelBuilder.Entity<Character>().Property(m => m.Speed.Temporary).HasColumnName("speed_misc");
+            modelBuilder.Entity<Character>(m =>
+            {
+                m.OwnsOne(e => e.Speed, Will =>
+                {
+                    Will.Property(m => m.Base).HasColumnName("speed_base");
+                    Will.Property(m => m.Armour).HasColumnName("speed_armour");
+                    Will.Property(m => m.Fly).HasColumnName("speed_fly");
+                    Will.Property(m => m.Swim).HasColumnName("speed_swim");
+                    Will.Property(m => m.Climb).HasColumnName("speed_climb");
+                    Will.Property(m => m.Burrow).HasColumnName("speed_burrow");
+                    Will.Property(m => m.Temporary).HasColumnName("speed_misc");
+                });
+            });
+            
             #endregion
-            */
+            
             modelBuilder.Entity<Character>().Property(m => m.Languages).HasColumnName("languages");
             modelBuilder.Entity<Character>().Property(m => m.Platinum).HasColumnName("platinum");
             modelBuilder.Entity<Character>().Property(m => m.Gold).HasColumnName("gold");

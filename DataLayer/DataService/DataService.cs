@@ -44,6 +44,11 @@ namespace DataLayer.DataService
 
             character.Player = GetPlayer(character.PlayerId);
             character.AC = new Character.ArmourClass(character);
+            character.Fortitude = new Character.Save(character.Constitution);
+            character.Reflex = new Character.Save(character.Dexterity);
+            character.Will = new Character.Save(character.Wisdom);
+            character.CMB = new CombatManeuverBonus(character);
+            character.CMD = new CombatManeuverDefence(character);
           //  character.Race = GetRace(character.RaceName);
 
             //CharacterClasses relation to set character's classes

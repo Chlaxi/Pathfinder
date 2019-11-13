@@ -4,9 +4,10 @@ using System.Text;
 
 namespace DataLayer
 {
+    //TODO:  Spells, Race, Classes, Feats, Special Abilities, Skills
 
     public enum AbilityEnum { Str, Dex, Con, Int, Wis, Cha }
-    public enum Size { small, medium, large}
+    public enum Size { small, medium, large }
 
     public enum Alignment { LawfulGood, LawfulNeutral, LawfulEvil
                             ,NeutralGood, Neutral, NeutralEvil
@@ -48,64 +49,76 @@ namespace DataLayer
 
         public ArmourClass AC { get; set; }
         
-        /*
+        
         public Save Fortitude { get; set; }
         public Save Reflex { get; set; }
         public Save Will { get; set; }
 
-        public List<Feat> Feats { get; set; }
-        public List<SpecialAbility> SpecialAbilities {get; set;}
-        #region Skills
-        public Skills Acrobatic { get; set; } //Dex
-        public Skills Appraise { get; set; } //Int
-        public Skills Bluff { get; set; } //Cha
-        public Skills Climb { get; set; } //Str
-        public List<Skills> Craft { get; set; } //Int
-        public Skills Diplomacy { get; set; } //Cha
-        public Skills DisableDevice { get; set; } //Dex *
-        public Skills Disguise { get; set; } //Cha
-        public Skills EscapeArtist { get; set; } //Dex
-        public Skills Fly { get; set; } //Dex
-        public Skills HandleAnimal { get; set; } //Cha *
-        public Skills Heal { get; set; } //Wis
-        public Skills Intimidate { get; set; } //Cha
-        public Skills KnowledgeArcana { get; set; } //Int *
-        public Skills KnowledgeDungeoneering { get; set; } //Int *
-        public Skills KnowledgeEngineering { get; set; } //Int *
-        public Skills KnowledgeGeography { get; set; } //Int * 
-        public Skills KnowledgeHistory { get; set; } //Int *
-        public Skills KnowledgeLocal { get; set; } //Int *
-        public Skills KnowledgeNature { get; set; } //Int *
-        public Skills KnowledgeNobility { get; set; } //Int *
-        public Skills KnowledgePlanes { get; set; } //Int *
-        public Skills KnowledgeReligion { get; set; } //Int *
-        public Skills Linguistics { get; set; } //Int *
-        public Skills Perception { get; set; } //Wis
-        public List<Skills> Perform { get; set; } //Cha
-        public List<Skills> Profession { get; set; } //Wis *
-        public Skills Ride { get; set; } //Dex
-        public Skills SenseMotive { get; set; } //Int
-        public Skills SleightOfHand { get; set; } //Dex *
-        public Skills Spellcraft { get; set; } //Int *
-        public Skills Stealth { get; set; } //Dex 
-        public Skills Survival { get; set; } //Wis 
-        public Skills Swim { get; set; } //Str 
-        public Skills UseMagicDevice { get; set; } //Int *
+        //      public List<Feat> Feats { get; set; }
+        //       public List<SpecialAbility> SpecialAbilities {get; set;}
+
+
+        #region Skills (WIP)
+        /*
+    public Skills Acrobatic { get; set; } //Dex
+    public Skills Appraise { get; set; } //Int
+    public Skills Bluff { get; set; } //Cha
+    public Skills Climb { get; set; } //Str
+    public List<Skills> Craft { get; set; } //Int
+    public Skills Diplomacy { get; set; } //Cha
+    public Skills DisableDevice { get; set; } //Dex *
+    public Skills Disguise { get; set; } //Cha
+    public Skills EscapeArtist { get; set; } //Dex
+    public Skills Fly { get; set; } //Dex
+    public Skills HandleAnimal { get; set; } //Cha *
+    public Skills Heal { get; set; } //Wis
+    public Skills Intimidate { get; set; } //Cha
+    public Skills KnowledgeArcana { get; set; } //Int *
+    public Skills KnowledgeDungeoneering { get; set; } //Int *
+    public Skills KnowledgeEngineering { get; set; } //Int *
+    public Skills KnowledgeGeography { get; set; } //Int * 
+    public Skills KnowledgeHistory { get; set; } //Int *
+    public Skills KnowledgeLocal { get; set; } //Int *
+    public Skills KnowledgeNature { get; set; } //Int *
+    public Skills KnowledgeNobility { get; set; } //Int *
+    public Skills KnowledgePlanes { get; set; } //Int *
+    public Skills KnowledgeReligion { get; set; } //Int *
+    public Skills Linguistics { get; set; } //Int *
+    public Skills Perception { get; set; } //Wis
+    public List<Skills> Perform { get; set; } //Cha
+    public List<Skills> Profession { get; set; } //Wis *
+    public Skills Ride { get; set; } //Dex
+    public Skills SenseMotive { get; set; } //Int
+    public Skills SleightOfHand { get; set; } //Dex *
+    public Skills Spellcraft { get; set; } //Int *
+    public Skills Stealth { get; set; } //Dex 
+    public Skills Survival { get; set; } //Wis 
+    public Skills Swim { get; set; } //Str 
+    public Skills UseMagicDevice { get; set; } //Int *
+    */
         #endregion
 
         public HitPoints HitPoints { get; set; }
 
         public Speed Speed { get; set; }
-        */
-        public int? Initiative { get; set; }
+        
+        public int? Initiative {
+            get
+            {
+                int initiative = (Dexterity.Modifier == null) ? 0 : (int)Dexterity.Modifier;
+                initiative += (InitiativeMiscModifier == null) ? 0 : (int)InitiativeMiscModifier;
+
+                return initiative;
+            }
+        }
         public int? InitiativeMiscModifier { get; set; }
 
         public int? BaseAttackBonus { get; }
 
         public Size Size { get; set; }
         
-   //     public CombatManeuverBonus CMB { get; set; }
-   //     public CombatManeuverDefence CMD { get; set; }
+        public CombatManeuverBonus CMB { get; set; }
+        public CombatManeuverDefence CMD { get; set; }
 
         public int? SpellResistance { get; set; }
         public string DamageReduction { get; set; }
@@ -158,6 +171,9 @@ namespace DataLayer
         {
             switch (size)
             {
+                case Size.medium:
+                    return 0;
+
                 case Size.small:
                     return 1;
                 case Size.large:
@@ -173,6 +189,9 @@ namespace DataLayer
             
             switch (size)
             {
+                case Size.medium:
+                    return 0;
+
                 case Size.small:
                     return -1;
                 case Size.large:
@@ -289,7 +308,37 @@ namespace DataLayer
 
         public class Save
         {
-            public int? Total { get { return Base + Ability + Magic + Temporary + Misc; } }
+            //Empty constructor, so the Mapping works
+            private Save() { }
+
+            /// <summary>
+            /// The ability, where the required modifier is in.
+            /// Fortitude = Constitution,
+            /// Reflex = Dexterity,
+            /// Will = Wisdom
+            /// </summary>
+            /// <param name="ability"></param>
+            public Save(Ability ability) //Add base from class levels
+            {
+                this.ability = ability;
+            }
+
+            private Ability ability;
+
+            public int? Total {
+                get 
+                { 
+                    int result = (Base == null) ? 0 : (int)Base;
+                    result += (Ability == null) ? 0 : (int)Ability;
+                    result += (Magic == null) ? 0 : (int)Magic;
+                    result += (Temporary == null) ? 0 : (int)Temporary;
+                    result += (Misc == null) ? 0 : (int)Misc;
+
+                    return result;
+
+                    //return Base + Ability + Magic + Temporary + Misc;
+                }
+            }
 
             public int? Base { get
                 {
@@ -300,8 +349,8 @@ namespace DataLayer
 
             public int? Ability { get 
                 {
-                    //Get the relevant ability modifer from the character
-                    return null;
+                    int? abilityMod = (ability == null) ? null : ability.Modifier;
+                    return abilityMod;
                 } 
             }
 
@@ -319,7 +368,9 @@ namespace DataLayer
 
 
     public class CombatManeuverBonus 
-    { 
+    {
+        private CombatManeuverBonus() { }
+        
         public CombatManeuverBonus(Character character)
         {
             this.character = character;
@@ -330,11 +381,37 @@ namespace DataLayer
         public int? Total
         { 
             get
-            { return BaseAttackBonus + Strength + Size + Misc; } 
+            {
+                int result = (BaseAttackBonus == null) ? 0 : (int)BaseAttackBonus;
+                result += (Strength == null) ? 0 : (int)Strength;
+                result += (Size == null) ? 0 : (int)Size;
+                result += (Misc == null) ? 0 : (int)Misc;
+                return result;
+                
+                //return BaseAttackBonus + Strength + Size + Misc;
+            } 
         }
-        public int? BaseAttackBonus { get { return character.BaseAttackBonus; } }
-        public int? Strength { get { return character.Strength.Modifier;  } }
-        public int? Size { get { return Character.GetSizeOffensiveModifier(character.Size); } }
+        public int? BaseAttackBonus {
+            get
+            {
+
+                return (character.BaseAttackBonus == null) ? null : character.BaseAttackBonus;
+            }
+        }
+
+        public int? Strength {
+            get
+            {
+                return (character.Strength.Modifier == null) ? null : character.Strength.Modifier; 
+            }
+        }
+
+        public int? Size {
+            get
+            {
+                return Character.GetSizeOffensiveModifier(character.Size);
+            }
+        }
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
@@ -342,6 +419,8 @@ namespace DataLayer
 
     public class CombatManeuverDefence
     {
+        private CombatManeuverDefence() { }
+
         public CombatManeuverDefence(Character character)
         {
             this.character = character;
@@ -353,13 +432,51 @@ namespace DataLayer
         public int? Total
         {
             get
-            { return 10 + BaseAttackBonus + Strength + Dexterity + Size + Misc; 
+            {
+                int result = 10;
+                result += (BaseAttackBonus == null) ? 0 : (int)BaseAttackBonus;
+                result += (Strength == null) ? 0 : (int)Strength;
+                result += (Dexterity == null) ? 0 : (int)Dexterity;
+                result += (Size == null) ? 0 : (int)Size;
+                result += (Misc == null) ? 0 : (int)Misc;
+                return result;
+
+               // return 10 + BaseAttackBonus + Strength + Dexterity + Size + Misc; 
             }
         }
-        public int? BaseAttackBonus { get { return character.BaseAttackBonus; } }
-        public int? Strength { get { return character.Strength.Modifier; } }
-        public int? Dexterity { get { return character.Dexterity.Modifier; } }
-        public int? Size { get { return Character.GetSizeDefensiveModifier(character.Size); } }
+        public int? BaseAttackBonus
+        {
+            get
+            {
+
+                return (character.BaseAttackBonus == null) ? null : character.BaseAttackBonus;
+            }
+        }
+
+        public int? Strength
+        {
+            get
+            {
+                return (character.Strength.Modifier == null) ? null : character.Strength.Modifier;
+            }
+        }
+
+        public int? Dexterity
+        {
+            get
+            {
+                return (character.Dexterity.Modifier == null) ? null : character.Dexterity.Modifier;
+            }
+        }
+
+        public int? Size
+        {
+            get
+            {
+                return Character.GetSizeDefensiveModifier(character.Size);
+            }
+        }
+
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
