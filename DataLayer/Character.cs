@@ -65,7 +65,7 @@ namespace DataLayer
         public Save Reflex { get; set; }
         public Save Will { get; set; }
 
-        //      public List<Feat> Feats { get; set; }
+        public List<CharacterFeats> Feats { get; set; }
         //       public List<SpecialAbility> SpecialAbilities {get; set;}
 
 

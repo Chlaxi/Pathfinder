@@ -18,6 +18,7 @@ namespace DataLayer
         public DbSet<CharacterClasses> CharacterClasses { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Feat> Feats { get; set; }
+        public DbSet<CharacterFeats> CharacterFeats { get; set; }
         public DbSet<Spell> Spells { get; set; }
        // public DbSet<Spellbook> SpellBooks { get; set; }
         public DbSet<SpecialAbility> SpecialAbilities { get; set; }
@@ -50,6 +51,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Ignore(m => m.EffectiveLevel);
             modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
+            modelBuilder.Entity<Character>().Ignore(m => m.Feats);
 
             modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("alignment").HasConversion(v => v.ToString(), v => (Alignment)Enum.Parse(typeof(Alignment), v.Replace(" ", String.Empty), true));
 
@@ -484,6 +486,16 @@ namespace DataLayer
             modelBuilder.Entity<Feat>().Property(m => m.Source).HasColumnName("source");
             modelBuilder.Entity<Feat>().HasKey(m => m.Id);
             #endregion
+
+            modelBuilder.Entity<CharacterFeats>().ToTable("characterfeats");
+            modelBuilder.Entity<CharacterFeats>().Property(m => m.CharacterId).HasColumnName("characterid").IsRequired(true);
+            modelBuilder.Entity<CharacterFeats>().Property(m => m.FeatId).HasColumnName("featid").IsRequired(true);
+            modelBuilder.Entity<CharacterFeats>().Property(m => m.Choice).HasColumnName("choice");
+            modelBuilder.Entity<CharacterFeats>().Property(m => m.Multiple).HasColumnName("multiple");
+            modelBuilder.Entity<CharacterFeats>().Property(m => m.Note).HasColumnName("note");
+            modelBuilder.Entity<CharacterFeats>().HasKey(m => new { m.CharacterId, m.FeatId, m.Choice });
+            modelBuilder.Entity<CharacterFeats>().Ignore(m => m.Feat);
+            modelBuilder.Entity<CharacterFeats>().Ignore(m => m.FeatName);
 
 
             #region Special Abilities

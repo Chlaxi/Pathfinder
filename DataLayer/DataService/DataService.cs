@@ -78,7 +78,7 @@ namespace DataLayer.DataService
             character.Speed = new Speed(character.Speed, character.Race);
 
             //CharacterClasses relation to set character's classes
-
+            character.Feats = GetCharacterFeats(character.Id);
             
 
             return character;
@@ -218,7 +218,30 @@ namespace DataLayer.DataService
             return feat;
         }
 
+        public List<CharacterFeats> GetCharacterFeats(int characterId)
+        {
+            using var db = new PathfinderContext();
+            var query = from cFeats in db.CharacterFeats
+                        where cFeats.CharacterId.Equals(characterId)
+                        select cFeats;
 
+            if(query.Count() == 0)
+            {
+                return null;
+            }
+
+            List<CharacterFeats> feats = new List<CharacterFeats>();
+            foreach(var feat in query)
+            {
+                CharacterFeats f = new CharacterFeats();
+                f = feat;
+                f.Feat = GetFeat(feat.FeatId);
+
+                feats.Add(f);
+            }
+
+            return feats;
+        }
 
         //Special Ability
         public List<SpecialAbility> GetSpecialAbilities()
