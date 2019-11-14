@@ -76,7 +76,7 @@ namespace DataLayer.DataService
             character.CMD = new CombatManeuverDefence(character);
 
             character.Speed = new Speed(character.Speed, character.Race);
-
+            character.SpellBook = GetSpellBook(character);
             //CharacterClasses relation to set character's classes
             character.Feats = GetCharacterFeats(character.Id);
             
@@ -191,7 +191,179 @@ namespace DataLayer.DataService
             return spell;
         }
 
+        public Spellbook GetSpellBook(Character character)
+        {
+            using var db = new PathfinderContext();
+            Console.WriteLine("------Getting Spellbook for the character {0}, who is a {1}", character.Id, character.Class.ToString());
 
+            var query = from spells in db.KnownSpells
+                        where spells.CharacterId.Equals(character.Id)
+                        select spells;
+
+      
+            if(query.Count() == 0)
+            {
+                Console.WriteLine("No spells found for this character");
+                return null;
+            }
+            Console.WriteLine("Found {0} spells for the {1}",query.Count(), character.Name);
+            Spellbook spellbook = new Spellbook();
+            spellbook.SpellLevels = new SpellLevel[10];
+            for (int i = 0; i < spellbook.SpellLevels.Length; i++)
+            {
+                spellbook.SpellLevels[i] = new SpellLevel();
+            }
+            
+            Console.WriteLine("----Adding spells to {0}", character.Name);
+            foreach (var spell in query)
+            {
+                Console.WriteLine("      -Trying spell {0} at level {1}", spell.SpellId, spell.SpellLevel);
+                spell.Spell = GetSpell(spell.SpellId);
+
+                if (spell.Spell == null)
+                {
+                    //This part is redundant due to database constraints, but adding as an extra layer of security.
+                    Console.WriteLine("       For some reason, the spell was not found.");
+                    continue;
+                }
+
+                Console.WriteLine("       Spell found. Spell is called {0}", spell.Spell.Name);
+
+                var currentSpellLevel = spellbook.SpellLevels[spell.SpellLevel];
+
+                currentSpellLevel.Spells.Add(spell);
+                currentSpellLevel.SpellsKnown++;
+                if (spell.Prepared != null)
+                    currentSpellLevel.SpellsPrepared += spell.Prepared;
+                Console.WriteLine("***Spell {0} added to the spellbook at level {1}", spell.Spell.Name, spell.SpellLevel);
+            }
+
+            return spellbook;
+        }
+
+        /// <summary>
+        /// Finds the index in which a spell is stored in the spellbook based on the spellId
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="spellLevel">The spell level you want to find the spell in</param>
+        /// <param name="spellIndex">The index of the spell</param>
+        /// <returns>The index of the spell</returns>
+        public KnownSpell GetSpellFromSpellbook(Character character, int spellLevel, int spellIndex)
+        {
+            Spellbook spellbook = GetSpellBook(character);
+            if (spellLevel > spellbook.SpellLevels.Length || spellLevel < 0)
+                return null;
+            SpellLevel curLevel = spellbook.SpellLevels[spellLevel];
+
+            if (spellIndex >= curLevel.Spells.Count || spellIndex < 0)
+                return null;
+
+            KnownSpell spell = curLevel.Spells[spellIndex];
+            if (spell == null) return null;
+
+            return spell;
+        }
+
+        /// <summary>
+        /// Adds a spell to the character spell relation.
+        /// </summary>
+        /// <param name="character">The character that will learn the spell</param>
+        /// <param name="spellId">The ID of the spell to be taught</param>
+        /// <param name="spellLevel">The level the spell is taught at</param>
+        /// <returns></returns>
+        public KnownSpell AddSpellToCharacter(Character character, int spellId, int spellLevel) //, string note=null)
+        {
+            using var db = new PathfinderContext();
+
+            Console.WriteLine("--------Trying to add a spell to the character {0}", character.Name);
+
+            //TODO Authorisation
+
+
+            var spell = GetSpell(spellId);
+            if (spell == null)
+            {
+                Console.WriteLine("Error: Spell not Found");
+                return null;
+            }
+            Console.WriteLine("spell found! Trying to add {0}", spell.Name);
+            
+            var query = from knownSpell in db.KnownSpells
+                        where knownSpell.CharacterId.Equals(character.Id) && knownSpell.SpellId.Equals(spellId)
+                        select knownSpell;
+
+           // Console.WriteLine("The query gave the following result for spell: {0}, level {}", query.FirstOrDefault().SpellId, query.FirstOrDefault().SpellLevel);
+
+            if (query.Count() != 0) {
+                Console.WriteLine("Character already knows this spell!");
+                //Change spell level?
+                return null;
+            }
+            Console.WriteLine("Spell is not already in use! Adding to character");
+
+            KnownSpell newSpell = new KnownSpell()
+            {
+                CharacterId = character.Id,
+                SpellId = spell.Id,
+                Spell = spell,
+                SpellLevel = spellLevel,
+                Prepared = null,
+                Note = null
+            };
+
+            db.KnownSpells.Add(newSpell);
+            db.SaveChanges();
+            return newSpell;
+        }
+
+        public bool RemoveSpellFromCharacter(Character character, int spellLevel, int spellIndex)
+        {
+            using var db = new PathfinderContext();
+            
+            KnownSpell spell = GetSpellFromSpellbook(character, spellLevel, spellIndex);
+            if (spell == null)
+                return false;
+            
+
+            Console.WriteLine("--------Trying to remove a spell to the character {0}", character.Name);
+
+            //TODO Authorisation
+
+   /*         var query = from knownSpell in db.KnownSpells
+                        where knownSpell.CharacterId.Equals(character.Id) && knownSpell.SpellId.Equals(spellId) && knownSpell.SpellLevel.Equals(spellLevel)
+                        select knownSpell;
+        
+            if(query.First() == null)
+            {
+                Console.WriteLine("No spell found for that character.");
+                return false;
+            }*/
+
+            db.KnownSpells.Remove(spell);
+            db.SaveChanges();
+            return true;
+        
+        }
+
+        public List<SpellSearchResult> SpellSearch(string query)
+        {
+            using var db = new PathfinderContext();
+
+            List<SpellSearchResult> spells = new List<SpellSearchResult>();
+            foreach (var result in db.SpellSearchResults.FromSqlRaw("select * from search_spells({0})", query))
+            {
+                //TODO use spell query DTO
+                var spell = new SpellSearchResult()
+                {
+                    SpellId = result.SpellId,
+                    Name = result.Name, 
+                    ShortDescription = result.ShortDescription,
+                };
+                spells.Add(spell);
+            }
+
+            return spells;
+        }
 
         //Feats
         public List<Feat> GetFeats()

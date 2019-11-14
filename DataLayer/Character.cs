@@ -67,7 +67,7 @@ namespace DataLayer
 
         public List<CharacterFeats> Feats { get; set; }
         //       public List<SpecialAbility> SpecialAbilities {get; set;}
-
+        public Spellbook SpellBook { get; set; }
 
         #region Skills (WIP)
         /*

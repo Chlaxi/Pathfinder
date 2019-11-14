@@ -31,6 +31,14 @@ namespace WebService.Controllers
             return Ok(spell);
         }
 
+        [HttpGet("search")]
+        public ActionResult SearchSpell(string query)
+        {
+            List<SpellSearchResult> spells = ds.SpellSearch(query);
+            //TODO: Add paging
+            return Ok(spells);
+
+        }
 
     }
 }

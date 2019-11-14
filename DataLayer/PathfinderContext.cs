@@ -20,8 +20,11 @@ namespace DataLayer
         public DbSet<Feat> Feats { get; set; }
         public DbSet<CharacterFeats> CharacterFeats { get; set; }
         public DbSet<Spell> Spells { get; set; }
-       // public DbSet<Spellbook> SpellBooks { get; set; }
+        public DbSet<KnownSpell> KnownSpells { get; set; }
         public DbSet<SpecialAbility> SpecialAbilities { get; set; }
+
+
+        public DbQuery<SpellSearchResult> SpellSearchResults { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -52,7 +55,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
             modelBuilder.Entity<Character>().Ignore(m => m.Feats);
-
+            modelBuilder.Entity<Character>().Ignore(m => m.SpellBook);
             modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("alignment").HasConversion(v => v.ToString(), v => (Alignment)Enum.Parse(typeof(Alignment), v.Replace(" ", String.Empty), true));
 
             #region abilities 
@@ -467,6 +470,18 @@ namespace DataLayer
             */
             #endregion
 
+            #region Known spells
+            modelBuilder.Entity<KnownSpell>().ToTable("characterspells");
+            modelBuilder.Entity<KnownSpell>().Property(m => m.CharacterId).HasColumnName("characterid").IsRequired(true);
+            modelBuilder.Entity<KnownSpell>().Property(s => s.SpellId).HasColumnName("spellid");
+            modelBuilder.Entity<KnownSpell>().Property(s => s.SpellLevel).HasColumnName("spell_level");
+            modelBuilder.Entity<KnownSpell>().Property(s => s.Prepared).HasColumnName("prepared");
+            modelBuilder.Entity<KnownSpell>().Property(s => s.Note).HasColumnName("note");
+            modelBuilder.Entity<KnownSpell>().Ignore(s => s.Spell);
+            modelBuilder.Entity<KnownSpell>().HasKey(m => new { m.CharacterId, m.SpellId});
+
+            #endregion
+
             #region Feats
             //Feats
             modelBuilder.Entity<Feat>().ToTable("feats");
@@ -561,9 +576,27 @@ namespace DataLayer
             modelBuilder.Entity<ClassInfo>().Property(m => m.Specials).HasColumnName("special");
             //TODO Add spells
             modelBuilder.Entity<ClassInfo>().HasKey(m => new { m.ClassName, m.Level });
+
+
+
+
+
+            #region Queries
+            /*
+             * RETURNS TABLE("spellid" int4, "spell_name" varchar, "short_description" text, "description" text, "school" varchar,
+             * "subschool" varchar, "element" varchar, "domain" text, "bloodline" text, "patron" text, "source" "public"."sources")
+             * */
+            modelBuilder.Query<SpellSearchResult>().Property(x => x.SpellId).HasColumnName("spellid");
+            modelBuilder.Query<SpellSearchResult>().Property(x => x.Name).HasColumnName("spell_name");
+            modelBuilder.Query<SpellSearchResult>().Property(x => x.ShortDescription).HasColumnName("short_description");
+
+            #endregion
+
+
+
         }
 
-            
+
 
         /*public void MapClass(this ModelBuilder modelBuilder, Skills skill, string identifier)
         {
