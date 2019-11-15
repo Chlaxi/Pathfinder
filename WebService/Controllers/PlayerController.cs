@@ -20,14 +20,36 @@ namespace WebService.Controllers
 
         [Authorize]
         [HttpGet("{id}", Name = nameof(GetPlayer))]
-        public ActionResult GetPlayer(int id)
+        public ActionResult<PlayerDTO> GetPlayer(int id)
         {
 
             if(!AuthService.AuthorizePlayer(HttpContext, id)) return BadRequest("Wrong player");
 
             Player player = ds.GetPlayer(id);
-            if (player == null) NotFound("Player doesn't exists");
+            if (player == null) NotFound("Player doesn't exist");
 
+            return GetPlayerDTO(player);
+        }
+
+        [HttpPost("{playerid}")]
+        public ActionResult CreateNewCharacter(int playerid, string characterName)
+        {
+            if (!AuthService.AuthorizePlayer(HttpContext, playerid)) return BadRequest("Wrong player");
+
+            Player player = ds.GetPlayer(playerid);
+            if (player == null) return NotFound("Player doesn't exist");
+
+            //TODO FIX
+            Character character = ds.CreateCharacter(player.Id, characterName);
+            if (character == null) BadRequest("Something went wrong");
+
+
+            return CreatedAtRoute(nameof(CharacterController.GetCharacter), new { characterid = character.Id }, new SimpleCharacterDTO(character));
+        }
+
+
+        public PlayerDTO GetPlayerDTO(Player player)
+        {
             List<SimpleCharacterDTO> simpleCharacters = new List<SimpleCharacterDTO>();
             foreach (var _character in player.Characters)
             {
@@ -41,25 +63,7 @@ namespace WebService.Controllers
 
             };
 
-            
-
-            return Ok(dto);
+            return dto;
         }
-/*
-        [HttpPost]
-        public ActionResult CreatePlayer([FromBody] UserCreationDTO newUser)
-        {
-            Console.WriteLine("NEW PLAYER FROM PLAYER CONTROLLER");
-            if (ds.GetPlayerByUsername(newUser.Username) != null)
-            {
-                return BadRequest("User already exists");
-            }
-
-            Player player = ds.CreatePlayer(newUser.Username, newUser.Password);
-            if (player == null) BadRequest("ERROR");
-            Console.WriteLine("Player {0} created",player.Username);
-
-            return CreatedAtRoute(nameof(GetPlayer), new { id = player.Id }, player);
-        }*/
     }
 }

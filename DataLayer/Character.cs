@@ -7,7 +7,7 @@ namespace DataLayer
     //TODO:  Spells, Race, Classes, Feats, Special Abilities, Skills
 
     public enum AbilityEnum { Str, Dex, Con, Int, Wis, Cha }
-    public enum Size { small, medium, large }
+    public enum Size { none, small, medium, large }
 
     public enum Alignment { LawfulGood, LawfulNeutral, LawfulEvil
                             ,NeutralGood, Neutral, NeutralEvil
@@ -67,7 +67,7 @@ namespace DataLayer
 
         public List<CharacterFeats> Feats { get; set; }
         //       public List<SpecialAbility> SpecialAbilities {get; set;}
-        public Spellbook SpellBook { get; set; }
+        public Spellbook Spellbook { get; set; }
 
         #region Skills (WIP)
         /*
@@ -184,7 +184,6 @@ namespace DataLayer
             {
                 case Size.medium:
                     return 0;
-
                 case Size.small:
                     return 1;
                 case Size.large:
@@ -225,17 +224,9 @@ namespace DataLayer
             /// Useful for automatically calculating dexterity as part of the total.
             /// </summary>
             /// <param name="character">The character you want to add the armour class for</param>
-            public ArmourClass(Character character)
+            public ArmourClass(Character character) : this()
             {
                 this.character = character;
-                Armour = character.AC.Armour;
-                Shield = character.AC.Shield;
-                NaturalArmour = character.AC.NaturalArmour;
-                Deflection = character.AC.Deflection;
-                Misc = character.AC.Misc;
-                TouchMisc = character.AC.TouchMisc;
-                FlatFootedMisc = character.AC.FlatFootedMisc;
-                Note = character.Note;
             }
 
             private Character character;
@@ -511,17 +502,10 @@ namespace DataLayer
     {
         private Speed() { }
 
-        public Speed(Speed speed, Race race)
+        public Speed(Speed speed, Race race) : this()
         {
             this.race = race;
-            BaseModifier = speed.BaseModifier;
-            BaseTempModifier = speed.BaseTempModifier;
-            Armour = speed.Armour;
-            Fly = speed.Fly;
-            Swim = speed.Swim;
-            Climb = speed.Climb;
-            Burrow = speed.Burrow;
-            Temporary = speed.Temporary;
+
         }
 
         private Race race;
@@ -565,28 +549,24 @@ namespace DataLayer
 
     public class Ability
     {
-        private Ability(int? BaseScore, int? TempScore)
+        private Ability()
         {
-            this.BaseScore = BaseScore;
-            this.TempScore = TempScore;
-            CanEditRacial = true;
+            //CanEditRacial = true;
         }
-
-        public Ability(Ability ability, Race race, int? racialModifier) : this(ability.BaseScore, ability.TempScore)
+        public Ability(Race race) :this() //: this(ability.BaseScore, ability.TempScore)
         {
-            if (race != null)
+            if (race == null)
             {
-                if (race.SpecialModifier == null)
-                {
-                    CanEditRacial = false;
-                    RacialModifier = racialModifier;
-                    return;
-                }
+                RacialModifier = null;
+                return;
             }
+
+               // CanEditRacial = false;
+                //RacialModifier = race.;
+              //  return;
             
-            RacialModifier = null;
             
-           
+            
             
         }
 
@@ -667,7 +647,7 @@ namespace DataLayer
                     return TempModifier;
                 }
 
-                return BaseModifier;
+                return (BaseModifier == null) ? null : BaseModifier;
             }    
         }
 

@@ -10,7 +10,7 @@ namespace DataLayer
         public string Description { get; set; }
         public Size Size { get; set; }
         
-        public int Speed { get; set; } 
+        public int? Speed { get; set; } 
        // public List<SpecialAbility> Traits { get; set; }
         
         public List<string> LanguagesKnown { get; set; }

@@ -57,8 +57,8 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
             modelBuilder.Entity<Character>().Ignore(m => m.Feats);
-            modelBuilder.Entity<Character>().Ignore(m => m.SpellBook);
-            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("alignment").HasConversion(v => v.ToString(), v => (Alignment)Enum.Parse(typeof(Alignment), v.Replace(" ", String.Empty), true));
+            modelBuilder.Entity<Character>().Ignore(m => m.Spellbook);
+            modelBuilder.Entity<Character>().Property(m => m.Alignment).HasColumnName("alignment").HasConversion(v => v.ToString(), v => (Alignment)Enum.Parse(typeof(Alignment), v));
 
             #region abilities 
 

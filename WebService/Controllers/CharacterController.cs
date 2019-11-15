@@ -51,9 +51,9 @@ namespace WebService.Controllers
             if (character == null) return NotFound("No Character with this id");
 
 
-            if (character.SpellBook == null) return NotFound("This character doesn't have a spellbook");
+            if (character.Spellbook == null) return NotFound("This character doesn't have a spellbook");
             
-            return Ok(character.SpellBook);
+            return Ok(character.Spellbook);
         }
 
         [HttpGet("{characterid}/spells/{spellLevel}", Name = nameof(GetSpellbookLevel))]
@@ -65,11 +65,11 @@ namespace WebService.Controllers
             if (character == null) return NotFound("No Character with this id");
 
 
-            if (character.SpellBook == null) return NotFound("This character doesn't have a spellbook");
+            if (character.Spellbook == null) return NotFound("This character doesn't have a spellbook");
 
-            if (spellLevel > character.SpellBook.SpellLevels.Length || spellLevel < 0) return BadRequest("spell level is out of bounds");
+            if (spellLevel > character.Spellbook.SpellLevels.Length || spellLevel < 0) return BadRequest("spell level is out of bounds");
 
-            SpellLevel spellbookLevel = character.SpellBook.SpellLevels[spellLevel];
+            SpellLevel spellbookLevel = character.Spellbook.SpellLevels[spellLevel];
 
             if (spellbookLevel == null) return NotFound(String.Format("{0} doesn't have any spells for {1} level spells",character.Name, spellLevel));
             
@@ -119,7 +119,7 @@ namespace WebService.Controllers
             KnownSpell newSpell = ds.AddSpellToCharacter(character, _newSpell.SpellId, _newSpell.SpellLevel);
             if (newSpell == null) return BadRequest(String.Format("{0} already knows this spell, or the spell doesn't exist", character.Name));
 
-            int spellIndex = character.SpellBook.SpellLevels[_newSpell.SpellLevel].Spells.Count();
+            int spellIndex = character.Spellbook.SpellLevels[_newSpell.SpellLevel].Spells.Count();
 
             return CreatedAtRoute(nameof(GetSpecificSpell), new { characterid = character.Id, _newSpell.SpellLevel, spellIndex }, newSpell);
         }

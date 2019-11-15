@@ -79,22 +79,22 @@ namespace DataLayer.DataService
             Character character = db.Characters.Find(id);
             if (character == null) return null;
 
+            Race race = null;
             // character.Player = GetPlayer(character.PlayerId);
-            character.Race = GetRace(character.RaceName);
 
-            Race race = character.Race;
+
+            race = GetRace(character.RaceName);
 
             character.Class = FindCharacterClasses(id);
+            
 
-            if (race != null)
-            {
-                character.Strength = new Ability(character.Strength, race, race.Strength);
-                character.Dexterity = new Ability(character.Dexterity, race, race.Dexterity);
-                character.Constitution = new Ability(character.Constitution, race, race.Constitution);
-                character.Intelligence = new Ability(character.Intelligence, race, race.Intelligence);
-                character.Wisdom = new Ability(character.Wisdom, race, race.Wisdom);
-                character.Charisma = new Ability(character.Charisma, race, race.Charisma);
-            }
+            character.Strength =      new Ability(race);
+            character.Dexterity =     new Ability(race);
+            character.Constitution =  new Ability(race);
+            character.Intelligence =  new Ability(race);
+            character.Wisdom =        new Ability(race);
+            character.Charisma =      new Ability(race);
+            
 
             character.AC = new Character.ArmourClass(character);
             character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
@@ -104,7 +104,7 @@ namespace DataLayer.DataService
             character.CMD = new CombatManeuverDefence(character);
 
             character.Speed = new Speed(character.Speed, character.Race);
-            character.SpellBook = GetSpellBook(character);
+            character.Spellbook = GetSpellBook(character);
             //CharacterClasses relation to set character's classes
             character.Feats = GetCharacterFeats(character.Id);
             
@@ -112,7 +112,7 @@ namespace DataLayer.DataService
             return character;
         }
 
-        public Character CreateCharacter (int playerId)
+        public Character CreateCharacter (int playerId, string characterName="Unknown")
         {
             using var db = new PathfinderContext();
             Player player = GetPlayer(playerId);
@@ -122,15 +122,18 @@ namespace DataLayer.DataService
             {
                 //Player = player,
                 PlayerId = playerId,
-                Id = db.Characters.Max(x => x.Id) + 1
+                Name = characterName,
+                Id = db.Characters.Max(x => x.Id) + 1,
+                Race = null,
+                Class = new List<CharacterClasses>()
             };
             //TODO Use the function in sql?
 
             Console.WriteLine("Creating a new Character owned by player {0}.", player.Username);
 
-            //Add to character
-            //add to player character relation
-            //db.SaveChanges();
+            db.Characters.Add(character);
+
+            db.SaveChanges();
             return character;
         }
 

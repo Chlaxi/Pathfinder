@@ -13,19 +13,29 @@ namespace WebService
     {
         public SimpleCharacterDTO(Character character)
         {
+            if (character == null)
+            {
+                Console.WriteLine("****************\n\n\nThere is no character for the DTO!!\n \n \n ***************");
+            }
             Id = character.Id;
             Name = character.Name;
+            Race = (character.Race == null) ? "" : character.Race.Name;
             Classes = "";
-            foreach(var _class in character.Class)
+            Console.WriteLine(character.Class.Count() +"SO MANY CLASSES");
+            if (character.Class.Count() > 0 || character.Class==null)
             {
-                Classes += _class.ClassName + " " + _class.Level+", ";
+                foreach (var _class in character.Class)
+                {
+                    Classes += _class.ClassName + " " + _class.Level + ", ";
+                }
+                Classes = Classes.TrimEnd(',', ' ');
             }
-            Classes = Classes.TrimEnd(',', ' ');
             Link = String.Format("/api/characters/{0}", Id);
 
         }
         public string Link { get; set; }
         public int Id { get; set; }
+        public string Race { get; set; }
         public string Name { get; set; }
         //Turn into class links
         public string Classes { get; set; }
