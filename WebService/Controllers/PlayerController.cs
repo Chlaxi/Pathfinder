@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DataLayer;
 using DataLayer.DataService;
+using Microsoft.AspNetCore.Authorization;
+using WebService.Middleware;
 
 namespace WebService.Controllers
 {
@@ -16,22 +18,48 @@ namespace WebService.Controllers
 
         private DataService ds = new DataService();
 
+        [Authorize]
         [HttpGet("{id}", Name = nameof(GetPlayer))]
         public ActionResult GetPlayer(int id)
         {
+
+            if(!AuthService.AuthorizePlayer(HttpContext, id)) return BadRequest("Wrong player");
+
             Player player = ds.GetPlayer(id);
             if (player == null) NotFound("Player doesn't exists");
 
-            return Ok(player);
-        }
+            List<SimpleCharacterDTO> simpleCharacters = new List<SimpleCharacterDTO>();
+            foreach (var _character in player.Characters)
+            {
+                simpleCharacters.Add(new SimpleCharacterDTO(_character));
+            }
 
-        [HttpPost()]
-        public ActionResult CreatePlayer(string username)
+            PlayerDTO dto = new PlayerDTO()
+            {
+                Username = player.Username,
+                Characters = simpleCharacters
+
+            };
+
+            
+
+            return Ok(dto);
+        }
+/*
+        [HttpPost]
+        public ActionResult CreatePlayer([FromBody] UserCreationDTO newUser)
         {
-            Player player = ds.CreatePlayer(username);
-            if (player == null) BadRequest();
+            Console.WriteLine("NEW PLAYER FROM PLAYER CONTROLLER");
+            if (ds.GetPlayerByUsername(newUser.Username) != null)
+            {
+                return BadRequest("User already exists");
+            }
+
+            Player player = ds.CreatePlayer(newUser.Username, newUser.Password);
+            if (player == null) BadRequest("ERROR");
+            Console.WriteLine("Player {0} created",player.Username);
 
             return CreatedAtRoute(nameof(GetPlayer), new { id = player.Id }, player);
-        }
+        }*/
     }
 }

@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DataLayer;
 using DataLayer.DataService;
+using WebService.Middleware;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WebService.Controllers
 {
+    
     [Route("api/characters")]
     public class CharacterController : Controller
     {
@@ -24,25 +29,31 @@ namespace WebService.Controllers
             return Ok(characters);
         }
         */
-
+        [Authorize]
         [HttpGet("{characterid}", Name = nameof(GetCharacter))]
         public ActionResult GetCharacter(int characterid)
         {
+            PlayerController playercontroller = new PlayerController();
+
             Character character = ds.GetCharacter(characterid);
             if (character == null) return NotFound();
+            if (!AuthService.AuthorizePlayer(HttpContext, character.PlayerId)) return BadRequest("Wrong player");
 
-            return Ok(character);
+
+            return Ok (character);
         }
 
         [HttpGet("{characterid}/spells", Name = nameof(GetSpellbook))]
         public ActionResult GetSpellbook(int characterid)
         {
+            GetCharacter(characterid);
+
             Character character = ds.GetCharacter(characterid);
             if (character == null) return NotFound("No Character with this id");
 
 
             if (character.SpellBook == null) return NotFound("This character doesn't have a spellbook");
-
+            
             return Ok(character.SpellBook);
         }
 

@@ -8,6 +8,17 @@ namespace DataLayer.DataService
 {
     public class DataService : IDataService
     {
+        public Player GetPlayerByUsername(string username)
+        {
+            using var db = new PathfinderContext();
+
+            var query = from player in db.Players
+                        where player.Username.Equals(username)
+                        select player;
+
+            if (query.Count() == 0) return null;
+            return GetPlayer(query.First().Id);            
+        }
         public Player GetPlayer(int id)
         {
             using var db = new PathfinderContext();
@@ -28,20 +39,37 @@ namespace DataLayer.DataService
             return player;
         }
 
-        public Player CreatePlayer(string username)
+        /// <summary>
+        /// Returns the player id from a character.
+        /// Used for verification
+        /// </summary>
+        /// <param name="characterId"></param>
+        /// <returns>The playerId that belongs to the character</returns>
+        public int? GetPlayerFromCharId(int characterId)
         {
             using var db = new PathfinderContext();
+            Character character = db.Characters.Find(characterId);
+            if (character == null) return null;
+
+            return character.PlayerId;
+        }
+
+        public Player CreatePlayer(string username, string password, string salt)
+        {
+            using var db = new PathfinderContext();
+            //Username check is made in the webservice
             Player player = new Player();
+            if (db.Players.Count() == 0) player.Id = 1;
             player.Id = db.Players.Max(x => x.Id) + 1;
             player.Username = username;
+            player.Password = password;
+            player.Salt = salt;
 
             Console.WriteLine("Creating a new player, {0}, with id {1}", player.Username, player.Id);
 
-            //add here?
-            //var i = db.Players.Add(player);
-            //            db.PlayerCharacterRelation.Add().
-            
-            //db.SaveChanges;
+
+            db.Players.Add(player);    
+            db.SaveChanges();
             return player;
         }
 

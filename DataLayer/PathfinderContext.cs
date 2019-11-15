@@ -39,6 +39,8 @@ namespace DataLayer
             modelBuilder.Entity<Player>().ToTable("players");
             modelBuilder.Entity<Player>().Property(m => m.Id).HasColumnName("playerid");
             modelBuilder.Entity<Player>().Property(m => m.Username).HasColumnName("username");
+            modelBuilder.Entity<Player>().Property(m => m.Password).HasColumnName("password");
+            modelBuilder.Entity<Player>().Property(m => m.Salt).HasColumnName("salt");
             modelBuilder.Entity<Player>().HasKey(m => m.Id);
             //Add Password, salt
 
