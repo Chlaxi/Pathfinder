@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace WebService.Controllers
 {
-    
+    [Authorize]
     [Route("api/characters")]
     public class CharacterController : Controller
     {
@@ -31,7 +31,7 @@ namespace WebService.Controllers
         */
         [Authorize]
         [HttpGet("{characterid}", Name = nameof(GetCharacter))]
-        public ActionResult GetCharacter(int characterid)
+        public ActionResult<Character> GetCharacter(int characterid)
         {
             PlayerController playercontroller = new PlayerController();
 
@@ -40,15 +40,14 @@ namespace WebService.Controllers
             if (!AuthService.AuthorizePlayer(HttpContext, character.PlayerId)) return BadRequest("Wrong player");
 
 
-            return Ok (character);
+            return character;
         }
 
         [HttpGet("{characterid}/spells", Name = nameof(GetSpellbook))]
         public ActionResult GetSpellbook(int characterid)
         {
-            GetCharacter(characterid);
+            Character character = GetCharacter(characterid).Value;
 
-            Character character = ds.GetCharacter(characterid);
             if (character == null) return NotFound("No Character with this id");
 
 
@@ -60,9 +59,9 @@ namespace WebService.Controllers
         [HttpGet("{characterid}/spells/{spellLevel}", Name = nameof(GetSpellbookLevel))]
         public ActionResult GetSpellbookLevel(int characterid, int spellLevel)
         {
-            //TODO Authorisation
 
-            Character character = ds.GetCharacter(characterid);
+            Character character = GetCharacter(characterid).Value;
+
             if (character == null) return NotFound("No Character with this id");
 
 
@@ -80,10 +79,9 @@ namespace WebService.Controllers
         [HttpGet("{characterid}/spells/{spellLevel}/{spellIndex}", Name = nameof(GetSpecificSpell))]
         public ActionResult GetSpecificSpell(int characterid, int spellLevel, int spellIndex)
         {
-            //TODO Authorisation
 
+            Character character = GetCharacter(characterid).Value;
 
-            Character character = ds.GetCharacter(characterid);
             if (character == null) return NotFound("No Character with this id");
 
             KnownSpell spell = ds.GetSpellFromSpellbook(character, spellLevel, spellIndex);
@@ -108,30 +106,30 @@ namespace WebService.Controllers
         }
 
         [HttpPost("{characterid}/spells/")]
-        public ActionResult AddSpell(int characterid, int spellid, int spellLevel)
+        public ActionResult AddSpell(int characterid, [FromBody] SpellToAddDTO _newSpell)
         {
 
-            //TODO Authorisation
-
-            Character character = ds.GetCharacter(characterid);
+            Character character = GetCharacter(characterid).Value;
 
             if (character == null)
             {
                 return NotFound("Character not found");
             }
 
-            KnownSpell newSpell = ds.AddSpellToCharacter(character, spellid, spellLevel);
+            KnownSpell newSpell = ds.AddSpellToCharacter(character, _newSpell.SpellId, _newSpell.SpellLevel);
             if (newSpell == null) return BadRequest(String.Format("{0} already knows this spell, or the spell doesn't exist", character.Name));
 
-            int spellIndex = character.SpellBook.SpellLevels[spellLevel].Spells.Count();
+            int spellIndex = character.SpellBook.SpellLevels[_newSpell.SpellLevel].Spells.Count();
 
-            return CreatedAtRoute(nameof(GetSpecificSpell), new { characterid = character.Id, spellLevel, spellIndex }, newSpell);
+            return CreatedAtRoute(nameof(GetSpecificSpell), new { characterid = character.Id, _newSpell.SpellLevel, spellIndex }, newSpell);
         }
+
 
         [HttpDelete("{characterid}/spells/{spellLevel}/{spellIndex}")]
         public ActionResult RemoveSpell(int characterid, int spellLevel, int spellIndex)
         {
-            Character character = ds.GetCharacter(characterid);
+            Character character = GetCharacter(characterid).Value;
+
             bool result = ds.RemoveSpellFromCharacter(character, spellLevel, spellIndex);
             System.Console.WriteLine(result);
             if (!result) return NotFound("Spell not found for the character");
