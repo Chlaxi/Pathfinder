@@ -84,21 +84,19 @@ namespace DataLayer.DataService
 
             Console.WriteLine("{0} has the following race {1}", character.Name, character.RaceName);
 
-           
-           
             race = GetRace(character.RaceName);
             character.Race = race;
             character.Class = FindCharacterClasses(id);
 
 
-            character.Strength = new Ability(race);
-            character.Dexterity = new Ability(race);
-            character.Constitution = new Ability(race);
-            character.Intelligence = new Ability(race);
-            character.Wisdom = new Ability(race);
-            character.Charisma = new Ability(race);
+            character.Strength = new Ability(character.Strength, race);
+            character.Dexterity = new Ability(character.Dexterity, race);
+            character.Constitution = new Ability(character.Constitution, race);
+            character.Intelligence = new Ability(character.Intelligence, race);
+            character.Wisdom = new Ability(character.Wisdom, race);
+            character.Charisma = new Ability(character.Charisma, race);
 
-            character.AC = new Character.ArmourClass(character);
+            character.AC = new Character.ArmourClass(character.AC, character);
             character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
             character.Reflex = new Character.Save(character.Reflex, character.Dexterity);
             character.Will = new Character.Save(character.Will, character.Wisdom);
@@ -531,12 +529,15 @@ namespace DataLayer.DataService
             if (race == null) return null;
             Console.WriteLine("Adding race {0} to character {1}",race.Name, character.Name);
             character.RaceName = race.Name;
+
            // character.Race = race;
             //db.Characters.Find(characterId).RaceName = race.Name;
             db.SaveChanges();
 
             return race;
         }
+
+
 
         public Class GetClass(string name, int level=20)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataLayer
@@ -215,8 +216,16 @@ namespace DataLayer
 
         public class ArmourClass
         {
+            private ArmourClass() { }
             //Empty constructor, so the Mapping works
-            private ArmourClass() {}
+            private ArmourClass(int? Armour, int? Shield, int? NaturalArmour, int? Deflection, int? Misc) : this()
+            {
+                this.Armour = Armour;
+                this.Shield = Shield;
+                this.NaturalArmour = NaturalArmour;
+                this.Deflection = Deflection;
+                this.Misc = Misc;
+            }
 
             //Constructor to add a character. Should be done in the DataService for GetCharacter.
             /// <summary>
@@ -224,10 +233,12 @@ namespace DataLayer
             /// Useful for automatically calculating dexterity as part of the total.
             /// </summary>
             /// <param name="character">The character you want to add the armour class for</param>
-            public ArmourClass(Character character) : this()
+            public ArmourClass(ArmourClass AC, Character character) : this(AC.Armour, AC.Shield, AC.NaturalArmour, AC.Deflection, AC.Misc)
             {
                 this.character = character;
             }
+
+
 
             private Character character;
 
@@ -323,7 +334,7 @@ namespace DataLayer
             /// Will = Wisdom
             /// </summary>
             /// <param name="ability"></param>
-            public Save(Save save, Ability ability)  //Add base from class levels
+            public Save(Save save, Ability ability)  : this()//Add base from class levels
             {
                 this.ability = ability;
                 this.Magic = Magic;
@@ -383,11 +394,11 @@ namespace DataLayer
 
         }
         
-        public CombatManeuverBonus(Character character)
+        public CombatManeuverBonus(Character character) : this()
         {
             this.character = character;
            // Misc = character.CMB.Misc;
-           // Temp = character.CMB.Temp;
+            //Temp = character.CMB.Temp;
         }
 
         public Character character;
@@ -435,11 +446,11 @@ namespace DataLayer
     {
         private CombatManeuverDefence() { }
 
-        public CombatManeuverDefence(Character character)
+        public CombatManeuverDefence(Character character) : this()
         {
             this.character = character;
-         //   Misc = character.CMD.Misc;
-         //   Temp = character.CMD.Temp;
+            //Misc = character.CMD.Misc;
+            //Temp = character.CMD.Temp;
         }
 
         public Character character;
@@ -502,9 +513,10 @@ namespace DataLayer
     {
         private Speed() { }
 
-        public Speed(Speed speed, Race race) : this()
+        public Speed(Speed speed, Race race)
         {
             this.race = race;
+            //BaseModifier = speed.BaseModifier;
 
         }
 
@@ -547,13 +559,22 @@ namespace DataLayer
         public string Wounds { get; set; }
     }
 
+    [ComplexType]
     public class Ability
     {
         private Ability()
         {
             //CanEditRacial = true;
         }
-        public Ability(Race race) :this() //: this(ability.BaseScore, ability.TempScore)
+
+        public Ability(int? BaseScore, int? TempScore, int? RacialModifier)
+        {
+            this.BaseScore = BaseScore;
+            this.TempScore = TempScore;
+            this.RacialModifier = RacialModifier;
+        }
+
+        public Ability(Ability ability, Race race) :this(ability.BaseScore, ability.TempScore, ability.RacialModifier) //: this(ability.BaseScore, ability.TempScore)
         {
             if (race == null)
             {

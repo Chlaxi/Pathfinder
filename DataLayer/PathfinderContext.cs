@@ -63,10 +63,13 @@ namespace DataLayer
 
             #region abilities 
 
+
             modelBuilder.Entity<Character>(m =>
             {
+                
                 m.OwnsOne(e => e.Strength, Ability =>
                 {
+
                     Ability.Property(e => e.BaseScore).HasColumnName("base_str");
                     Ability.Ignore(e => e.BaseModifier);// Property(e => e.BaseModifier).HasColumnName("str_mod");
                     Ability.Property(e => e.TempScore).HasColumnName("temp_str");
@@ -76,6 +79,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TotalScore);
                 });
             });
+            
 
             modelBuilder.Entity<Character>(m =>
             {
@@ -131,6 +135,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
                     Ability.Ignore(e => e.TotalScore);
+
                 });
             });
 
@@ -169,12 +174,12 @@ namespace DataLayer
                 m.OwnsOne(e => e.AC, AC =>
                 {
                     
-                    AC.Property(m => m.Armour).HasColumnName("ac_armour_bonus");
-                    AC.Property(m => m.Shield).HasColumnName("ac_shield_bonus");
-                    AC.Property(m => m.NaturalArmour).HasColumnName("ac_natural_armour");
-                    AC.Property(m => m.Deflection).HasColumnName("ac_deflection");
+                    AC.Property(m => m.Armour).HasColumnName("ac_armour_bonus").HasDefaultValue(0);
+                    AC.Property(m => m.Shield).HasColumnName("ac_shield_bonus").HasDefaultValue(0);
+                    AC.Property(m => m.NaturalArmour).HasColumnName("ac_natural_armour").HasDefaultValue(0);
+                    AC.Property(m => m.Deflection).HasColumnName("ac_deflection").HasDefaultValue(0);
                     //AC.Property(m => m.).HasColumnName("ac_temp_armour"); //TODO Reavluate whether needed, and add field/database
-                    AC.Property(m => m.Misc).HasColumnName("ac_misc");
+                    AC.Property(m => m.Misc).HasColumnName("ac_misc").HasDefaultValue(0);
 
                     //Ignore the totals, since they don't have a getter.
                     //TODO: Remove from Database.
@@ -598,7 +603,6 @@ namespace DataLayer
 
 
         }
-
 
 
         /*public void MapClass(this ModelBuilder modelBuilder, Skills skill, string identifier)
