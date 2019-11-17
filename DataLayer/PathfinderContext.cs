@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer
 {
@@ -72,7 +73,7 @@ namespace DataLayer
                     Ability.Ignore(e => e.TempModifier); // Property(e => e.TempModifier).HasColumnName("temp_str_mod");
                     Ability.Ignore(e => e.Modifier);
                     Ability.Ignore(e => e.RacialModifier);
-                    
+                    Ability.Ignore(e => e.TotalScore);
                 });
             });
 

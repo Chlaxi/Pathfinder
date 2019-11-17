@@ -82,19 +82,21 @@ namespace DataLayer.DataService
             Race race = null;
             // character.Player = GetPlayer(character.PlayerId);
 
+            Console.WriteLine("{0} has the following race {1}", character.Name, character.RaceName);
 
+           
+           
             race = GetRace(character.RaceName);
-
+            character.Race = race;
             character.Class = FindCharacterClasses(id);
-            
 
-            character.Strength =      new Ability(race);
-            character.Dexterity =     new Ability(race);
-            character.Constitution =  new Ability(race);
-            character.Intelligence =  new Ability(race);
-            character.Wisdom =        new Ability(race);
-            character.Charisma =      new Ability(race);
-            
+
+            character.Strength = new Ability(race);
+            character.Dexterity = new Ability(race);
+            character.Constitution = new Ability(race);
+            character.Intelligence = new Ability(race);
+            character.Wisdom = new Ability(race);
+            character.Charisma = new Ability(race);
 
             character.AC = new Character.ArmourClass(character);
             character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
@@ -513,6 +515,28 @@ namespace DataLayer.DataService
             return classes;
         }
 
+        public Race AddRaceToCharacter(int characterId, string racename)
+        {
+            using var db = new PathfinderContext();
+            Character character = db.Characters.Find(characterId);
+            if (character == null) return null;
+
+            if (character.Race != null)
+            {
+                //TODO do something about the already existing race, a character has.
+            }
+
+
+            Race race = GetRace(racename);
+            if (race == null) return null;
+            Console.WriteLine("Adding race {0} to character {1}",race.Name, character.Name);
+            character.RaceName = race.Name;
+           // character.Race = race;
+            //db.Characters.Find(characterId).RaceName = race.Name;
+            db.SaveChanges();
+
+            return race;
+        }
 
         public Class GetClass(string name, int level=20)
         {

@@ -52,7 +52,7 @@ namespace WebService.Controllers
 
 
             if (character.Spellbook == null) return NotFound("This character doesn't have a spellbook");
-            
+
             return Ok(character.Spellbook);
         }
 
@@ -71,11 +71,11 @@ namespace WebService.Controllers
 
             SpellLevel spellbookLevel = character.Spellbook.SpellLevels[spellLevel];
 
-            if (spellbookLevel == null) return NotFound(String.Format("{0} doesn't have any spells for {1} level spells",character.Name, spellLevel));
-            
+            if (spellbookLevel == null) return NotFound(String.Format("{0} doesn't have any spells for {1} level spells", character.Name, spellLevel));
+
             return Ok(spellbookLevel);
         }
-        
+
         [HttpGet("{characterid}/spells/{spellLevel}/{spellIndex}", Name = nameof(GetSpecificSpell))]
         public ActionResult GetSpecificSpell(int characterid, int spellLevel, int spellIndex)
         {
@@ -103,6 +103,22 @@ namespace WebService.Controllers
             */
 
             return Ok(spell);
+        }
+
+        [HttpPost("{characterid}/races/{racename}")]
+        public ActionResult AddRaceToCharacter(int characterid, string racename)
+        {
+            Character character = GetCharacter(characterid).Value;
+            if (character == null)
+            {
+                return NotFound("Character not found");
+            }
+
+            Race race = ds.AddRaceToCharacter(characterid, racename);
+            if(race == null) return NotFound("Race doesn't exist");
+
+            
+            return Ok(race);
         }
 
         [HttpPost("{characterid}/spells/")]

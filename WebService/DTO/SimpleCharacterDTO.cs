@@ -19,7 +19,7 @@ namespace WebService
             }
             Id = character.Id;
             Name = character.Name;
-            Race = (character.Race == null) ? "" : character.Race.Name;
+            Race = character.RaceName;
             Classes = "";
             Console.WriteLine(character.Class.Count() +"SO MANY CLASSES");
             if (character.Class.Count() > 0 || character.Class==null)
@@ -34,10 +34,12 @@ namespace WebService
 
         }
         public string Link { get; set; }
-        public int Id { get; set; }
-        public string Race { get; set; }
         public string Name { get; set; }
+        
+        public string Race { get; set; }
+       
         //Turn into class links
         public string Classes { get; set; }
+        private int Id { get; set; }
     }
 }
