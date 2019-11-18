@@ -564,7 +564,7 @@ namespace DataLayer
             modelBuilder.Entity<Class>().Property(m => m.ArmourProficiency).HasColumnName("armour_proficiency");
             modelBuilder.Entity<Class>().Property(m => m.WeaponProficiency).HasColumnName("weapon_proficiency");
             modelBuilder.Entity<Class>().Property(m => m.Spells).HasColumnName("spells");
-            modelBuilder.Entity<Class>().Property(m => m.source).HasColumnName("source");
+            modelBuilder.Entity<Class>().Ignore(m => m.source); //Property(m => m.source).HasColumnName("source");
             modelBuilder.Entity<Class>().HasKey(m => m.Name);
             #endregion
 

@@ -196,7 +196,82 @@ namespace DataLayer.DataService
             return _classes;
         }
 
-       
+
+        /// <summary>
+        /// Adds a new class to the character. If the character already has this class, their level will be updated.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="className"></param>
+        /// <param name="level">The level you want to set the character to</param>
+        /// <returns></returns>
+        public CharacterClasses AddClassToCharacter(Character character, string className, int level)
+        {
+            if (character == null)
+                return null;
+
+            using var db = new PathfinderContext();
+            CharacterClasses newClass = null;
+            Class _class = GetClass(className, level);
+            if (_class == null) return null;
+
+            CharacterClasses hasClass = db.CharacterClasses.Find(character.Id, className);
+            if (hasClass != null)
+            {
+
+                hasClass.Level = level;
+                newClass = hasClass;
+            }
+            else
+            {
+                newClass = new CharacterClasses()
+                {
+                    CharacterId = character.Id,
+                    ClassName = className,
+                    Level = level,
+                    //Class = _class
+                    
+                };
+
+                db.CharacterClasses.Add(newClass);
+            }
+
+            db.SaveChanges();
+            return newClass;
+        }
+
+        /// <summary>
+        /// Levels up the character in one of their classes, simply by adding 1 to their level.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public CharacterClasses LevelUp(Character character, string className)
+        {
+            using var db = new PathfinderContext();
+
+            CharacterClasses _class = db.CharacterClasses.Find(character.Id, className);
+            if (_class == null) return null;
+
+            if (_class.Level == 20)
+                return null;
+
+            _class.Level++;
+            db.SaveChanges();
+            return _class;
+        }
+
+        public bool RemoveClass(Character character, string className)
+        {
+            using var db = new PathfinderContext();
+
+            CharacterClasses _class = db.CharacterClasses.Find(character.Id, className);
+            if (_class == null) return false;
+
+            db.CharacterClasses.Remove(_class);
+            db.SaveChanges();
+            return true;
+        }
+
         //Spells
         public List<Spell> GetSpells()
         {
@@ -530,8 +605,6 @@ namespace DataLayer.DataService
             Console.WriteLine("Adding race {0} to character {1}",race.Name, character.Name);
             character.RaceName = race.Name;
 
-           // character.Race = race;
-            //db.Characters.Find(characterId).RaceName = race.Name;
             db.SaveChanges();
 
             return race;

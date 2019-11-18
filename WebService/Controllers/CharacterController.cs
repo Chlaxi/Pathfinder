@@ -115,9 +115,9 @@ namespace WebService.Controllers
             }
 
             Race race = ds.AddRaceToCharacter(characterid, racename);
-            if(race == null) return NotFound("Race doesn't exist");
+            if (race == null) return NotFound("Race doesn't exist");
 
-            
+
             return Ok(race);
         }
 
@@ -152,5 +152,86 @@ namespace WebService.Controllers
 
             return Ok("Spell removed");
         }
+
+
+        [HttpGet("{characterid}/classes")]
+        public ActionResult GetCharacterClasses(int characterid)
+        {
+            Character character = GetCharacter(characterid).Value;
+            if (character == null) return NotFound();
+
+            List<ClassSimpleDTO> DTO = new List<ClassSimpleDTO>();
+            foreach(var c in character.Class)
+            {
+                DTO.Add(new ClassSimpleDTO(c));
+            }
+
+            return Ok(DTO);
+        }
+
+        [HttpGet("{characterid}/classes/{classname}")]
+        public ActionResult GetCharacterClass(int characterid, string classname)
+        {
+            Character character = GetCharacter(characterid).Value;
+            if (character == null) return NotFound();
+
+
+            ClassDTO DTO = null;
+            foreach(var c in character.Class)
+            {
+                if (c.ClassName.Equals(classname))
+                {
+
+                    DTO = new ClassDTO(c.Class, c.Level);
+                    break;
+                }
+            }
+            if (DTO == null) NotFound();
+
+
+            return Ok(DTO);
+        }
+
+        [HttpPost("{characterid}/classes/{classname}")]
+        public ActionResult AddClassToCharacter(int characterid, string classname, int level = 1)
+        {
+
+            Character character = GetCharacter(characterid).Value;
+
+            CharacterClasses _class = ds.AddClassToCharacter(character, classname, level);
+            if (_class == null) return NotFound("Class wasn't found");
+
+            ClassSimpleDTO DTO = new ClassSimpleDTO(_class);
+
+            return Ok(DTO);
+        }
+
+        [HttpPost("{characterid}/classes/{classname}/levelup")]
+        public ActionResult LevelUpClass(int characterid, string classname)
+        {
+
+            Character character = GetCharacter(characterid).Value;
+
+            CharacterClasses _class = ds.LevelUp(character, classname);
+            if (_class == null) return NotFound("Class wasn't found");
+
+            ClassSimpleDTO DTO = new ClassSimpleDTO(_class);
+
+            return Ok(DTO);
+        }
+
+
+        [HttpDelete("{characterid}/classes/{classname}")]
+        public ActionResult RemoveClassFromCharacter(int characterid, string classname)
+        {
+
+            Character character = GetCharacter(characterid).Value;
+
+            bool wasRemoved = ds.RemoveClass(character, classname);
+            if (!wasRemoved) return NotFound("Class wasn't found");
+
+            return Ok(String.Format("{0} is no longer a {1}", character.Name, classname));
+        }
+
     }
 }

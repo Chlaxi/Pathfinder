@@ -10,9 +10,9 @@ namespace DataLayer
         public List<ClassInfo> LevelInfo { get; set; }
         public int HitDie { get; set; }
         public int SkillsPerLevel { get; set; }
-        public string ClassSkills { get; set; }
-        public string WeaponProficiency {get;set;}
-        public string ArmourProficiency { get; set; }
+        public string[] ClassSkills { get; set; }
+        public string[] WeaponProficiency {get;set;}
+        public string[] ArmourProficiency { get; set; }
 
       //  public List<int> SpecialAbilityIds { get; set; }
        // public List<SpecialAbility> SpecialAbilities { get; set; }
