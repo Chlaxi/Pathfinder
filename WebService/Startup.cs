@@ -67,11 +67,12 @@ namespace WebService
 
             app.UseHttpsRedirection();
 
+            app.UseFileServer();
+
             app.UseRouting();
             
             app.UseAuthentication();
-            
-           
+        
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
