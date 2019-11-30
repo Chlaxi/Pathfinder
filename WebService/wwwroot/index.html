@@ -7,30 +7,8 @@
 </head>
 <body>
     <h1>Welcome to the frontpage of the Pathfinder project! </h1>
-    <p>
-        Please log in here
-
-        <form action="api/tokens" method="post">
-            <input name="Username" type="text" placeholder="Username" /><br />
-            <input name="Password" type="password" placeholder="Password" /> <br />
-            <input type="submit" value="Submit" />
-        </form>
-    </p>
-
-    <div class="spells">
-        <h1>Spells</h1>
-        <input data-bind="textInput: spellQuery" />
-        <ul data-bind="foreach: spells">
-            <li class="spellElement">
-                <div>
-                    <span data-bind="text: $data.name" style="font-weight: bold"></span>
-                    <p data-bind="text: $data.shortDescription"></p>
-                </div>
-                
-            </li>
-
-        </ul>
-    </div>
+    
+    <spell></spell>
 
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
 </body>

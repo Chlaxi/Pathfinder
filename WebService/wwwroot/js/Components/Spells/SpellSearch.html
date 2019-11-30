@@ -1,0 +1,14 @@
+﻿<div class="spells">
+    <h1>Spells</h1>
+    <input data-bind="textInput: spellQuery" />
+    <ul data-bind="foreach: spells">
+        <li class="spellElement">
+            <div>
+                <span data-bind="text: $data.name" style="font-weight: bold"></span>
+                <p data-bind="text: $data.shortDescription"></p>
+            </div>
+
+        </li>
+
+    </ul>
+</div>

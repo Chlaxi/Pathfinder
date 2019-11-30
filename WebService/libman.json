@@ -16,6 +16,13 @@
         "build/output/knockout-latest.debug.js",
         "build/output/knockout-latest.js"
       ]
+    },
+    {
+      "library": "requirejs-text@2.0.15",
+      "destination": "wwwroot/lib/requirejs-text/",
+      "files": [
+        "text.js"
+      ]
     }
   ]
 }
