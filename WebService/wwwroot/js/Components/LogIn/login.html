@@ -1,0 +1,26 @@
+﻿<div data-bind="ifnot: LoggedIn">
+    <p>
+        Please log in here
+        <div data-bind="if: LoginFailed">Wrong username or password</div>
+    </p>
+    
+    <form data-bind="submit: LoginHandler">
+        <input data-bind="value: loginUsername" type="text" placeholder="Username" /><br />
+        <input data-bind="value: loginPassword" type="password" placeholder="Password" /> <br />
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+<div data-bind="if: LoggedIn">
+    <button data-bind="click: Logout">Log out</button>
+    <button data-bind="click: GetPlayerInfo()">Get Player Info</button>
+    <ul data-bind="foreach: characters">
+        <li class="simpleCharacter">
+            <div>
+                <span data-bind="text: $data.name" style="font-weight: bold"></span>
+                <span data-bind="text: $data.race"></span><span data-bind="text: $data.classes"></span>
+                <p data-bind="text: $data.shortDescription"></p>
+            </div>
+
+        </li>
+    </ul>
+</div>

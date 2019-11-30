@@ -13,7 +13,7 @@ require.config({
 
 require(["knockout"], function (ko) {
 
-    ko.components.register('login', {
+    ko.components.register('login-comp', {
         viewModel: { require: "components/login/login" },
         template: { require: "text!components/login/login.html" }
     });
