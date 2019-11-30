@@ -6,6 +6,9 @@
         var loginUsername = ko.observable("Dummy");
         var loginPassword = ko.observable("tester123");
 
+        //TODO: Fix playername
+        var player = ko.observable("Unknown's");
+        var characters = ko.observableArray([]);
 
         var LoginHandler = async function (formElement) {
             var username = loginUsername();
@@ -37,16 +40,16 @@
             });
         };
 
-        var characters = ko.observableArray([]);
+       
 
-        var GetPlayerInfo = function (data) {
-            data = "";
+        var GetPlayerInfo = function (id) {
+            id = 2;
             console.log("Getting characters");
 
-            var result = ds.getPlayer(function (data) {
-                characters(data);
+            ds.getPlayer(id, function (data) {
+                characters(data.characters);
+                player(data.username);
             });
-            characters(result);
         };
 
         var Logout = function () {
@@ -61,6 +64,7 @@
             Logout,
             loginUsername,
             loginPassword,
+            player,
             characters,
             GetPlayerInfo
         };

@@ -13,12 +13,12 @@
 <div data-bind="if: LoggedIn">
     <button data-bind="click: Logout">Log out</button>
     <button data-bind="click: GetPlayerInfo()">Get Player Info</button>
+    <h1> <span data-bind="text: player"></span>'s Characters</h1>
     <ul data-bind="foreach: characters">
         <li class="simpleCharacter">
             <div>
-                <span data-bind="text: $data.name" style="font-weight: bold"></span>
-                <span data-bind="text: $data.race"></span><span data-bind="text: $data.classes"></span>
-                <p data-bind="text: $data.shortDescription"></p>
+                <a data-bind="attr: {href: $data.link}"> <div><h2 data-bind="text: $data.name" style="font-weight: bold"></h2>
+                <span data-bind="text: $data.race"></span> <span data-bind="text: $data.classes"></span></div></a>
             </div>
 
         </li>
