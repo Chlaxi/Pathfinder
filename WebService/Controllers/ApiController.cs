@@ -106,7 +106,7 @@ namespace WebService.Controllers
 
             var token = tokenHandler.WriteToken(securityToken);
 
-            return Ok(new { player.Username, token });
+            return Ok(new { player.Id, player.Username, token });
 
 
         }

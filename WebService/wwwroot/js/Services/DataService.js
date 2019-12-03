@@ -14,7 +14,7 @@
         const response = await fetch("api/tokens", options);
         if (response.status !== 200) {
             console.log(response.statusText);
-            callback(false);
+            callback(undefined);
             return;
         }
         const data = await response.json();
@@ -25,7 +25,7 @@
         options.headers.Authorization += token;
         console.log(options.headers.Authorization);
 
-        callback(true);
+        callback(data);
     }
 
 
@@ -41,6 +41,7 @@
         });
         console.log(response.status + " : " + response.statusText);
         if (response.status !== 200) {
+            callback(undefined);
             return;
         }
         var data = await response.json();

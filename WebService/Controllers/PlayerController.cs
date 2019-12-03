@@ -58,6 +58,7 @@ namespace WebService.Controllers
 
             PlayerDTO dto = new PlayerDTO()
             {
+                Id = player.Id,
                 Username = player.Username,
                 Characters = simpleCharacters
 
