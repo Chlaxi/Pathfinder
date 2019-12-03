@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(["app"], function (app) {
 
     var Login = async function (user, callback) {
         var options = {
@@ -21,7 +21,7 @@
         console.log('Success:', JSON.stringify(data));
         
         var token = await data.token;
-
+        app.token = "Bearer "+token;
         options.headers.Authorization += token;
         console.log(options.headers.Authorization);
 
@@ -36,7 +36,7 @@
         var response = await fetch(url, options = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '
+                'Authorization': app.token
             }
         });
         console.log(response.status + " : " + response.statusText);
