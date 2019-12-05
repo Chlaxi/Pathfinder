@@ -1,4 +1,4 @@
-﻿<div data-bind="ifnot: LoggedIn">
+﻿<div>
     <p>
         Please log in here
         <div data-bind="if: LoginFailed">Wrong username or password</div>
@@ -9,21 +9,4 @@
         <input data-bind="value: loginPassword" type="password" placeholder="Password" /> <br />
         <input type="submit" value="Submit" />
     </form>
-</div>
-<div data-bind="if: LoggedIn">
-    <button data-bind="click: Logout">Log out</button>
-    <div data-bind="using: GetPlayerInfo($root.CurrentPlayer().id)">
-        <h1><span data-bind="text: $root.CurrentPlayer().name"></span>'s Characters</h1>
-        <ul data-bind="foreach: $parent.characters">
-            <li class="simpleCharacter">
-                <div>
-              <!--      <a data-bind="attr: {href: $data.link}"> -->
-                    <div><h2 data-bind="text: $data.name" style="font-weight: bold"></h2>
-                    <span data-bind="text: $data.race"></span> <span data-bind="text: $data.classes"></span></div
-
-                </div>
-
-            </li>
-        </ul>
-    </div>
 </div>

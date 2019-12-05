@@ -7,7 +7,13 @@
 </head>
 <body>
     <h1>Welcome to the frontpage of the Pathfinder project! </h1>
-    <login-comp></login-comp>
+    <div   data-bind="ifnot: LoggedIn">
+        <login-comp></login-comp>
+    </div>
+    <div data-bind="if: LoggedIn">
+
+        <player-front></player-front>
+    </div>
 
     <spell></spell>
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
