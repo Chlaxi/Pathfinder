@@ -1,12 +1,10 @@
 ﻿<div>
-    <p>
-        Please log in here
-        <div data-bind="if: LoginFailed">Wrong username or password</div>
-    </p>
+    <h1>Log In</h1>
+    <p data-bind="text: LoginFailed"></p>
     
     <form data-bind="submit: LoginHandler">
-        <input data-bind="value: loginUsername" type="text" placeholder="Username" /><br />
-        <input data-bind="value: loginPassword" type="password" placeholder="Password" /> <br />
+        <input data-bind="value: loginUsername" type="text" placeholder="Username" required/><br />
+        <input data-bind="value: loginPassword" type="password" placeholder="Password" required/> <br />
         <input type="submit" value="Submit" />
     </form>
 </div>
