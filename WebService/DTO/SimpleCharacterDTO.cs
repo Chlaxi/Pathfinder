@@ -40,6 +40,6 @@ namespace WebService
        
         //Turn into class links
         public string Classes { get; set; }
-        private int Id { get; set; }
+        public int Id { get; set; }
     }
 }

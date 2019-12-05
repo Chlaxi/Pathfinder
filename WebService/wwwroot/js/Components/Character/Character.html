@@ -1,0 +1,195 @@
+﻿<main>
+    <div id="CharacterInfo">
+        <h1>Character Info</h1>
+        <input type="text" placeholder="Name" data-bind="value: characterName" />
+        <input type="text" placeholder="Alignment" />
+        <input type="text" placeholder="Class and level" />
+        <input type="text" placeholder="Deity" />
+        <input type="text" placeholder="Homeland" />
+        <input type="text" placeholder="Race" />
+        <input type="text" placeholder="hair" />
+        <input type="text" placeholder="eyes" />
+        <input type="text" placeholder="age" />
+        <input type="text" placeholder="weight" />
+        <input type="text" placeholder="height" />
+        <input type="text" placeholder="gender" />
+    </div>
+
+    <div id="Abilities">
+        <h1>Ability Scores</h1>
+        <div id="Strength">
+            <h2>Strength</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly/> =
+            <input type="text" placeholder="Base Score" data-bind="value:char_str_base"/> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly/>
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly/>
+        </div>
+        <div id="Dexterity">
+            <h2>Dexterity</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input type="text" placeholder="Base Score" /> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly />
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly />
+        </div>
+        <div id="Constitution">
+            <h2>Constitution</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input type="text" placeholder="Base Score" /> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly />
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly />
+        </div>
+        <div id="Intelligence">
+            <h2>Intelligence</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input type="text" placeholder="Base Score" /> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly />
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly />
+        </div>
+        <div id="Wisdom">
+            <h2>Wisdom</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input type="text" placeholder="Base Score" /> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly />
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly />
+        </div>
+        <div id="Charisma">
+            <h2>Charisma</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input type="text" placeholder="Base Score" /> +
+            <input class="readonly" type="text" placeholder="Base Mod" readonly />
+            <input type="text" placeholder="Temp Score" /> +
+            <input class="readonly" type="text" placeholder="Temp Mod" readonly />
+        </div>
+    </div>
+
+    <div id="Base">
+        <div id="HP">
+            <input type="text" placeholder="Current HP" />
+            <input type="text" placeholder="Max HP" />
+            <input type="text" placeholder="Non-Lethal" />
+        </div>
+        <div id="Initiative">
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input class="readonly" type="text" placeholder="Dex" readonly /> +
+            <input type="text" placeholder="misc" />
+        </div>
+    </div>
+
+    <div id="Defensive">
+        <h1>Defensive</h1>
+        <div>
+            <h2>Armour Class</h2>
+            <input class="readonly" type="text" placeholder="Total AC" readonly /> = 10 +
+            <input type="text" placeholder="Armour" /> +
+            <input type="text" placeholder="Shield" /> +
+            <input class="readonly" type="text" placeholder="Dex" readonly /> +
+            <input class="readonly" type="text" placeholder="Size" readonly /> +
+            <input type="text" placeholder="Natural" /> +
+            <input type="text" placeholder="Deflection" /> +
+            <input type="text" placeholder="Misc" />
+            <h2>Touch</h2>
+            <input class="readonly" type="text" placeholder="Total Touch" readonly />
+            <h2>Flat-Footed</h2>
+            <input class="readonly" type="text" placeholder="Total Flat-Footed" readonly />
+        </div>
+        <div>
+            <h1>Saves</h1>
+            <div id="Fortitude">
+                <h2>Foritude</h2>
+                <input class="readonly" type="text" placeholder="Total" readonly /> =
+                <input class="readonly" type="text" placeholder="Base" readonly /> +
+                <input class="readonly" type="text" placeholder="Ability" readonly /> +
+                <input type="text" placeholder="Magic" /> +
+                <input type="text" placeholder="Misc" />
+                <input type="text" placeholder="Temp" />
+            </div>
+            <div id="Reflex">
+                <h2>Reflex</h2>
+                <input class="readonly" type="text" placeholder="Total" readonly /> =
+                <input class="readonly" type="text" placeholder="Base" readonly /> +
+                <input class="readonly" type="text" placeholder="Ability" readonly /> +
+                <input type="text" placeholder="Magic" /> +
+                <input type="text" placeholder="Misc" />
+                <input type="text" placeholder="Temp" />
+            </div>
+            <div id="Will">
+                <h2>Will</h2>
+                <input class="readonly" type="text" placeholder="Total" readonly /> =
+                <input class="readonly" type="text" placeholder="Base" readonly /> +
+                <input class="readonly" type="text" placeholder="Ability" readonly /> +
+                <input type="text" placeholder="Magic" /> +
+                <input type="text" placeholder="Misc" />
+                <input type="text" placeholder="Temp" />
+            </div>
+        </div>
+        <div id="CMD">
+            <h2>Combat Maneuver Defence</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> = 10 +
+            <input class="readonly" type="text" placeholder="BaB" readonly /> +
+            <input class="readonly" type="text" placeholder="Str" readonly /> +
+            <input class="readonly" type="text" placeholder="Dex" readonly /> +
+            <input class="readonly" type="text" placeholder="Size" readonly /> +
+            <input type="text" placeholder="Misc" />
+
+        </div>
+    </div>
+
+    <div id="Offense">
+        <h1>Offense</h1>
+        <div id="Speed">
+            <h2>Speed</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> =
+            <input class="readonly" type="text" placeholder="Base" readonly /> +
+            <input type="text" placeholder="Modifier" />
+            <input type="text" placeholder="Fly" />
+            <input type="text" placeholder="Climb" />
+            <input type="text" placeholder="Burrow" />
+            <input type="text" placeholder="Swim" />
+            <input type="text" placeholder="Armour" />
+        </div>
+        <div id="BAB">
+            <h2>Base Attack Bonus</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly />
+            <input class="readonly" type="text" placeholder="Ranged" readonly />
+            <input class="readonly" type="text" placeholder="Melee" readonly />
+        </div>
+        <div id="CMB">
+            <h2>Combat Maneuver Bonus</h2>
+            <input class="readonly" type="text" placeholder="Total" readonly /> = 10 +
+            <input class="readonly" type="text" placeholder="BaB" readonly /> +
+            <input class="readonly" type="text" placeholder="Str" readonly /> +
+            <input class="readonly" type="text" placeholder="Size" readonly /> +
+            <input type="text" placeholder="Misc" />
+        </div>
+        <div id="Weapons">
+            <h2>Weapons</h2>
+            insert weapon component here
+        </div>
+    </div>
+
+    <div id="Feats">
+        <h1>Feats</h1>
+        insert feat component here
+    </div>
+
+    <div id="Specials">
+        <h1>Special Abilities</h1>
+        insert Special Ability component here
+    </div>
+    
+    <div id="Spells">
+        <h1>Spells</h1>
+        insert spell component here
+    </div>
+
+    <div id="Items">
+        insert item component here
+    </div>
+
+
+</main>

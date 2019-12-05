@@ -1,5 +1,9 @@
 ﻿define(["app"], function (app) {
 
+    var SetToken = function (token){
+        app.token = "Bearer " + token;
+    }
+
     var Login = async function (user, callback) {
         var options = {
             method: 'POST', // or 'PUT'
@@ -21,7 +25,7 @@
         console.log('Success:', JSON.stringify(data));
         
         var token = await data.token;
-        app.token = "Bearer "+token;
+        SetToken(token);
         options.headers.Authorization += token;
         console.log(options.headers.Authorization);
 
@@ -44,9 +48,9 @@
         }
         const data = await response.json();
         console.log("succes: New player created ", JSON.stringify(data));
-        app.token = "Bearer " + data.token;
+        SetToken(data.token);
         callback(data);
-        //TODO login with the new player
+
     };
 
     var getPlayer = async function (id, callback) {
@@ -80,10 +84,30 @@
         callback(data);
     };
 
+    var GetCharacter = async function(id, callback) {
+        console.log("Retriving character information with id " + id);
+        var url = "api/characters/" + id;
+        var response = await fetch(url, options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log(response.status + " : " + response.statusText);
+        if (response.status !== 200) {
+            callback(undefined);
+            return;
+        }
+        var data = await response.json();
+        console.log(data);
+        callback(data);
+    };
+
     return {
         Login,
         SignUp,
         getPlayer,
+        GetCharacter,
         spellSearch
     }
 });

@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>The Pathfinder Project</title>
-
+    <style>
+        /*Temporary style, to easily identify readonly fields in the character*/
+        .readonly{
+            background-color : #00aa00;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to the frontpage of the Pathfinder project! </h1>
@@ -14,6 +19,7 @@
     <div data-bind="if: LoggedIn">
 
         <player-front></player-front>
+        <character></character>
     </div>
 
     <spell></spell>

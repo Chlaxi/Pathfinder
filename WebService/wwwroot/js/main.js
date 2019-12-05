@@ -28,6 +28,11 @@ require(["knockout"], function (ko) {
         template: { require: "text!components/player/player.html" }
     });
 
+    ko.components.register('character', {
+        viewModel: { require: "components/character/character" },
+        template: { require: "text!components/character/character.html" }
+    });
+    
     ko.components.register('spell', {
         viewModel: { require: "components/spells/spellsearch" },
         template: { require: "text!components/spells/spellsearch.html" }
