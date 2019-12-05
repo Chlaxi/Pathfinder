@@ -1,0 +1,10 @@
+﻿<div>
+    <h1>Sign up</h1>
+    <p data-bind="text: SignUpFailed"></p>
+    <form data-bind="submit: SignUp">
+
+        <input data-bind="value: SignUpUsername" type="text" placeholder="Username" required /><br />
+        <input data-bind="value: SignUpPassword" type="password" placeholder="Password" required /><br />
+        <input type="submit" value="Submit" />
+    </form>
+</div>

@@ -28,6 +28,26 @@
         callback(data);
     }
 
+    var SignUp = async function (user, callback) {
+        var options = {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(user), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        const response = await fetch("api/signup", options);
+        if (response.status !== 201) {
+            console.log("Failed "+response.statusText);
+            callback(undefined);
+            return;
+        }
+        const data = await response.json();
+        console.log("succes: New player created ", JSON.stringify(data));
+        app.token = "Bearer " + data.token;
+        callback(data);
+        //TODO login with the new player
+    };
 
     var getPlayer = async function (id, callback) {
 
@@ -62,6 +82,7 @@
 
     return {
         Login,
+        SignUp,
         getPlayer,
         spellSearch
     }

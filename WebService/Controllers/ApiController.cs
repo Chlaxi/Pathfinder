@@ -58,7 +58,13 @@ namespace WebService.Controllers
             
             Player player = ds.CreatePlayer(newUser.Username, pwd, salt);
 
-            return CreatedAtRoute(null, "new user creaed with ID "+player.Id);
+            var newUserInfo = new
+            { id = player.Id,
+                name = player.Username,
+                password = newUser.Password,
+                token = GetToken(player.Id)
+        };
+            return CreatedAtRoute(null, newUserInfo);
         }
 
         [HttpPost("test/tokens")]
@@ -89,7 +95,17 @@ namespace WebService.Controllers
             {
                 return BadRequest("Wrong Password");
             }
- 
+
+
+            var token = GetToken(player.Id);
+
+            return Ok(new { player.Id, player.Username, token });
+
+
+        }
+
+        private string GetToken(int id)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(config["Auth:Key"]);
 
@@ -97,19 +113,18 @@ namespace WebService.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("PlayerId", player.Id.ToString()),
+                    new Claim("PlayerId", id.ToString()),
                 }),
-                Expires = DateTime.Now.AddSeconds(60), SigningCredentials = new SigningCredentials( new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.Now.AddSeconds(60),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var securityToken = tokenHandler.CreateToken(tokenDescription);
 
             var token = tokenHandler.WriteToken(securityToken);
-
-            return Ok(new { player.Id, player.Username, token });
-
-
+            return token;
         }
     }
     
+
 }
