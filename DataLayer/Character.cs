@@ -28,7 +28,7 @@ namespace DataLayer
             get
             {
                 int level = 0;
-                if (Class.Count > 0)
+                if (Class != null && Class.Count > 0)
                 {
                     
                     foreach(var l in Class)
@@ -44,7 +44,7 @@ namespace DataLayer
         public string Gender { get; set; }
         public string Age { get; set; }
 
-        public string Diety { get; set; }
+        public string Deity { get; set; }
         public string Homeland { get; set; }
         public string Height { get; set; }
         public string Weight { get; set; }
@@ -117,7 +117,9 @@ namespace DataLayer
         public int? Initiative {
             get
             {
-                int initiative = (Dexterity.Modifier == null) ? 0 : (int)Dexterity.Modifier;
+                int initiative = 0;
+                if (Dexterity!=null)
+                    initiative += (Dexterity.Modifier == null) ? 0 : (int)Dexterity.Modifier;
                 initiative += (InitiativeMiscModifier == null) ? 0 : (int)InitiativeMiscModifier;
 
                 return initiative;

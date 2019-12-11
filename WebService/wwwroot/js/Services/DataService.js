@@ -103,11 +103,35 @@
         callback(data);
     };
 
+    var UpdateCharacter = async function (id, character, callback) {
+        console.log("Updating character with id " + id);
+        var url = "api/characters/" + id;
+        var response = await fetch(url, options = {
+            method: 'PUT',
+            body : JSON.stringify(character),
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log(character);
+        console.log(response.status + " : " + response.statusText);
+        if (response.status !== 200) {
+            callback(undefined);
+            return;
+        }
+        var data = await response.json();
+        console.log(data);
+        callback(data);
+    };
+
     return {
         Login,
         SignUp,
         getPlayer,
         GetCharacter,
+        UpdateCharacter,
         spellSearch
     }
 });

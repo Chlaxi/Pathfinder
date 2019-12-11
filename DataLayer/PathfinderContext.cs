@@ -55,7 +55,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.RaceName).HasColumnName("race");
             modelBuilder.Entity<Character>().Ignore(m => m.Class);
             modelBuilder.Entity<Character>().Ignore(m => m.EffectiveLevel);
-            modelBuilder.Entity<Character>().Ignore(m => m.Diety);  //Add to DB
+            modelBuilder.Entity<Character>().Ignore(m => m.Deity);  //Add to DB
             modelBuilder.Entity<Character>().Ignore(m => m.Homeland);
             modelBuilder.Entity<Character>().Ignore(m => m.Feats);
             modelBuilder.Entity<Character>().Ignore(m => m.Spellbook);

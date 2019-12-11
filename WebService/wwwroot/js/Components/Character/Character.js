@@ -1,17 +1,25 @@
 ﻿define(["knockout", "app", "dataService"], function (ko, app, ds) {
     return function (params) {
-
+        var id = undefined;
         /*Subscribes to changes to the Current character in the application.
         When a chagne is made, we call the GetCharacter dunction, to get the information.*/
         app.CurrentCharacter.subscribe(function (data) {
             console.log(JSON.stringify(data));
             GetCharacter(data.id);
+            id = data.id;
         });
+
+        var setNull = function (value) {
+            if (value === -100 || value === null) {
+                return null
+            }
+            return Number(value);
+        };
 
         var name = ko.observable("");
         var age = ko.observable("");
         var alignment = ko.observable("");
-        var diety = ko.observable("");
+        var deity = ko.observable("");
         var hair = ko.observable("");
         var eyes = ko.observable("");
         var weight = ko.observable("");
@@ -25,13 +33,13 @@
         var str_base = ko.observable("");
         var str_temp = ko.observable("");
         var str_baseMod = ko.computed(function () {
-            if (str_base() == null || str_base() == "")
+            if (str_base() == null || str_base() == "" || str_base === -100)
                 return "";
 
             return Math.floor((str_base() - 10) / 2);
         });
         var str_tempMod = ko.computed(function () {
-            if (str_temp() == null || str_temp() == "")
+            if (str_temp() == null || str_temp() == "" || str_temp === -100)
                 return "";
             return Math.floor((str_temp() - 10) / 2);
         });
@@ -49,13 +57,13 @@
         var dex_base = ko.observable("");
         var dex_temp = ko.observable("");
         var dex_baseMod = ko.computed(function () {
-            if (dex_base() == null || dex_base() == "")
+            if (dex_base() == null || dex_base() == "" || dex_base === -100)
                 return "";
 
             return Math.floor((dex_base() - 10) / 2);
         });
         var dex_tempMod = ko.computed(function () {
-            if (dex_temp() == null || dex_temp() == "")
+            if (dex_temp() == null || dex_temp() == "" || dex_temp === -100)
                 return "";
             return Math.floor((dex_temp() - 10) / 2);
         });
@@ -73,13 +81,13 @@
         var con_base = ko.observable("");
         var con_temp = ko.observable("");
         var con_baseMod = ko.computed(function () {
-            if (con_base() == null || con_base() == "")
+            if (con_base() == null || con_base() == "" || con_base === -100)
                 return "";
 
             return Math.floor((con_base() - 10) / 2);
         });
         var con_tempMod = ko.computed(function () {
-            if (con_temp() == null || con_temp() == "")
+            if (con_temp() == null || con_temp() == "" || con_temp === -100)
                 return "";
             return Math.floor((con_temp() - 10) / 2);
         });
@@ -97,13 +105,13 @@
         var int_base = ko.observable("");
         var int_temp = ko.observable("");
         var int_baseMod = ko.computed(function () {
-            if (int_base() == null || int_base() == "")
+            if (int_base() == null || int_base() == "" || int_base === -100)
                 return "";
 
             return Math.floor((int_base() - 10) / 2);
         });
         var int_tempMod = ko.computed(function () {
-            if (int_temp() == null || int_temp() == "")
+            if (int_temp() == null || int_temp() == "" || int_temp === -100)
                 return "";
             return Math.floor((int_temp() - 10) / 2);
         });
@@ -121,13 +129,13 @@
         var wis_base = ko.observable("");
         var wis_temp = ko.observable("");
         var wis_baseMod = ko.computed(function () {
-            if (wis_base() == null || wis_base() == "")
+            if (wis_base() == null || wis_base() == "" || wis_base === -100)
                 return "";
 
             return Math.floor((wis_base() - 10) / 2);
         });
         var wis_tempMod = ko.computed(function () {
-            if (wis_temp() == null || wis_temp() == "")
+            if (wis_temp() == null || wis_temp() == "" || wis_temp === -100)
                 return "";
             return Math.floor((wis_temp() - 10) / 2);
         });
@@ -145,13 +153,13 @@
         var cha_base = ko.observable("");
         var cha_temp = ko.observable("");
         var cha_baseMod = ko.computed(function () {
-            if (cha_base() == null || cha_base() == "")
+            if (cha_base() == null || cha_base() == "" || cha_base === -100)
                 return "";
 
             return Math.floor((cha_base() - 10) / 2);
         });
         var cha_tempMod = ko.computed(function () {
-            if (cha_temp() == null || cha_temp() == "")
+            if (cha_temp() == null || cha_temp() == "" || cha_temp === -100)
                 return "";
             return Math.floor((cha_temp() - 10) / 2);
         });
@@ -286,7 +294,7 @@
             name(character.name); //Do this to all fields
             age(character.age);
             alignment(character.alignment); //From int to enum
-            diety(character.diety);
+            deity(character.deity);
             hair(character.hair);
             eyes(character.eyes);
             weight(character.weight);
@@ -298,23 +306,23 @@
             _class(GetClass(character.class));
 
         //Abilities
-            str_base(character.strength.baseScore);
-            str_temp(character.strength.tempScore);
+            str_base(setNull(character.strength.baseScore));
+            str_temp(setNull(character.strength.tempScore));
 
-            dex_base(character.dexterity.baseScore);
-            dex_temp(character.dexterity.tempScore);
+            dex_base(setNull(character.dexterity.baseScore));
+            dex_temp(setNull(character.dexterity.tempScore));
 
-            con_base(character.constitution.baseScore);
-            con_temp(character.constitution.tempScore);
+            con_base(setNull(character.constitution.baseScore));
+            con_temp(setNull(character.constitution.tempScore));
 
-            int_base(character.intelligence.baseScore);
-            int_temp(character.intelligence.tempScore);
+            int_base(setNull(character.intelligence.baseScore));
+            int_temp(setNull(character.intelligence.tempScore));
 
-            wis_base(character.wisdom.baseScore);
-            wis_temp(character.wisdom.tempScore);
+            wis_base(setNull(character.wisdom.baseScore));
+            wis_temp(setNull(character.wisdom.tempScore));
 
-            cha_base(character.charisma.baseScore);
-            cha_temp(character.charisma.tempScore);
+            cha_base(setNull(character.charisma.baseScore));
+            cha_temp(setNull(character.charisma.tempScore));
 
             bab(classInfo.bab);
 
@@ -412,8 +420,67 @@
             return classInfo;
         }
 
+        var SaveChanges = async function () {
+            console.log("Current character is: " + id);
+            var character = {
+                Name: name(),
+                Gender: gender(),
+
+                Age: age(),
+                Hair: hair(),
+                Eyes: eyes(),
+                Homeland: homeland(),
+                Deity: deity(),
+                //                Alignment: alignment(),
+                Weight: weight(),
+                Height: height(),
+                //Race: race(),
+                //Class: _class(),
+                Strength: {
+                    BaseScore: checkNull(str_base()),
+                    TempScore: checkNull(str_temp()),
+                },
+                Dexterity: {
+                    BaseScore: checkNull(dex_base()),
+                    TempScore: checkNull(dex_temp()),
+                },
+                Constitution: {
+                    BaseScore: checkNull(con_base()),
+                    TempScore: checkNull(con_temp()),
+                },
+                Intelligence: {
+                    BaseScore: checkNull(int_base()),
+                    TempScore: checkNull(int_temp()),
+                },
+                Wisdom: {
+                    BaseScore: checkNull(wis_base()),
+                    TempScore: checkNull(wis_temp()),
+                },
+                Charisma: {
+                    BaseScore: checkNull(cha_base()),
+                    TempScore: checkNull(cha_temp()),
+                }
+
+
+                
+            };
+
+            await ds.UpdateCharacter(id, character, function (result) {
+            });
+        }
+
+        var checkNull = function (value) {
+            if (value === "" || value === null) {
+                value = -100;
+                console.log("Set " + value + " to null");
+            }
+            return Number(value);
+        };
+
+       
+
         return {
-            name, age, alignment, diety, hair, eyes, weight, height, gender, homeland,
+            name, age, alignment, deity, hair, eyes, weight, height, gender, homeland,
             race, _class,
             GetCharacter,
             str_base, str_temp, str_baseMod, str_tempMod, str_total,
@@ -432,7 +499,8 @@
             will_base, will_magic, will_misc, will_total, will_temp, will_note,
             speed_base, speed_mod, speed_total, speed_armour_total, speed_racial,
             speed_fly, speed_burrow, speed_climb, speed_swim,
-            cmd_total, cmd_misc, cmb_total, cmb_misc
+            cmd_total, cmd_misc, cmb_total, cmb_misc,
+            SaveChanges, checkNull
         }
     };
 });

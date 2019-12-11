@@ -43,6 +43,45 @@ namespace WebService.Controllers
             return character;
         }
 
+        [HttpPut("{characterid}")]
+        public ActionResult<Character> UpdateCharacter(int characterid, [FromBody] CharacterUpdateDTO update)
+        {
+            Character character = GetCharacter(characterid).Value;
+
+            if (character == null) return NotFound("No Character with this id");
+            //string JSONChar = JsonConvert.SerializeObject(character);
+
+            update.Strength = new AbilityDTO(update.Strength.BaseScore, update.Strength.TempScore);
+            update.Dexterity = new AbilityDTO(update.Dexterity.BaseScore, update.Dexterity.TempScore);
+            update.Constitution = new AbilityDTO(update.Constitution.BaseScore, update.Constitution.TempScore);
+            update.Intelligence = new AbilityDTO(update.Intelligence.BaseScore, update.Intelligence.TempScore);
+            update.Wisdom = new AbilityDTO(update.Wisdom.BaseScore, update.Wisdom.TempScore);
+            update.Charisma = new AbilityDTO(update.Charisma.BaseScore, update.Charisma.TempScore);
+            var _character = new Character()
+            {
+                Name = update.Name,
+                Alignment = update.Alignment,
+                Gender = update.Gender,
+                Age = update.Age,
+                Deity = update.Deity,
+                Homeland = update.Homeland,
+                Height = update.Height,
+                Weight = update.Weight,
+                Hair = update.Hair,
+                Eyes = update.Eyes,
+                Experience = update.Experience,
+
+                Strength = new Ability(update.Strength.BaseScore,update.Strength.TempScore,update.Strength.RacialModifier),
+                Dexterity = new Ability(update.Dexterity.BaseScore, update.Dexterity.TempScore, update.Dexterity.RacialModifier),
+                Constitution = new Ability(update.Constitution.BaseScore, update.Constitution.TempScore, update.Constitution.RacialModifier),
+                Intelligence = new Ability(update.Intelligence.BaseScore, update.Intelligence.TempScore, update.Intelligence.RacialModifier),
+                Wisdom = new Ability(update.Wisdom.BaseScore, update.Wisdom.TempScore, update.Wisdom.RacialModifier),
+                Charisma = new Ability(update.Charisma.BaseScore, update.Charisma.TempScore, update.Charisma.RacialModifier)
+            };
+            ds.UpdateCharacter(characterid, _character);
+            return Ok(update);
+        }
+
         [HttpGet("{characterid}/spells", Name = nameof(GetSpellbook))]
         public ActionResult GetSpellbook(int characterid)
         {

@@ -115,7 +115,7 @@ namespace WebService.Controllers
                 {
                     new Claim("PlayerId", id.ToString()),
                 }),
-                Expires = DateTime.Now.AddSeconds(60),
+                Expires = DateTime.Now.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

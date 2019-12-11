@@ -137,6 +137,58 @@ namespace DataLayer.DataService
             return character;
         }
 
+        public Character UpdateCharacter(int id, Character update)
+        {
+            using var db = new PathfinderContext();
+            Character character = db.Characters.Find(id);
+            if (character == null) return null;
+
+            Character _character = GetCharacter(id);
+            
+
+            /*TODO: Change relevant fields here
+            Has to be done by changing individual fields.
+             */
+            character.Name = update.Name;
+            character.Alignment = update.Alignment;
+            character.Gender = update.Gender;
+            character.Age = update.Age;
+            character.Deity = update.Deity;
+            character.Homeland = update.Homeland;
+            character.Height = update.Height;
+            character.Weight = update.Weight;
+            character.Hair = update.Hair;
+            character.Eyes = update.Eyes;
+            character.Experience = update.Experience;
+
+            character.Strength.BaseScore = update.Strength.BaseScore;
+            character.Strength.TempScore = update.Strength.TempScore;
+            character.Strength.RacialModifier = update.Strength.RacialModifier;
+
+            character.Dexterity.BaseScore = update.Dexterity.BaseScore;
+            character.Dexterity.TempScore = update.Dexterity.TempScore;
+            character.Dexterity.RacialModifier = update.Dexterity.RacialModifier;
+
+            character.Constitution.BaseScore = update.Constitution.BaseScore;
+            character.Constitution.TempScore = update.Constitution.TempScore;
+            character.Constitution.RacialModifier = update.Constitution.RacialModifier;
+
+            character.Intelligence.BaseScore = update.Intelligence.BaseScore;
+            character.Intelligence.TempScore = update.Intelligence.TempScore;
+            character.Intelligence.RacialModifier = update.Intelligence.RacialModifier;
+
+            character.Wisdom.BaseScore = update.Wisdom.BaseScore;
+            character.Wisdom.TempScore = update.Wisdom.TempScore;
+            character.Wisdom.RacialModifier = update.Wisdom.RacialModifier;
+
+            character.Charisma.BaseScore = update.Charisma.BaseScore;
+            character.Charisma.TempScore = update.Charisma.TempScore;
+            character.Charisma.RacialModifier = update.Charisma.RacialModifier;
+
+            db.SaveChanges();
+            return character;
+        }
+
         public List<Character> GetCharactersByPlayer(int playerId)
         {
             Console.WriteLine("------------\n Getting characters from player");

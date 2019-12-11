@@ -1,182 +1,190 @@
 ﻿<main>
-    <div id="CharacterInfo">
-        <h1>Character Info</h1>
-        <input type="text" placeholder="Name" data-bind="value: name" />
-        <input type="text" placeholder="Alignment" data-bind="value: alignment"/>
-        <input type="text" placeholder="Class and level" data-bind="value: _class"/>
-        <input type="text" placeholder="Deity" data-bind="value: diety"/>
-        <input type="text" placeholder="Homeland" data-bind="value: homeland"/>
-        <input type="text" placeholder="Race" data-bind="value: race"/>
-        <input type="text" placeholder="hair" data-bind="value: hair"/>
-        <input type="text" placeholder="eyes" data-bind="value: eyes"/>
-        <input type="text" placeholder="age" data-bind="value: age"/>
-        <input type="text" placeholder="weight" data-bind="value: weight"/>
-        <input type="text" placeholder="height" data-bind="value: height"/>
-        <input type="text" placeholder="gender" data-bind="value: gender"/>
-    </div>
+    <form data-bind="submit: SaveChanges">
 
-    <div id="Abilities">
-        <h1>Ability Scores</h1>
-        <div id="Strength">
-            <h2>Strength</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: str_total" readonly/> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: str_base"/> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: str_baseMod" readonly/>
-            <input type="text" placeholder="Temp Score" data-bind="textInput: str_temp"/> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: str_tempMod" readonly/>
-        </div>
-        <div id="Dexterity">
-            <h2>Dexterity</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly /> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: dex_base" /> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: dex_baseMod" readonly />
-            <input type="text" placeholder="Temp Score" data-bind="textInput: dex_temp" /> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: dex_tempMod" readonly />
-        </div>
-        <div id="Constitution">
-            <h2>Constitution</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: con_total" readonly /> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: con_base" /> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: con_baseMod" readonly />
-            <input type="text" placeholder="Temp Score" data-bind="textInput: con_temp" /> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: con_tempMod" readonly />
-        </div>
-        <div id="Intelligence">
-            <h2>Intelligence</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: int_total" readonly /> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: int_base" /> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: int_baseMod" readonly />
-            <input type="text" placeholder="Temp Score" data-bind="textInput: int_temp" /> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: int_tempMod" readonly />
-        </div>
-        <div id="Wisdom">
-            <h2>Wisdom</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: wis_total" readonly /> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: wis_base" /> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: wis_baseMod" readonly />
-            <input type="text" placeholder="Temp Score" data-bind="textInput: wis_temp" /> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: wis_tempMod" readonly />
-        </div>
-        <div id="Charisma">
-            <h2>Charisma</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: cha_total" readonly /> =
-            <input type="text" placeholder="Base Score" data-bind="textInput: cha_base" /> +
-            <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: cha_baseMod" readonly />
-            <input type="text" placeholder="Temp Score" data-bind="textInput: cha_temp" /> +
-            <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: cha_tempMod" readonly />
-        </div>
-    </div>
 
-    <div id="Base">
-        <div id="HP">
-            <h2>Hit Points</h2>
-            <input type="text" placeholder="Current HP" data-bind="textInput: hp_current"/>
-            <input type="text" placeholder="Max HP" data-bind="textInput: hp_total"/>
-            <input type="text" placeholder="Non-Lethal" data-bind="textInput: hp_non_lethal"/>
-            <textarea placeholder="Wounds" data-bind="textInput: hp_wounds"></textarea>
+        <div id="CharacterInfo">
+            <h1>Character Info</h1>
+            <input type="text" placeholder="Name" data-bind="value: name" />
+            <input type="text" placeholder="Alignment" data-bind="value: alignment" />
+            <input type="text" placeholder="Class and level" data-bind="value: _class" />
+            <input type="text" placeholder="Deity" data-bind="value: deity" />
+            <input type="text" placeholder="Homeland" data-bind="value: homeland" />
+            <input type="text" placeholder="Race" data-bind="value: race" />
+            <input type="text" placeholder="hair" data-bind="value: hair" />
+            <input type="text" placeholder="eyes" data-bind="value: eyes" />
+            <input type="text" placeholder="age" data-bind="value: age" />
+            <input type="text" placeholder="weight" data-bind="value: weight" />
+            <input type="text" placeholder="height" data-bind="value: height" />
+            <input type="text" placeholder="gender" data-bind="value: gender" />
         </div>
-        <div id="Initiative">
-            <h2>Initiative</h2>
-            <input class="readonly" type="text" placeholder="Total" readonly data-bind="value: initiative"/> =
-            <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total"readonly /> +
-            <input type="text" placeholder="misc" data-bind="textInput: initiative_misc"/>
-        </div>
-    </div>
 
-    <div id="Defensive">
-        <h1>Defensive</h1>
-        <div>
-            <h2>Armour Class</h2>
-            <input class="readonly" type="text" placeholder="Total AC" data-bind="value: ac_total" readonly /> = 10 +
-            <input type="text" placeholder="Armour" data-bind="textInput: ac_armour"/> +
-            <input type="text" placeholder="Shield" data-bind="textInput: ac_shield"/> +
-            <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
-            <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-            <input type="text" placeholder="Natural" data-bind="textInput: ac_natural"/> +
-            <input type="text" placeholder="Deflection" data-bind="textInput: ac_deflection"/> +
-            <input type="text" placeholder="Misc" data-bind="textInput: ac_misc"/>
-            <h2>Touch</h2>
-            <input class="readonly" type="text" placeholder="Total Touch" data-bind="value: ac_touch_total" readonly />
-            <h2>Flat-Footed</h2>
-            <input class="readonly" type="text" placeholder="Total Flat-Footed" data-bind="value: ac_ff_total" readonly />
-        </div>
-        <div>
-            <h1>Saves</h1>
-            <div id="Fortitude">
-                <h2>Foritude</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: fort_total" readonly /> =
-                <input class="readonly" type="text" placeholder="Base" data-bind="value: fort_base" readonly /> +
-                <input class="readonly" type="text" placeholder="Ability" data-bind="value: con_total" readonly /> +
-                <input type="text" placeholder="Magic" data-bind="textInput: fort_magic" /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: fort_misc" />
-                <input type="text" placeholder="Temp" data-bind="textInput: fort_temp"/>
-                <textarea placeholder="Note" data-bind="text: fort_note"></textarea>
+        <div id="Abilities">
+            <h1>Ability Scores</h1>
+            <div id="Strength">
+                <h2>Strength</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: str_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: str_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: str_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: str_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: str_tempMod" readonly />
             </div>
-            <div id="Reflex">
-                <h2>Reflex</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: ref_total" readonly /> =
-                <input class="readonly" type="text" placeholder="Base" data-bind="value: ref_base" readonly /> +
-                <input class="readonly" type="text" placeholder="Ability" data-bind="value: dex_total" readonly /> +
-                <input type="text" placeholder="Magic" data-bind="textInput: ref_magic" /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: ref_misc" />
-                <input type="text" placeholder="Temp" data-bind="textInput: ref_temp" />
-                <textarea placeholder="Note" data-bind="text: ref_note"></textarea>
+            <div id="Dexterity">
+                <h2>Dexterity</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: dex_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: dex_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: dex_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: dex_tempMod" readonly />
             </div>
-            <div id="Will">
-                <h2>Will</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: will_total" readonly /> =
-                <input class="readonly" type="text" placeholder="Base" data-bind="value: will_base" readonly /> +
-                <input class="readonly" type="text" placeholder="Ability" data-bind="value: wis_total" readonly /> +
-                <input type="text" placeholder="Magic" data-bind="textInput: will_magic" /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: will_misc" />
-                <input type="text" placeholder="Temp" data-bind="textInput: will_temp" />
-                <textarea placeholder="Note" data-bind="text: will_note"></textarea>
+            <div id="Constitution">
+                <h2>Constitution</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: con_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: con_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: con_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: con_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: con_tempMod" readonly />
+            </div>
+            <div id="Intelligence">
+                <h2>Intelligence</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: int_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: int_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: int_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: int_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: int_tempMod" readonly />
+            </div>
+            <div id="Wisdom">
+                <h2>Wisdom</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: wis_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: wis_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: wis_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: wis_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: wis_tempMod" readonly />
+            </div>
+            <div id="Charisma">
+                <h2>Charisma</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: cha_total" readonly /> =
+                <input type="text" placeholder="Base Score" data-bind="textInput: cha_base" /> +
+                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: cha_baseMod" readonly />
+                <input type="text" placeholder="Temp Score" data-bind="textInput: cha_temp" /> +
+                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: cha_tempMod" readonly />
             </div>
         </div>
-        <div id="CMD">
-            <h2>Combat Maneuver Defence</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: cmd_total" readonly /> = 10 +
-            <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
-            <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
-            <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
-            <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-            <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
+
+        <div id="Base">
+            <div id="HP">
+                <h2>Hit Points</h2>
+                <input type="text" placeholder="Current HP" data-bind="textInput: hp_current" />
+                <input type="text" placeholder="Max HP" data-bind="textInput: hp_total" />
+                <input type="text" placeholder="Non-Lethal" data-bind="textInput: hp_non_lethal" />
+                <textarea placeholder="Wounds" data-bind="textInput: hp_wounds"></textarea>
+            </div>
+            <div id="Initiative">
+                <h2>Initiative</h2>
+                <input class="readonly" type="text" placeholder="Total" readonly data-bind="value: initiative" /> =
+                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
+                <input type="text" placeholder="misc" data-bind="textInput: initiative_misc" />
+            </div>
+        </div>
+
+        <div id="Defensive">
+            <h1>Defensive</h1>
+            <div>
+                <h2>Armour Class</h2>
+                <input class="readonly" type="text" placeholder="Total AC" data-bind="value: ac_total" readonly /> = 10 +
+                <input type="text" placeholder="Armour" data-bind="textInput: ac_armour" /> +
+                <input type="text" placeholder="Shield" data-bind="textInput: ac_shield" /> +
+                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
+                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
+                <input type="text" placeholder="Natural" data-bind="textInput: ac_natural" /> +
+                <input type="text" placeholder="Deflection" data-bind="textInput: ac_deflection" /> +
+                <input type="text" placeholder="Misc" data-bind="textInput: ac_misc" />
+                <h2>Touch</h2>
+                <input class="readonly" type="text" placeholder="Total Touch" data-bind="value: ac_touch_total" readonly />
+                <h2>Flat-Footed</h2>
+                <input class="readonly" type="text" placeholder="Total Flat-Footed" data-bind="value: ac_ff_total" readonly />
+            </div>
+            <div>
+                <h1>Saves</h1>
+                <div id="Fortitude">
+                    <h2>Foritude</h2>
+                    <input class="readonly" type="text" placeholder="Total" data-bind="value: fort_total" readonly /> =
+                    <input class="readonly" type="text" placeholder="Base" data-bind="value: fort_base" readonly /> +
+                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: con_total" readonly /> +
+                    <input type="text" placeholder="Magic" data-bind="textInput: fort_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="textInput: fort_misc" />
+                    <input type="text" placeholder="Temp" data-bind="textInput: fort_temp" />
+                    <textarea placeholder="Note" data-bind="text: fort_note"></textarea>
+                </div>
+                <div id="Reflex">
+                    <h2>Reflex</h2>
+                    <input class="readonly" type="text" placeholder="Total" data-bind="value: ref_total" readonly /> =
+                    <input class="readonly" type="text" placeholder="Base" data-bind="value: ref_base" readonly /> +
+                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: dex_total" readonly /> +
+                    <input type="text" placeholder="Magic" data-bind="textInput: ref_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="textInput: ref_misc" />
+                    <input type="text" placeholder="Temp" data-bind="textInput: ref_temp" />
+                    <textarea placeholder="Note" data-bind="text: ref_note"></textarea>
+                </div>
+                <div id="Will">
+                    <h2>Will</h2>
+                    <input class="readonly" type="text" placeholder="Total" data-bind="value: will_total" readonly /> =
+                    <input class="readonly" type="text" placeholder="Base" data-bind="value: will_base" readonly /> +
+                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: wis_total" readonly /> +
+                    <input type="text" placeholder="Magic" data-bind="textInput: will_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="textInput: will_misc" />
+                    <input type="text" placeholder="Temp" data-bind="textInput: will_temp" />
+                    <textarea placeholder="Note" data-bind="text: will_note"></textarea>
+                </div>
+            </div>
+            <div id="CMD">
+                <h2>Combat Maneuver Defence</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: cmd_total" readonly /> = 10 +
+                <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
+                <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
+                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
+                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
+                <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
+
+            </div>
+        </div>
+
+        <div id="Offense">
+            <h1>Offense</h1>
+            <div id="Speed">
+                <h2>Speed</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: speed_total" readonly /> =
+                <input class="readonly" type="text" placeholder="Base" data-bind="value: speed_base" readonly /> +
+                <input type="text" placeholder="Modifier" data-bind="textInput: speed_mod" />
+                <input type="text" placeholder="Fly" data-bind="textInput: speed_fly" />
+                <input type="text" placeholder="Climb" data-bind="textInput: speed_climb" />
+                <input type="text" placeholder="Burrow" data-bind="textInput: speed_burrow" />
+                <input type="text" placeholder="Swim" data-bind="textInput: speed_swim" />
+                <input type="text" placeholder="Armour" data-bind="textInput: speed_armour_total" />
+            </div>
+            <div id="BAB">
+                <h2>Base Attack Bonus</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: bab" readonly />
+                <input class="readonly" type="text" placeholder="Ranged" readonly />
+                <input class="readonly" type="text" placeholder="Melee" readonly />
+            </div>
+            <div id="CMB">
+                <h2>Combat Maneuver Bonus</h2>
+                <input class="readonly" type="text" placeholder="Total" data-bind="value: cmb_total" readonly /> =
+                <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
+                <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
+                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
+                <input type="text" placeholder="Misc" data-bind="textInput: cmb_misc" />
+            </div>
 
         </div>
+        <input type="submit" value="Save changes" />
+    </form>
+
+    <div id="Weapons">
+        <h2>Weapons</h2>
+        insert weapon component here
     </div>
 
-    <div id="Offense">
-        <h1>Offense</h1>
-        <div id="Speed">
-            <h2>Speed</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: speed_total" readonly /> =
-            <input class="readonly" type="text" placeholder="Base" data-bind="value: speed_base" readonly/> +
-            <input type="text" placeholder="Modifier" data-bind="textInput: speed_mod"/>
-            <input type="text" placeholder="Fly" data-bind="textInput: speed_fly"/>
-            <input type="text" placeholder="Climb" data-bind="textInput: speed_climb"/>
-            <input type="text" placeholder="Burrow" data-bind="textInput: speed_burrow"/>
-            <input type="text" placeholder="Swim" data-bind="textInput: speed_swim"/>
-            <input type="text" placeholder="Armour" data-bind="textInput: speed_armour_total"/>
-        </div>
-        <div id="BAB">
-            <h2>Base Attack Bonus</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: bab" readonly />
-            <input class="readonly" type="text" placeholder="Ranged" readonly />
-            <input class="readonly" type="text" placeholder="Melee" readonly />
-        </div>
-        <div id="CMB">
-            <h2>Combat Maneuver Bonus</h2>
-            <input class="readonly" type="text" placeholder="Total" data-bind="value: cmb_total" readonly /> =
-            <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
-            <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
-            <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-            <input type="text" placeholder="Misc" data-bind="textInput: cmb_misc" />
-        </div>
-        <div id="Weapons">
-            <h2>Weapons</h2>
-            insert weapon component here
-        </div>
-    </div>
 
     <div id="Feats">
         <h1>Feats</h1>
@@ -187,7 +195,7 @@
         <h1>Special Abilities</h1>
         insert Special Ability component here
     </div>
-    
+
     <div id="Spells">
         <h1>Spells</h1>
         insert spell component here
