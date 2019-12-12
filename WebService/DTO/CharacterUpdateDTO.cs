@@ -22,13 +22,14 @@ namespace WebService
         public string Hair { get; set; }
         public string Eyes { get; set; }
         public string Experience { get; set; }
+        public int? InitiativeMisc { get; set; }
         public AbilityDTO Strength { get; set; }
         public AbilityDTO Dexterity { get; set; }
         public AbilityDTO Constitution { get; set; }
         public AbilityDTO Intelligence { get; set; }
         public AbilityDTO Wisdom { get; set; }
         public AbilityDTO Charisma { get; set; }
-
+        public HealthDTO HitPoints { get; set; }
     }
 
     public class AbilityDTO
@@ -38,28 +39,38 @@ namespace WebService
         {
             BaseScore = (baseScore == null) ? -100 : baseScore;
             TempScore = (tempScore == null) ? -100 : tempScore;
-     //       RacialModifier = (racialScore == null) ? -100 : racialScore;
-            
+            //       RacialModifier = (racialScore == null) ? -100 : racialScore;
+
 
         }
-        public int? BaseScore
-        {
-            get
-            {
-                return baseScore;
-            }
-            set
-            {
-                if (value.Equals("")) {
-                    Console.WriteLine("--------The ability DTO had a null value");
-                    value = null; }
-                baseScore = (value == null) ? -100 : value;
-            }
-        }
-
-        private int? baseScore;
+        public int? BaseScore { get; set; }
         public int? TempScore { get; set; }
-        private int? tempScore = 0;
         public int? RacialModifier { get; set; }
     }
+
+    public class HealthDTO
+    {
+        private HealthDTO() { }
+
+        public HealthDTO(int? CurrentHP, int? MaxHP, int? NonLethal, string Wounds) : this()
+        {
+            CurrentHitPoints = (CurrentHP == null) ? -100 : CurrentHP;
+            MaxHitPoints = (MaxHP== null) ? -100 : MaxHP;
+            NonLethalDamage = (NonLethal == null) ? -100 : NonLethal;
+            this.Wounds = Wounds;
+        }
+
+        public int? CurrentHitPoints { get; set; }
+        public int? MaxHitPoints { get; set; }
+        public int? NonLethalDamage { get; set; }
+        public string Wounds { get; set; }
+    }
+    public class SaveDTO
+    {
+        public int? Magic { get; set; }
+        public int? Misc { get; set; }
+        public int? Temp { get; set; }
+        public string Note { get; set; }
+    }
 }
+

@@ -547,8 +547,10 @@ namespace DataLayer
 
     public class HitPoints
     {
-        private HitPoints(int? CurrentHitPoints, int? MaxHitPoints, int? NonLethalDamage, string Wounds)
+        public HitPoints() { }
+        public HitPoints(int? CurrentHitPoints, int? MaxHitPoints, int? NonLethalDamage, string Wounds) : this()
         {
+            
            this.CurrentHitPoints = CurrentHitPoints;
            this.MaxHitPoints = MaxHitPoints;
            this.NonLethalDamage = NonLethalDamage;

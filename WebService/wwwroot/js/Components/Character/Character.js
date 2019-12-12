@@ -327,11 +327,11 @@
             bab(classInfo.bab);
 
             //initiative(character.initiative);
-            initiative_misc(character.initiativeMiscModifier);
+            initiative_misc(setNull(character.initiativeMiscModifier));
 
-            hp_current(character.hitPoints.currentHitPoints);
-            hp_total(character.hitPoints.maxHitPoints);
-            hp_non_lethal(character.hitPoints.non_lethal);
+            hp_current(setNull(character.hitPoints.currentHitPoints));
+            hp_total(setNull(character.hitPoints.maxHitPoints));
+            hp_non_lethal(setNull(character.hitPoints.nonLethalDamage));
             hp_wounds(character.hitPoints.wounds);
 
             size_defensive(character.ac.size);
@@ -459,18 +459,27 @@
                 Charisma: {
                     BaseScore: checkNull(cha_base()),
                     TempScore: checkNull(cha_temp()),
-                }
+                },
 
+                InitiativeMisc: checkNull(initiative_misc()),
+
+                HitPoints: {
+                    CurrentHitPoints: checkNull(hp_current()),
+                    MaxHitPoints: checkNull(hp_total()),
+                    NonLethalDamage: checkNull(hp_non_lethal()),
+                    Wounds: hp_wounds(),
+                }
 
                 
             };
 
             await ds.UpdateCharacter(id, character, function (result) {
+                console.log(result.status);
             });
         }
 
         var checkNull = function (value) {
-            if (value === "" || value === null) {
+            if (value === "" || typeof (value) !== "number") {
                 value = -100;
                 console.log("Set " + value + " to null");
             }

@@ -97,6 +97,7 @@ namespace DataLayer.DataService
             character.Charisma = new Ability(character.Charisma, race);
 
             character.AC = new Character.ArmourClass(character.AC, character);
+
             character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
             character.Reflex = new Character.Save(character.Reflex, character.Dexterity);
             character.Will = new Character.Save(character.Will, character.Wisdom);
@@ -185,6 +186,15 @@ namespace DataLayer.DataService
             character.Charisma.TempScore = update.Charisma.TempScore;
             character.Charisma.RacialModifier = update.Charisma.RacialModifier;
 
+            character.InitiativeMiscModifier = update.InitiativeMiscModifier;
+
+            character.HitPoints = new HitPoints(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints, update.HitPoints.NonLethalDamage, update.HitPoints.Wounds);
+            character.HitPoints.CurrentHitPoints = update.HitPoints.CurrentHitPoints;
+            character.HitPoints.MaxHitPoints = update.HitPoints.MaxHitPoints;
+            character.HitPoints.NonLethalDamage = update.HitPoints.NonLethalDamage;
+            character.HitPoints.Wounds = update.HitPoints.Wounds;
+            
+            
             db.SaveChanges();
             return character;
         }

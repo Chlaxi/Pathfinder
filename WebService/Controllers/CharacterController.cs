@@ -57,6 +57,9 @@ namespace WebService.Controllers
             update.Intelligence = new AbilityDTO(update.Intelligence.BaseScore, update.Intelligence.TempScore);
             update.Wisdom = new AbilityDTO(update.Wisdom.BaseScore, update.Wisdom.TempScore);
             update.Charisma = new AbilityDTO(update.Charisma.BaseScore, update.Charisma.TempScore);
+            update.HitPoints = new HealthDTO(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints, update.HitPoints.NonLethalDamage, update.HitPoints.Wounds);
+      
+            Console.WriteLine(update.ToString());
             var _character = new Character()
             {
                 Name = update.Name,
@@ -71,12 +74,18 @@ namespace WebService.Controllers
                 Eyes = update.Eyes,
                 Experience = update.Experience,
 
+                InitiativeMiscModifier = update.InitiativeMisc,
+
                 Strength = new Ability(update.Strength.BaseScore,update.Strength.TempScore,update.Strength.RacialModifier),
                 Dexterity = new Ability(update.Dexterity.BaseScore, update.Dexterity.TempScore, update.Dexterity.RacialModifier),
                 Constitution = new Ability(update.Constitution.BaseScore, update.Constitution.TempScore, update.Constitution.RacialModifier),
                 Intelligence = new Ability(update.Intelligence.BaseScore, update.Intelligence.TempScore, update.Intelligence.RacialModifier),
                 Wisdom = new Ability(update.Wisdom.BaseScore, update.Wisdom.TempScore, update.Wisdom.RacialModifier),
-                Charisma = new Ability(update.Charisma.BaseScore, update.Charisma.TempScore, update.Charisma.RacialModifier)
+                Charisma = new Ability(update.Charisma.BaseScore, update.Charisma.TempScore, update.Charisma.RacialModifier),
+            
+                HitPoints = new HitPoints(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints,
+                update.HitPoints.NonLethalDamage, update.HitPoints.Wounds)
+
             };
             ds.UpdateCharacter(characterid, _character);
             return Ok(update);
