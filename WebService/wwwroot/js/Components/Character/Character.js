@@ -237,6 +237,7 @@
         var fort_misc = ko.observable("");
         var fort_temp = ko.observable("");
         var fort_total = ko.computed(function () {
+            //if temp is not null, set total to that.
             return Number(fort_base()) + Number(con_total()) + Number(fort_magic()) + Number(fort_misc());
         });
         var fort_note = ko.observable("");
@@ -246,6 +247,7 @@
         var ref_misc = ko.observable("");
         var ref_temp = ko.observable("");
         var ref_total = ko.computed(function () {
+            //if temp is not null, set total to that.
             return Number(ref_base()) + Number(dex_total()) + Number(ref_magic()) + Number(ref_misc());
         });
         var ref_note = ko.observable("");
@@ -255,6 +257,7 @@
         var will_misc = ko.observable("");
         var will_temp = ko.observable("");
         var will_total = ko.computed(function () {
+            //if temp is not null, set total to that.
             return Number(will_base()) + Number(wis_total()) + Number(will_magic()) + Number(will_misc());
         });
         var will_note = ko.observable("");
@@ -262,6 +265,8 @@
         var speed_racial = ko.observable("");
         var speed_base = ko.observable("");
         var speed_mod = ko.observable("");
+        var speed_tempBase = ko.observable("");
+        var speed_temporary = ko.observable("");
         var speed_total = ko.computed(function () {
             return Number(speed_base()) + Number(speed_mod());
         });
@@ -288,6 +293,7 @@
             var classInfo;
             await ds.GetCharacter(id, function callback(_character){
                 character = _character;
+                console.log(_character);
             });
             classInfo = GetClassInfo(character.class);
             //TODO: Add all mapping from the character. See console for the character object's fields
@@ -342,31 +348,33 @@
             ac_misc(setNull(character.ac.misc));
 
             fort_base(classInfo.fortitude);
-            fort_magic(character.fortitude.magic);
-            fort_note(character.fortitude.misc);
-            fort_temp(character.fortitude.temp);
+            fort_magic(setNull(character.fortitude.magic));
+            fort_misc(setNull(character.fortitude.misc));
+            fort_temp(setNull(character.fortitude.temporary));
             fort_note(character.fortitude.note);
 
             ref_base(classInfo.reflex);
             ref_magic(character.reflex.magic);
-            ref_note(character.reflex.misc);
-            ref_temp(character.reflex.temp);
+            ref_misc(character.reflex.misc);
+            ref_temp(character.reflex.temporary);
             ref_note(character.reflex.note);
 
             will_base(classInfo.will);
             will_magic(character.will.magic);
-            will_note(character.will.misc);
-            will_temp(character.will.temp);
+            will_misc(character.will.misc);
+            will_temp(character.will.temporary);
             will_note(character.will.note);
 
             speed_racial(character.speed.racialModifier);
             speed_base(character.speed.base);
-            speed_mod(character.speed.baseModifier);
-            speed_armour_total(character.speed.armour);
-            speed_fly(character.speed.fly);
-            speed_burrow(character.speed.burrow);
-            speed_climb(character.speed.climb);
-            speed_swim(character.speed.swim);
+            speed_mod(setNull(character.speed.baseModifier));
+            speed_armour_total(setNull(character.speed.armour));
+            speed_fly(setNull(character.speed.fly));
+            speed_burrow(setNull(character.speed.burrow));
+            speed_climb(setNull(character.speed.climb));
+            speed_swim(setNull(character.speed.swim));
+            speed_tempBase(setNull(character.speed.baseTempModifier));
+            speed_temporary(setNull(character.speed.temporary));
 
             cmd_misc(character.cmd.misc);
             cmb_misc(character.cmb.misc);
@@ -461,7 +469,7 @@
                     TempScore: checkNull(cha_temp()),
                 },
 
-                InitiativeMisc: checkNull(initiative_misc()),
+                InitiativeMiscModifier: checkNull(initiative_misc()),
 
                 HitPoints: {
                     CurrentHitPoints: checkNull(hp_current()),
@@ -470,20 +478,58 @@
                     Wounds: hp_wounds(),
                 },
 
-                ArmourClass: {
+                AC: {
 
                     Armour: checkNull(ac_armour()),
                     Shield: checkNull(ac_shield()),
                     NaturalArmour: checkNull(ac_natural()),
                     Deflection: checkNull(ac_deflection()),
-                    Misc: checkNull(ac_misc()),
+                    Misc: checkNull(ac_misc())
                     //TouchMisc
                     //FlatFootedMisc
+                },
+
+                Fortitude: {
+                    Magic: checkNull(fort_magic()),
+                    Temporary: checkNull(fort_temp()),
+                    Misc: checkNull(fort_misc()),
+                    Note: fort_note()
+                },
+                Reflex: {
+                    Magic: checkNull(ref_magic()),
+                    Temporary: checkNull(ref_temp()),
+                    Misc: checkNull(ref_misc()),
+                    Note: ref_note()
+                },
+
+                Will: {
+                    Magic: checkNull(will_magic()),
+                    Temporary: checkNull(will_temp()),
+                    Misc: checkNull(will_misc()),
+                    Note: will_note()
+                },
+
+                
+                Speed: {
+                    BaseModifier: checkNull(speed_mod()),
+                    BaseTempModifier: checkNull(speed_tempBase()),
+                    Armour: checkNull(speed_armour_total()),
+                    Fly: checkNull(speed_fly()),
+                    Swim: checkNull(speed_swim()),
+                    Climb: checkNull(speed_climb()),
+                    Burrow: checkNull(speed_burrow()),
+                    Temporary: checkNull(speed_temporary())
+                },
+                CMB: {
+                    Misc: checkNull(cmb_misc())
+                },
+                CMD: {
+                    Misc: checkNull(cmd_misc())
                 }
             };
 
             await ds.UpdateCharacter(id, character, function (result) {
-                console.log(result.status);
+                console.log(result);
             });
         }
 
@@ -521,7 +567,7 @@
             fort_base, fort_magic, fort_misc, fort_total, fort_temp, fort_note,
             ref_base, ref_magic, ref_misc, ref_total, ref_temp, ref_note,
             will_base, will_magic, will_misc, will_total, will_temp, will_note,
-            speed_base, speed_mod, speed_total, speed_armour_total, speed_racial,
+            speed_base, speed_mod, speed_total, speed_armour_total, speed_racial, speed_tempBase, speed_temporary,
             speed_fly, speed_burrow, speed_climb, speed_swim,
             cmd_total, cmd_misc, cmb_total, cmb_misc,
             SaveChanges, checkNull

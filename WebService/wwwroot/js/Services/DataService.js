@@ -115,7 +115,7 @@
                 'Authorization': app.token
             }
         });
-        console.log(character);
+        //console.log(character);
         console.log(response.status + " : " + response.statusText);
         if (response.status !== 200) {
             callback(undefined);

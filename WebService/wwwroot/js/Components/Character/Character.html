@@ -110,30 +110,30 @@
                     <input class="readonly" type="text" placeholder="Total" data-bind="value: fort_total" readonly /> =
                     <input class="readonly" type="text" placeholder="Base" data-bind="value: fort_base" readonly /> +
                     <input class="readonly" type="text" placeholder="Ability" data-bind="value: con_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="textInput: fort_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="textInput: fort_misc" />
-                    <input type="text" placeholder="Temp" data-bind="textInput: fort_temp" />
-                    <textarea placeholder="Note" data-bind="text: fort_note"></textarea>
+                    <input type="text" placeholder="Magic" data-bind="value: fort_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="value: fort_misc" />
+                    <input type="text" placeholder="Temp" data-bind="value: fort_temp" />
+                    <textarea placeholder="Note" data-bind="textInput: fort_note"></textarea>
                 </div>
                 <div id="Reflex">
                     <h2>Reflex</h2>
                     <input class="readonly" type="text" placeholder="Total" data-bind="value: ref_total" readonly /> =
                     <input class="readonly" type="text" placeholder="Base" data-bind="value: ref_base" readonly /> +
                     <input class="readonly" type="text" placeholder="Ability" data-bind="value: dex_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="textInput: ref_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="textInput: ref_misc" />
+                    <input type="text" placeholder="Magic" data-bind="value: ref_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="value: ref_misc" />
                     <input type="text" placeholder="Temp" data-bind="textInput: ref_temp" />
-                    <textarea placeholder="Note" data-bind="text: ref_note"></textarea>
+                    <textarea placeholder="Note" data-bind="textInput: ref_note"></textarea>
                 </div>
                 <div id="Will">
                     <h2>Will</h2>
                     <input class="readonly" type="text" placeholder="Total" data-bind="value: will_total" readonly /> =
                     <input class="readonly" type="text" placeholder="Base" data-bind="value: will_base" readonly /> +
                     <input class="readonly" type="text" placeholder="Ability" data-bind="value: wis_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="textInput: will_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="textInput: will_misc" />
-                    <input type="text" placeholder="Temp" data-bind="textInput: will_temp" />
-                    <textarea placeholder="Note" data-bind="text: will_note"></textarea>
+                    <input type="text" placeholder="Magic" data-bind="value: will_magic" /> +
+                    <input type="text" placeholder="Misc" data-bind="value: will_misc" />
+                    <input type="text" placeholder="Temp" data-bind="value: will_temp" />
+                    <textarea placeholder="Note" data-bind="textInput: will_note"></textarea>
                 </div>
             </div>
             <div id="CMD">
@@ -143,7 +143,7 @@
                 <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
                 <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
                 <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
+                <input type="text" placeholder="Misc" data-bind="value: cmd_misc" />
 
             </div>
         </div>
@@ -155,6 +155,8 @@
                 <input class="readonly" type="text" placeholder="Total" data-bind="value: speed_total" readonly /> =
                 <input class="readonly" type="text" placeholder="Base" data-bind="value: speed_base" readonly /> +
                 <input type="text" placeholder="Modifier" data-bind="textInput: speed_mod" />
+                <input type="text" placeholder="Temporary Modifier" data-bind="textInput: speed_tempBase" />
+                <input type="text" placeholder="Temporary (notes)" data-bind="textInput: speed_temporary" />
                 <input type="text" placeholder="Fly" data-bind="textInput: speed_fly" />
                 <input type="text" placeholder="Climb" data-bind="textInput: speed_climb" />
                 <input type="text" placeholder="Burrow" data-bind="textInput: speed_burrow" />

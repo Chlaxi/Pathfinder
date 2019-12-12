@@ -44,24 +44,26 @@ namespace WebService.Controllers
         }
 
         [HttpPut("{characterid}")]
-        public ActionResult<Character> UpdateCharacter(int characterid, [FromBody] CharacterUpdateDTO update)
+        public ActionResult<Character> UpdateCharacter(int characterid, [FromBody] Character update)
         {
             Character character = GetCharacter(characterid).Value;
 
             if (character == null) return NotFound("No Character with this id");
             //string JSONChar = JsonConvert.SerializeObject(character);
 
-            update.Strength = new AbilityDTO(update.Strength.BaseScore, update.Strength.TempScore);
+         /*   update.Strength = new AbilityDTO(update.Strength.BaseScore, update.Strength.TempScore);
             update.Dexterity = new AbilityDTO(update.Dexterity.BaseScore, update.Dexterity.TempScore);
             update.Constitution = new AbilityDTO(update.Constitution.BaseScore, update.Constitution.TempScore);
             update.Intelligence = new AbilityDTO(update.Intelligence.BaseScore, update.Intelligence.TempScore);
             update.Wisdom = new AbilityDTO(update.Wisdom.BaseScore, update.Wisdom.TempScore);
             update.Charisma = new AbilityDTO(update.Charisma.BaseScore, update.Charisma.TempScore);
             update.HitPoints = new HealthDTO(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints, update.HitPoints.NonLethalDamage, update.HitPoints.Wounds);
-            update.ArmourClass = new ArmourClassDTO(update.ArmourClass.Armour,update.ArmourClass.Shield,update.ArmourClass.NaturalArmour,update.ArmourClass.Deflection,update.ArmourClass.Misc);
+          */ 
+            //update.AC = new Character.ArmourClass(update.AC.Armour,update.AC.Shield,update.AC.NaturalArmour,update.AC.Deflection,update.AC.Misc);
+            //update.Speed = new Speed(update.Speed.BaseModifier, update.Speed.BaseTempModifier, update.Speed.Armour, update.Speed.Fly, update.Speed.Swim, update.Speed.Climb, update.Speed.Burrow, update.Speed.Temporary);
+            //update.Fortitude = new Character.Save(update.Fortitude, update.Constitution);
 
-
-            Console.WriteLine(update.ToString());
+            /*Console.WriteLine(update.ToString());
             var _character = new Character()
             {
                 Name = update.Name,
@@ -89,11 +91,14 @@ namespace WebService.Controllers
                 update.HitPoints.NonLethalDamage, update.HitPoints.Wounds),
 
                 AC = new Character.ArmourClass(update.ArmourClass.Armour, update.ArmourClass.Shield,
-                update.ArmourClass.NaturalArmour, update.ArmourClass.Deflection, update.ArmourClass.Misc)
+                update.ArmourClass.NaturalArmour, update.ArmourClass.Deflection, update.ArmourClass.Misc),
+                
+                Speed = new Speed(update.Speed.BaseModifier, update.Speed.BaseTempModifier, update.Speed.Armour, update.Speed.Fly, update.Speed.Swim, update.Speed.Climb, update.Speed.Burrow, update.Speed.Temporary),
 
-
+            
             };
-            ds.UpdateCharacter(characterid, _character);
+            */
+            ds.UpdateCharacter(characterid, update);
             return Ok(update);
         }
 

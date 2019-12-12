@@ -200,6 +200,38 @@ namespace DataLayer.DataService
             character.AC.Deflection = update.AC.Deflection;
             character.AC.Misc = update.AC.Misc;
 
+            character.Speed = new Speed(update.Speed.BaseModifier, update.Speed.BaseTempModifier, update.Speed.Armour, update.Speed.Fly, update.Speed.Swim, update.Speed.Climb, update.Speed.Burrow, update.Speed.Temporary);
+            character.Speed.BaseModifier = update.Speed.BaseModifier;
+            character.Speed.BaseTempModifier = update.Speed.BaseTempModifier;
+            character.Speed.Armour = update.Speed.Armour;
+            character.Speed.Fly = update.Speed.Fly;
+            character.Speed.Swim = update.Speed.Swim;
+            character.Speed.Climb = update.Speed.Climb;
+            character.Speed.Burrow = update.Speed.Burrow;
+            character.Speed.Temporary = update.Speed.Temporary;
+           
+            character.Fortitude = new Character.Save(update.Fortitude.Magic, update.Fortitude.Misc, update.Fortitude.Temporary, update.Fortitude.Note);
+            character.Fortitude.Magic = update.Fortitude.Magic;
+            character.Fortitude.Misc = update.Fortitude.Misc;
+            character.Fortitude.Temporary = update.Fortitude.Temporary;
+            character.Fortitude.Note = update.Fortitude.Note;
+
+            character.Reflex = new Character.Save(update.Reflex.Magic, update.Reflex.Misc, update.Reflex.Temporary, update.Reflex.Note);
+            character.Reflex.Magic = update.Reflex.Magic;
+            character.Reflex.Misc = update.Reflex.Misc;
+            character.Reflex.Temporary = update.Reflex.Temporary;
+            character.Reflex.Note = update.Reflex.Note;
+
+            character.Will = new Character.Save(update.Will.Magic, update.Will.Misc, update.Will.Temporary, update.Will.Note);
+            character.Will.Magic = update.Will.Magic;
+            character.Will.Misc = update.Will.Misc;
+            character.Will.Temporary = update.Will.Temporary;
+            character.Will.Note = update.Will.Note;
+
+           // character.CMD.Misc = update.CMD.Misc;
+            //character.CMB.Misc = update.CMB.Misc;
+
+
             db.SaveChanges();
             return character;
         }

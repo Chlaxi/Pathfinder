@@ -226,11 +226,9 @@ namespace DataLayer
                     Fortitude.Ignore(m => m.Base);      //.HasColumnName("fortitude_base");
                     Fortitude.Ignore(m => m.Ability);   //.HasColumnName("fortitude_con_mod");
                     Fortitude.Property(m => m.Magic).HasColumnName("fortitude_magic_mod");
-                    Fortitude.Property(m => m.Temporary).HasColumnName("fortitude_temp_mod");
-                    Fortitude.Property(m => m.Misc).HasColumnName("fortitude_other");
-
-                    //TODO Add the DB
-                    Fortitude.Ignore(m => m.Note);
+                    Fortitude.Property(m => m.Temporary).HasColumnName("fortitude_temp");
+                    Fortitude.Property(m => m.Misc).HasColumnName("fortitude_misc_mod");
+                    Fortitude.Property(m => m.Note).HasColumnName("fortitude_note");
                 });
             });
 
@@ -245,16 +243,9 @@ namespace DataLayer
                     Reflex.Ignore(m => m.Base);
                     Reflex.Ignore(m => m.Ability);
                     Reflex.Property(m => m.Magic).HasColumnName("reflex_magic_mod");
-                    Reflex.Property(m => m.Temporary).HasColumnName("reflex_temp_mod");
-                    Reflex.Property(m => m.Misc).HasColumnName("reflex_other");
-                    
-                    //TODO Add the DB
-                    Reflex.Ignore(m => m.Note);
-
-                    //Remove from DB
-//                    Reflex.Ignore(m => m.Total).HasColumnName("reflex_total");
-//                    Reflex.Ignore(m => m.Base).HasColumnName("reflex_base");
-//                    Reflex.Ignore(m => m.Ability).HasColumnName("reflex_dex_mod");
+                    Reflex.Property(m => m.Temporary).HasColumnName("reflex_temp");
+                    Reflex.Property(m => m.Misc).HasColumnName("reflex_misc_mod");
+                    Reflex.Property(m => m.Note).HasColumnName("reflex_note");
                 });
             });
 
@@ -268,11 +259,9 @@ namespace DataLayer
                     Will.Ignore(m => m.Base);     //.HasColumnName("will_base");
                     Will.Ignore(m => m.Ability);  //.HasColumnName("will_con_mod");
                     Will.Property(m => m.Magic).HasColumnName("will_magic_mod");
-                    Will.Property(m => m.Temporary).HasColumnName("will_temp_mod");
-                    Will.Property(m => m.Misc).HasColumnName("will_other");
-
-                    //TODO Add the DB
-                    Will.Ignore(m => m.Note);
+                    Will.Property(m => m.Temporary).HasColumnName("will_temp");
+                    Will.Property(m => m.Misc).HasColumnName("will_misc_mod");
+                    Will.Property(m => m.Note).HasColumnName("will_note");
                 });
             });
 

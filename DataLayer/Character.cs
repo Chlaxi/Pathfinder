@@ -334,7 +334,13 @@ namespace DataLayer
             {
 
             }
-
+            public Save(int? Magic, int? Temporary, int? Misc, string Note) :this(){
+                this.Magic = Magic;
+                this.Temporary = Temporary;
+                this.Misc = Misc;
+                this.Note = Note;
+                ability = null;
+            }
             /// <summary>
             /// The ability, where the required modifier is in.
             /// Fortitude = Constitution,
@@ -345,10 +351,10 @@ namespace DataLayer
             public Save(Save save, Ability ability)  : this()//Add base from class levels
             {
                 this.ability = ability;
-                this.Magic = Magic;
-                this.Temporary = Temporary;
-                this.Misc = Misc;
-                // this.Note = Note;
+                Magic = Magic;
+                Temporary = Temporary;
+                Misc = Misc;
+                Note = Note;
             }
 
             private Ability ability;
@@ -377,6 +383,9 @@ namespace DataLayer
 
             public int? Ability { get 
                 {
+                    if (ability == null)
+                        return null;
+
                     int? abilityMod = (ability == null) ? null : ability.Modifier;
                     return abilityMod;
                 } 
@@ -427,6 +436,8 @@ namespace DataLayer
         public int? BaseAttackBonus {
             get
             {
+                if (character == null)
+                    return null;
 
                 return (character.BaseAttackBonus == null) ? null : character.BaseAttackBonus;
             }
@@ -435,6 +446,9 @@ namespace DataLayer
         public int? Strength {
             get
             {
+                if (character == null)
+                    return null;
+
                 return (character.Strength.Modifier == null) ? null : character.Strength.Modifier; 
             }
         }
@@ -442,6 +456,8 @@ namespace DataLayer
         public int? Size {
             get
             {
+                if (character == null)
+                    return null;
                 return Character.GetSizeOffensiveModifier(character.Size);
             }
         }
@@ -483,7 +499,8 @@ namespace DataLayer
         {
             get
             {
-
+                if (character == null)
+                    return null;
                 return (character.BaseAttackBonus == null) ? null : character.BaseAttackBonus;
             }
         }
@@ -492,6 +509,8 @@ namespace DataLayer
         {
             get
             {
+                if (character == null)
+                    return null;
                 return (character.Strength.Modifier == null) ? null : character.Strength.Modifier;
             }
         }
@@ -500,6 +519,8 @@ namespace DataLayer
         {
             get
             {
+                if (character == null)
+                    return null;
                 return (character.Dexterity.Modifier == null) ? null : character.Dexterity.Modifier;
             }
         }
@@ -508,6 +529,8 @@ namespace DataLayer
         {
             get
             {
+                if (character == null)
+                    return null;
                 return Character.GetSizeDefensiveModifier(character.Size);
             }
         }
@@ -527,7 +550,17 @@ namespace DataLayer
             //BaseModifier = speed.BaseModifier;
 
         }
-
+        public Speed(int? BaseModifier, int? BaseTempModifier, int? Armour, int? Fly, int? Swim, int? Climb, int? Burrow, int? Temporary) : this()
+        {
+            this.BaseModifier = (BaseModifier == null) ? -100 : BaseModifier;
+            this.BaseTempModifier = (BaseTempModifier == null) ? -100 : BaseTempModifier;
+            this.Armour = (Armour == null) ? -100 : Armour;
+            this.Fly = (Fly == null) ? -100 : Fly;
+            this.Swim = (Swim == null) ? -100 : Swim;
+            this.Climb = (Climb == null) ? -100 : Climb;
+            this.Burrow = (Burrow == null) ? -100 : Burrow;
+            this.Temporary = (Temporary == null) ? -100 : Temporary;
+        }
         private Race race;
         public int? Base
         {
@@ -539,7 +572,10 @@ namespace DataLayer
                 return  result;
             } 
         }
-        public int? RacialModifier { get { return (race == null) ? null : (int?)race.Speed; } }
+        public int? RacialModifier { get {
+                if (race == null)
+                    return null;
+                return (race == null) ? null : (int?)race.Speed; } }
         public int? BaseModifier { get; set; }
         public int? BaseTempModifier { get; set; }
 
