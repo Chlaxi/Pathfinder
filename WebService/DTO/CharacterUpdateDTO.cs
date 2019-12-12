@@ -30,6 +30,8 @@ namespace WebService
         public AbilityDTO Wisdom { get; set; }
         public AbilityDTO Charisma { get; set; }
         public HealthDTO HitPoints { get; set; }
+        public ArmourClassDTO ArmourClass { get; set; }
+    
     }
 
     public class AbilityDTO
@@ -71,6 +73,28 @@ namespace WebService
         public int? Misc { get; set; }
         public int? Temp { get; set; }
         public string Note { get; set; }
+    }
+
+    public class ArmourClassDTO
+    {
+        private ArmourClassDTO() { }
+
+        public ArmourClassDTO(int? Armour, int? Shield, int? NaturalArmour, int? Deflection, int? Misc)
+        {
+            this.Armour = (Armour == null) ? -100 : Armour;
+            this.Shield = (Shield == null) ? -100 : Shield;
+            this.NaturalArmour = (NaturalArmour == null) ? -100 : NaturalArmour;
+            this.Deflection = (Deflection == null) ? -100 : Deflection;
+            this.Misc = (Misc == null) ? -100 : Misc;
+        }
+
+
+        public int? Armour{get;set;}
+        public int? Shield {get;set;}
+        public int? NaturalArmour {get;set;}
+        public int? Deflection {get;set;}
+        public int? Misc {get;set;}
+
     }
 }
 

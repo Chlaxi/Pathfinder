@@ -174,12 +174,12 @@ namespace DataLayer
                 m.OwnsOne(e => e.AC, AC =>
                 {
                     
-                    AC.Property(m => m.Armour).HasColumnName("ac_armour_bonus").HasDefaultValue(0);
-                    AC.Property(m => m.Shield).HasColumnName("ac_shield_bonus").HasDefaultValue(0);
-                    AC.Property(m => m.NaturalArmour).HasColumnName("ac_natural_armour").HasDefaultValue(0);
-                    AC.Property(m => m.Deflection).HasColumnName("ac_deflection").HasDefaultValue(0);
+                    AC.Property(m => m.Armour).HasColumnName("ac_armour_bonus");
+                    AC.Property(m => m.Shield).HasColumnName("ac_shield_bonus");
+                    AC.Property(m => m.NaturalArmour).HasColumnName("ac_natural_armour");
+                    AC.Property(m => m.Deflection).HasColumnName("ac_deflection");
                     //AC.Property(m => m.).HasColumnName("ac_temp_armour"); //TODO Reavluate whether needed, and add field/database
-                    AC.Property(m => m.Misc).HasColumnName("ac_misc").HasDefaultValue(0);
+                    AC.Property(m => m.Misc).HasColumnName("ac_misc");
 
                     //Ignore the totals, since they don't have a getter.
                     //TODO: Remove from Database.

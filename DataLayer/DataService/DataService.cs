@@ -194,7 +194,12 @@ namespace DataLayer.DataService
             character.HitPoints.NonLethalDamage = update.HitPoints.NonLethalDamage;
             character.HitPoints.Wounds = update.HitPoints.Wounds;
             
-            
+            character.AC.Armour = update.AC.Armour;
+            character.AC.Shield = update.AC.Shield;
+            character.AC.NaturalArmour = update.AC.NaturalArmour;
+            character.AC.Deflection = update.AC.Deflection;
+            character.AC.Misc = update.AC.Misc;
+
             db.SaveChanges();
             return character;
         }

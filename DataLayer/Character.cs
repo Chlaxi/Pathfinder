@@ -220,7 +220,7 @@ namespace DataLayer
         {
             private ArmourClass() { }
             //Empty constructor, so the Mapping works
-            private ArmourClass(int? Armour, int? Shield, int? NaturalArmour, int? Deflection, int? Misc) : this()
+            public ArmourClass(int? Armour, int? Shield, int? NaturalArmour, int? Deflection, int? Misc) : this()
             {
                 this.Armour = Armour;
                 this.Shield = Shield;
@@ -298,6 +298,9 @@ namespace DataLayer
             public int? Dex { 
                 get 
                 {
+                    if (character == null)
+                        return null;
+
                     return character.Dexterity.Modifier; 
                 } 
             }
@@ -305,6 +308,9 @@ namespace DataLayer
             public int? Size { 
                 get 
                 {
+                    if (character == null)
+                        return null;
+
                     return GetSizeDefensiveModifier(character.Size); 
                 } 
             }

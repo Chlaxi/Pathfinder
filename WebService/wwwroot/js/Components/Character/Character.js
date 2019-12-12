@@ -334,12 +334,12 @@
             hp_non_lethal(setNull(character.hitPoints.nonLethalDamage));
             hp_wounds(character.hitPoints.wounds);
 
-            size_defensive(character.ac.size);
-            ac_armour(character.ac.armour);
-            ac_shield(character.ac.shield);
-            ac_natural(character.ac.naturalArmour);
-            ac_deflection(character.ac.deflection);
-            ac_misc(character.ac.misc);
+            size_defensive(character.ac.size); //Set null?
+            ac_armour(setNull(character.ac.armour));
+            ac_shield(setNull(character.ac.shield));
+            ac_natural(setNull(character.ac.naturalArmour));
+            ac_deflection(setNull(character.ac.deflection));
+            ac_misc(setNull(character.ac.misc));
 
             fort_base(classInfo.fortitude);
             fort_magic(character.fortitude.magic);
@@ -468,9 +468,18 @@
                     MaxHitPoints: checkNull(hp_total()),
                     NonLethalDamage: checkNull(hp_non_lethal()),
                     Wounds: hp_wounds(),
-                }
+                },
 
-                
+                ArmourClass: {
+
+                    Armour: checkNull(ac_armour()),
+                    Shield: checkNull(ac_shield()),
+                    NaturalArmour: checkNull(ac_natural()),
+                    Deflection: checkNull(ac_deflection()),
+                    Misc: checkNull(ac_misc()),
+                    //TouchMisc
+                    //FlatFootedMisc
+                }
             };
 
             await ds.UpdateCharacter(id, character, function (result) {
@@ -479,11 +488,17 @@
         }
 
         var checkNull = function (value) {
-            if (value === "" || typeof (value) !== "number") {
+            //us typeof === number? 
+            if (value === "" || value === null) {
                 value = -100;
                 console.log("Set " + value + " to null");
             }
-            return Number(value);
+            value=Number(value);
+            if (isNaN(value)) {
+                value = -100;
+                console.log(value + " was NaN. Set to -100");
+            }
+            return value;
         };
 
        

@@ -58,7 +58,9 @@ namespace WebService.Controllers
             update.Wisdom = new AbilityDTO(update.Wisdom.BaseScore, update.Wisdom.TempScore);
             update.Charisma = new AbilityDTO(update.Charisma.BaseScore, update.Charisma.TempScore);
             update.HitPoints = new HealthDTO(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints, update.HitPoints.NonLethalDamage, update.HitPoints.Wounds);
-      
+            update.ArmourClass = new ArmourClassDTO(update.ArmourClass.Armour,update.ArmourClass.Shield,update.ArmourClass.NaturalArmour,update.ArmourClass.Deflection,update.ArmourClass.Misc);
+
+
             Console.WriteLine(update.ToString());
             var _character = new Character()
             {
@@ -84,7 +86,11 @@ namespace WebService.Controllers
                 Charisma = new Ability(update.Charisma.BaseScore, update.Charisma.TempScore, update.Charisma.RacialModifier),
             
                 HitPoints = new HitPoints(update.HitPoints.CurrentHitPoints, update.HitPoints.MaxHitPoints,
-                update.HitPoints.NonLethalDamage, update.HitPoints.Wounds)
+                update.HitPoints.NonLethalDamage, update.HitPoints.Wounds),
+
+                AC = new Character.ArmourClass(update.ArmourClass.Armour, update.ArmourClass.Shield,
+                update.ArmourClass.NaturalArmour, update.ArmourClass.Deflection, update.ArmourClass.Misc)
+
 
             };
             ds.UpdateCharacter(characterid, _character);
