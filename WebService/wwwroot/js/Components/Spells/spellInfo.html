@@ -1,7 +1,35 @@
 ﻿<div data-bind="GetSpell()">
     <div data-bind="with: spell">
         <h1 data-bind="text: $data.name"> Spell Name</h1>
-        <div>School<span data-bind="$data.school"></span>(<span data-bind="$data.element"></span>); </div>
+        <div>
+            <span class="spellHeader">School</span> <span data-bind="text: $parent.school"></span>;
+            <span class="spellHeader">Level </span> <span data-bind="text: $data.spellLevel"></span>
+        </div>
+        <div data-bind="if: $parent.castingTime">
+            <span class="spellHeader">Casting Time </span> <span data-bind="text: $data.castingTime"></span>
+        </div>
+        <div data-bind="if: $parent.components">
+            <span class="spellHeader">Components </span> <span data-bind="text: $data.components"></span>
+        </div>
+        <div data-bind="if: $parent.range">
+            <span class="spellHeader">Range </span> <span data-bind="text: $data.range"></span>
+        </div>
+        <div data-bind="if: $parent.target">
+            <span class="spellHeader">Target </span> <span data-bind="text: $data.target"></span>
+        </div>
+        <div data-bind="if: $parent.area">
+            <span class="spellHeader">Area </span> <span data-bind="text: $data.area"></span>
+        </div>
+        <div data-bind="if: $parent.effect">
+            <span class="spellHeader">Effect </span> <span data-bind="text: $data.effect"></span>
+        </div>
+        <div data-bind="if: $parent.duration">
+            <span class="spellHeader">Duration </span> <span data-bind="text: $data.duration"></span>
+        </div>
+        <div data-bind="if: $parent.savingThrow">
+            <span class="spellHeader">Saving Throw </span> <span data-bind="text: $data.savingThrow"></span>;
+            <span class="spellHeader">Spell Resistance </span> <span data-bind="text: $data.spellResistance"></span>
+        </div>
         <div>
             <h2>Description</h2>
             <div data-bind="html: $data.descriptionFormatted">
