@@ -1,0 +1,12 @@
+﻿<div data-bind="GetSpell()">
+    <div data-bind="with: spell">
+        <h1 data-bind="text: $data.name"> Spell Name</h1>
+        <div>School<span data-bind="$data.school"></span>(<span data-bind="$data.element"></span>); </div>
+        <div>
+            <h2>Description</h2>
+            <div data-bind="html: $data.descriptionFormatted">
+                Lorem ipsum
+            </div>
+        </div>
+    </div>
+</div>

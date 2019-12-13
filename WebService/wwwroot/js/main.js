@@ -37,6 +37,13 @@ require(["knockout"], function (ko) {
         viewModel: { require: "components/spells/spellsearch" },
         template: { require: "text!components/spells/spellsearch.html" }
     });
+
+
+    ko.components.register('spell-info', {
+        viewModel: { require: "components/spells/spellinfo" },
+        template: { require: "text!components/spells/spellinfo.html" }
+    });
+
 });
 
 require(["knockout", "app"], function (ko, app) {

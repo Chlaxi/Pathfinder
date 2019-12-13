@@ -1,6 +1,6 @@
 ﻿define(["app"], function (app) {
 
-    var SetToken = function (token){
+    var SetToken = function (token) {
         app.token = "Bearer " + token;
     }
 
@@ -13,7 +13,7 @@
                 'Authorization': 'Bearer '
             }
         };
- //       console.log("Received the user " + JSON.stringify(user));
+        //       console.log("Received the user " + JSON.stringify(user));
 
         const response = await fetch("api/tokens", options);
         if (response.status !== 200) {
@@ -23,7 +23,7 @@
         }
         const data = await response.json();
         console.log('Success:', JSON.stringify(data));
-        
+
         var token = await data.token;
         SetToken(token);
         options.headers.Authorization += token;
@@ -42,7 +42,7 @@
         };
         const response = await fetch("api/signup", options);
         if (response.status !== 201) {
-            console.log("Failed "+response.statusText);
+            console.log("Failed " + response.statusText);
             callback(undefined);
             return;
         }
@@ -77,14 +77,14 @@
         var path = "api/spells";
         if (query !== "") {
             path += "/search?query=" + query;
-            
+
         }
         var response = await fetch(path);
         var data = await response.json();
         callback(data);
     };
 
-    var GetCharacter = async function(id, callback) {
+    var GetCharacter = async function (id, callback) {
         console.log("Retriving character information with id " + id);
         var url = "api/characters/" + id;
         var response = await fetch(url, options = {
@@ -108,7 +108,7 @@
         var url = "api/characters/" + id;
         var response = await fetch(url, options = {
             method: 'PUT',
-            body : JSON.stringify(character),
+            body: JSON.stringify(character),
             headers: {
 
                 'Content-Type': 'application/json',
@@ -126,12 +126,21 @@
         callback(data);
     };
 
+    var GetSpell = async function (spellId, callback) {
+        console.log("Trying to find spell with id: " + spellId);
+        url = "api/spells/" + spellId;
+        var response = await fetch(url);
+        var data = await response.json();
+        callback(data);
+    }
+
     return {
         Login,
         SignUp,
         getPlayer,
         GetCharacter,
         UpdateCharacter,
-        spellSearch
+        spellSearch,
+        GetSpell
     }
 });
