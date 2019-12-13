@@ -101,9 +101,9 @@ namespace DataLayer.DataService
             character.Fortitude = new Character.Save(character.Fortitude, character.Constitution);
             character.Reflex = new Character.Save(character.Reflex, character.Dexterity);
             character.Will = new Character.Save(character.Will, character.Wisdom);
-            character.CMB = new CombatManeuverBonus(character);
-            character.CMD = new CombatManeuverDefence(character);
-
+            character.CMB = new CombatManeuverBonus(character.CMB, character);
+            character.CMD = new CombatManeuverDefence(character.CMD, character);
+            
             character.Speed = new Speed(character.Speed, character.Race);
             character.Spellbook = GetSpellBook(character);
             //CharacterClasses relation to set character's classes
@@ -228,8 +228,29 @@ namespace DataLayer.DataService
             character.Will.Temporary = update.Will.Temporary;
             character.Will.Note = update.Will.Note;
 
-           // character.CMD.Misc = update.CMD.Misc;
-            //character.CMB.Misc = update.CMB.Misc;
+            character.CMB = new CombatManeuverBonus(update.CMB.Misc, -update.CMB.Temp, update.CMB.Note);
+            character.CMB.Misc = update.CMB.Misc;
+            character.CMB.Temp = update.CMB.Temp;
+            character.CMB.Note = update.CMB.Note;
+            
+            character.CMD = new CombatManeuverDefence(update.CMD.Misc, -update.CMD.Temp, update.CMD.Note);
+            character.CMD.Misc = update.CMD.Misc;
+            character.CMD.Temp = update.CMD.Temp;
+            character.CMD.Note = update.CMD.Note;
+
+            character.Resistance = update.Resistance;
+            character.Immunity = update.Immunity;
+            character.SpellResistance = update.SpellResistance;
+            character.DamageReduction = update.DamageReduction;
+
+            character.Copper = update.Copper;
+            character.Silver = update.Silver;
+            character.Gold = update.Gold;
+            character.Platinum = update.Platinum;
+
+            character.Languages = update.Languages;
+
+            character.Note = update.Note;
 
 
             db.SaveChanges();

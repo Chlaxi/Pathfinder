@@ -136,6 +136,12 @@
                     <textarea placeholder="Note" data-bind="textInput: will_note"></textarea>
                 </div>
             </div>
+            <div>
+            <input type="text" placeholder="damage_reduction" data-bind="textInput: damage_reduction" />
+            <input type="text" placeholder="spell_resistance" data-bind="textInput: spell_resistance" />
+            <input type="text" placeholder="resistances" data-bind="textInput: resistance" />
+            <input type="text" placeholder="immunity" data-bind="textInput: immunity" />
+            </div>
             <div id="CMD">
                 <h2>Combat Maneuver Defence</h2>
                 <input class="readonly" type="text" placeholder="Total" data-bind="value: cmd_total" readonly /> = 10 +
@@ -143,7 +149,9 @@
                 <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
                 <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
                 <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-                <input type="text" placeholder="Misc" data-bind="value: cmd_misc" />
+                <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
+                <input type="text" placeholder="Temp" data-bind="textInput: cmd_temp" />
+                <textarea type="text" placeholder="Notes" data-bind="textInput: cmd_note"></textarea>
 
             </div>
         </div>
@@ -176,9 +184,22 @@
                 <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
                 <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
                 <input type="text" placeholder="Misc" data-bind="textInput: cmb_misc" />
+                <input type="text" placeholder="Temp" data-bind="textInput: cmb_temp" />
+                <textarea type="text" placeholder="Notes" data-bind="textInput: cmb_note"></textarea>
             </div>
 
         </div>
+
+        <input type="text" placeholder="Languages" data-bind="textInput: languages" />
+
+        <input type="text" placeholder="Copper" data-bind="textInput: copper" />
+        <input type="text" placeholder="Silver" data-bind="textInput: silver" />
+        <input type="text" placeholder="Gold" data-bind="textInput: gold" />
+        <input type="text" placeholder="Platinum" data-bind="textInput: platinum" />
+        
+        <h1>Notes</h1>
+        <textarea placeholder="Notes" data-bind="textInput: note"></textarea>
+
         <input type="submit" value="Save changes" />
     </form>
 
@@ -203,6 +224,8 @@
         insert spell component here
     </div>
 
+
+    
     <div id="Items">
         insert item component here
     </div>

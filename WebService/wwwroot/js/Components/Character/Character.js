@@ -262,6 +262,11 @@
         });
         var will_note = ko.observable("");
 
+        var damage_reduction = ko.observable("");
+        var spell_resistance = ko.observable("");
+        var resistance = ko.observable("");
+        var immunity = ko.observable("");
+
         var speed_racial = ko.observable("");
         var speed_base = ko.observable("");
         var speed_mod = ko.observable("");
@@ -277,23 +282,38 @@
         var speed_swim = ko.observable("");
 
         var cmd_misc = ko.observable("");
+        var cmd_temp = ko.observable("");
+        var cmd_note = ko.observable("");
         var cmd_total = ko.computed(function () {
             return 10 + Number(bab_highest()) + Number(str_total()) + Number(dex_total()) + Number(size_defensive()) + Number(cmd_misc());
         });
 
         var cmb_misc = ko.observable("");
+        var cmb_temp = ko.observable("");
+        var cmb_note = ko.observable("");
         var cmb_total = ko.computed(function () {
             return Number(bab_highest()) + Number(str_total()) + Number(size_defensive()) + Number(cmb_misc());
         });
+
+        var copper = ko.observable("");
+        var silver = ko.observable("");
+        var gold = ko.observable("");
+        var platinum = ko.observable("");
+
+        var languages = ko.observable("");
+        var note = ko.observable("");
+
+
 
         var GetCharacter = async function (id) {
             console.log("Getting character with id " + id);
 
             var character = undefined;
             var classInfo;
-            await ds.GetCharacter(id, function callback(_character){
+            await ds.GetCharacter(id, function callback(_character) {
                 character = _character;
-                console.log(_character);
+
+                console.log("Character loaded", _character);
             });
             classInfo = GetClassInfo(character.class);
             //TODO: Add all mapping from the character. See console for the character object's fields
@@ -311,7 +331,7 @@
             race(character.raceName);
             _class(GetClass(character.class));
 
-        //Abilities
+            //Abilities
             str_base(setNull(character.strength.baseScore));
             str_temp(setNull(character.strength.tempScore));
 
@@ -354,16 +374,21 @@
             fort_note(character.fortitude.note);
 
             ref_base(classInfo.reflex);
-            ref_magic(character.reflex.magic);
-            ref_misc(character.reflex.misc);
-            ref_temp(character.reflex.temporary);
+            ref_magic(setNull(character.reflex.magic));
+            ref_misc(setNull(character.reflex.misc));
+            ref_temp(setNull(character.reflex.temporary));
             ref_note(character.reflex.note);
 
             will_base(classInfo.will);
-            will_magic(character.will.magic);
-            will_misc(character.will.misc);
-            will_temp(character.will.temporary);
+            will_magic(setNull(character.will.magic));
+            will_misc(setNull(character.will.misc));
+            will_temp(setNull(character.will.temporary));
             will_note(character.will.note);
+
+            damage_reduction(character.damageReduction);
+            spell_resistance(character.spellResistance);
+            resistance(character.resistance);
+            immunity(character.immunity);
 
             speed_racial(character.speed.racialModifier);
             speed_base(character.speed.base);
@@ -376,9 +401,21 @@
             speed_tempBase(setNull(character.speed.baseTempModifier));
             speed_temporary(setNull(character.speed.temporary));
 
-            cmd_misc(character.cmd.misc);
-            cmb_misc(character.cmb.misc);
+            cmd_misc(setNull(character.cmd.misc));
+            cmd_temp(setNull(character.cmd.temp));
+            cmd_note(character.cmd.note);
 
+            cmb_misc(setNull(character.cmb.misc));
+            cmb_temp(setNull(character.cmb.temp));
+            cmb_note(character.cmb.note);
+
+            copper(character.copper);
+            silver(character.silver);
+            gold(character.gold);
+            platinum(character.platinum);
+
+            languages(character.languages);
+            note(character.note);
         };
 
         var GetClass = function (classes) {
@@ -509,7 +546,11 @@
                     Note: will_note()
                 },
 
-                
+                DamageReduction: damage_reduction(),
+                SpellResistance: spell_resistance(),
+                Resistance: resistance(),
+                Immunity: immunity(),
+
                 Speed: {
                     BaseModifier: checkNull(speed_mod()),
                     BaseTempModifier: checkNull(speed_tempBase()),
@@ -525,7 +566,14 @@
                 },
                 CMD: {
                     Misc: checkNull(cmd_misc())
-                }
+                },
+
+                Copper: Number(copper()),
+                Silver: Number(silver()),
+                Gold: Number(gold()),
+                Platinum: Number(platinum()),
+                Languages: languages(),
+                Note: note()
             };
 
             await ds.UpdateCharacter(id, character, function (result) {
@@ -569,8 +617,11 @@
             will_base, will_magic, will_misc, will_total, will_temp, will_note,
             speed_base, speed_mod, speed_total, speed_armour_total, speed_racial, speed_tempBase, speed_temporary,
             speed_fly, speed_burrow, speed_climb, speed_swim,
-            cmd_total, cmd_misc, cmb_total, cmb_misc,
-            SaveChanges, checkNull
+            cmd_total, cmd_misc, cmd_temp, cmd_note, cmb_total, cmb_misc, cmb_temp, cmb_note,
+            SaveChanges, checkNull,
+            copper, silver, gold, platinum, 
+            damage_reduction, spell_resistance, resistance, immunity,
+            languages, note
         }
     };
 });

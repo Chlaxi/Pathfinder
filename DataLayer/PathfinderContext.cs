@@ -166,6 +166,8 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(m => m.Weight).HasColumnName("weight");
             modelBuilder.Entity<Character>().Property(m => m.Hair).HasColumnName("hair");
             modelBuilder.Entity<Character>().Property(m => m.Eyes).HasColumnName("eyes");
+            modelBuilder.Entity<Character>().Property(m => m.Homeland).HasColumnName("homeland");
+            modelBuilder.Entity<Character>().Property(m => m.Deity).HasColumnName("deity");
 
 
             #region AC
@@ -222,9 +224,9 @@ namespace DataLayer
             {
                 m.OwnsOne(e => e.Fortitude, Fortitude =>
                 {
-                    Fortitude.Ignore(m => m.Total);     //.HasColumnName("fortitude_total");
-                    Fortitude.Ignore(m => m.Base);      //.HasColumnName("fortitude_base");
-                    Fortitude.Ignore(m => m.Ability);   //.HasColumnName("fortitude_con_mod");
+                    Fortitude.Ignore(m => m.Total);   
+                    Fortitude.Ignore(m => m.Base);    
+                    Fortitude.Ignore(m => m.Ability); 
                     Fortitude.Property(m => m.Magic).HasColumnName("fortitude_magic_mod");
                     Fortitude.Property(m => m.Temporary).HasColumnName("fortitude_temp");
                     Fortitude.Property(m => m.Misc).HasColumnName("fortitude_misc_mod");
@@ -255,9 +257,9 @@ namespace DataLayer
             {
                 m.OwnsOne(e => e.Will, Will =>
                 {
-                    Will.Ignore(m => m.Total);    //.HasColumnName("will_total");
-                    Will.Ignore(m => m.Base);     //.HasColumnName("will_base");
-                    Will.Ignore(m => m.Ability);  //.HasColumnName("will_con_mod");
+                    Will.Ignore(m => m.Total);  
+                    Will.Ignore(m => m.Base);   
+                    Will.Ignore(m => m.Ability);
                     Will.Property(m => m.Magic).HasColumnName("will_magic_mod");
                     Will.Property(m => m.Temporary).HasColumnName("will_temp");
                     Will.Property(m => m.Misc).HasColumnName("will_misc_mod");
@@ -293,13 +295,7 @@ namespace DataLayer
                     
                     CMB.Property(m => m.Misc).HasColumnName("cmb_misc");
                     CMB.Property(m => m.Temp).HasColumnName("cmb_temp");
-
-
-                    //TODO Remove from DB
-                    //.HasColumnName("cmb_total");
-                    //.HasColumnName("cmb_bab");
-                    //.HasColumnName("cmb_str");
-                    //.HasColumnName("cmb_size_mod");
+                    CMB.Property(m => m.Note).HasColumnName("cmb_note");
                 });
             });
             #endregion
@@ -318,21 +314,13 @@ namespace DataLayer
 
                     CMD.Property(m => m.Misc).HasColumnName("cmd_misc");
                     CMD.Property(m => m.Temp).HasColumnName("cmd_temp");
+                    CMD.Property(m => m.Note).HasColumnName("cmd_note");
 
-
-                    //TODO Remove from DB
-                    //.HasColumnName("cmd_total");
-                    //.HasColumnName("cmd_bab");
-                    //.HasColumnName("cmd_str");
-                    //.HasColumnName("cmd_dex");
-                    //.HasColumnName("cmd_size_mod");
                 });
             });
             #endregion
 
             modelBuilder.Entity<Character>().Ignore(m => m.Initiative);
-                //TODO: Remove from DB, since it doesn't have a setter.
-                //.HasColumnName("initiative_total");
             modelBuilder.Entity<Character>().Property(m => m.InitiativeMiscModifier).HasColumnName("initiative_misc");
 
             #region Speed

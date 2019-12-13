@@ -134,7 +134,7 @@ namespace DataLayer
         public CombatManeuverBonus CMB { get; set; }
         public CombatManeuverDefence CMD { get; set; }
 
-        public int? SpellResistance { get; set; }
+        public string SpellResistance { get; set; }
         public string DamageReduction { get; set; }
 
         public string Resistance { get; set; }
@@ -351,10 +351,11 @@ namespace DataLayer
             public Save(Save save, Ability ability)  : this()//Add base from class levels
             {
                 this.ability = ability;
-                Magic = Magic;
-                Temporary = Temporary;
-                Misc = Misc;
-                Note = Note;
+                Magic = save.Magic;
+                Temporary = save.Temporary;
+                Misc = save.Misc;
+                Note = save.Note;
+                
             }
 
             private Ability ability;
@@ -406,16 +407,18 @@ namespace DataLayer
 
     public class CombatManeuverBonus 
     {
-        private CombatManeuverBonus()
-        {
-
-        }
+        private CombatManeuverBonus(){}
         
-        public CombatManeuverBonus(Character character) : this()
+        public CombatManeuverBonus(int? Misc, int? Temp, string Note)
+        {
+            this.Misc = Misc;//(Misc == null) ? -100 : Misc;
+            this.Temp = Temp;//(Temp == null) ? -100 : Temp;
+            this.Note = Note;
+        }
+
+        public CombatManeuverBonus(CombatManeuverBonus CMB, Character character) : this(CMB.Misc, CMB.Temp, CMB.Note)
         {
             this.character = character;
-           // Misc = character.CMB.Misc;
-            //Temp = character.CMB.Temp;
         }
 
         public Character character;
@@ -464,19 +467,24 @@ namespace DataLayer
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
+        public string Note { get; set; }
     }
 
     public class CombatManeuverDefence
     {
         private CombatManeuverDefence() { }
 
-        public CombatManeuverDefence(Character character) : this()
+        public CombatManeuverDefence(int? Misc, int? Temp, string Note)
         {
-            this.character = character;
-            //Misc = character.CMD.Misc;
-            //Temp = character.CMD.Temp;
+            this.Misc = Misc;//(Misc == null) ? -100 : Misc;
+            this.Temp = Temp;//(Temp == null) ? -100 : Temp;
+            this.Note = Note;
         }
 
+        public CombatManeuverDefence(CombatManeuverDefence CMD, Character character) : this(CMD.Misc, CMD.Temp, CMD.Note)
+        {
+            this.character = character;
+        }
         public Character character;
         
 
@@ -538,15 +546,17 @@ namespace DataLayer
 
         public int? Misc { get; set; }
         public int? Temp { get; set; }
+        public string Note { get; set; }
     }
 
     public class Speed
     {
         private Speed() { }
 
-        public Speed(Speed speed, Race race)
+        public Speed(Speed speed, Race race) : this(speed.BaseModifier, speed.BaseTempModifier, speed.Armour, speed.Fly, speed.Swim, speed.Climb, speed.Burrow, speed.Temporary)
         {
             this.race = race;
+
             //BaseModifier = speed.BaseModifier;
 
         }
