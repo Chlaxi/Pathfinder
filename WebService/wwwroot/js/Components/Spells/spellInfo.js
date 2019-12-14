@@ -20,9 +20,10 @@
         var duration = ko.observable(false);
         var savingThrow = ko.observable(false);
 
-
-
         spellModal.CurrentSpell.subscribe(function (data) {
+            if (data ==="" || data === null) {
+                return;
+            }
             console.log(JSON.stringify(data));
             GetSpell(data.spellId);
         });
@@ -108,8 +109,14 @@
             console.log(spellLevel);
             console.log("Adding spell" + spell().id + " at level ", spellLevel ," to " + charId);
 
-            await ds.AddSpell(charId, spell().id, spellLevel, function (data) {
-                console.log(data);
+            await ds.AddSpell(charId, spell().id, spellLevel, function (success) {
+                if (success) {
+                    var status = "Successfully added " + spell().name;
+                }
+                else {
+                    var status = "Failed to add spell";
+                }
+                CloseModule(status);
                 //Show "spell added" message, close module, refresh the spell level
             });
             
@@ -133,14 +140,23 @@
             console.log(spellLevel);
             console.log("removing spell" + spell().id + " at level ", spellLevel, " to " + charId);
 
-            await ds.RemoveSpell(charId, spell().id, spellLevel, function (data) {
-                console.log(data);
+            await ds.RemoveSpell(charId, spell().id, spellLevel, function (success) {
+                if (success) {
+                    var status = "Successfully removed " + spell().name;
+                } else {
+                    var status = "Failed to remove spell";
+                }
+                CloseModule(status);
                 //Show "spell removed" message, close module, refresh the spell level
             });
         };
 
         var CloseModule = function (status) {
-            //Show status message, close module, refresh the spell level
+            
+            alert(status);
+            Clear();
+            //refresh spell list
+            spellModal.CloseModule();
         };
 
         return {

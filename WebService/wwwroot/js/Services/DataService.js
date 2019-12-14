@@ -181,9 +181,12 @@
             }
         });
         console.log("Adding spell to spellbook: ", response.status, response.statusText);
-
-        var data = await response.json();
-        callback(data);
+        if (response.status === 201) {
+            callback(true);
+        }
+        else {
+            callback(false);
+        }
     };
 
     var RemoveSpell = async function (characterId, spellId, spellLevel, callback) {
@@ -196,8 +199,14 @@
                 'Authorization': app.token
             }
         });
-        console.log("Was removing spell from spellbook a success? ", response.status, response.statusText);;
-        callback(response);
+        console.log("Was removing spell from spellbook a success? ", response.status, response.statusText);
+        if (response.status === 200) {
+            callback(true);
+        }
+        else {
+            callback(false);
+        }
+        
     };
 
     return {

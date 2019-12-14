@@ -8,6 +8,12 @@
             GetSpellbook(data.id);
             id = data.id;
         });
+
+        spellModal.changed.subscribe(function () {
+            console.log("Changes were made to the spellbook");
+            GetSpellbook(app.CurrentCharacter().id);
+        });
+
         var hasSpellbook = ko.observable(false);
         var spellbook = ko.observableArray([]);
         var spellLevels = ko.observableArray([]);
@@ -45,11 +51,7 @@
         }
 
         var CloseSpellModal = function () {
-            spellModal.isOpen(false);
-            spellModal.isAddingSpell(false);
-            spellModal.SpellLevel(null);
-         //   spellModal.CurrentSpell(null);
-            currentSpellLevel(null);
+            spellModal.CloseModule();
         }
 
         return {
