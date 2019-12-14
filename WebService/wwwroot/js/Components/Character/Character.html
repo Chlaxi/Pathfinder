@@ -9,7 +9,7 @@
             <input type="text" placeholder="Class and level" data-bind="value: _class" />
             <input type="text" placeholder="Deity" data-bind="value: deity" />
             <input type="text" placeholder="Homeland" data-bind="value: homeland" />
-            <input type="text" placeholder="Race" data-bind="value: race" />
+            <input type="button" placeholder="Race" data-bind="value: race, click: RaceModal" />
             <input type="text" placeholder="hair" data-bind="value: hair" />
             <input type="text" placeholder="eyes" data-bind="value: eyes" />
             <input type="text" placeholder="age" data-bind="value: age" />
@@ -209,10 +209,7 @@
     </div>
 
 
-    <div id="Feats">
-        <h1>Feats</h1>
-        insert feat component here
-    </div>
+    <feats id="Feats"> </feats>
 
     <div id="Specials">
         <h1>Special Abilities</h1>
@@ -228,5 +225,10 @@
         insert item component here
     </div>
 
-
+    <div id="RaceModal" class="modal" data-bind="style: { display: $root.RaceModalState() ? 'block' : 'none'}">
+        <div  class="modal-content">
+            <span class="close" data-bind="click: $component.RaceModal">X</span>
+            <race></race>
+        </div>
+    </div>
 </main>

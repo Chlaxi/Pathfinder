@@ -27,7 +27,7 @@
         var gender = ko.observable("");
         var homeland = ko.observable("");
 
-        var race = ko.observable("");
+        var race = ko.observable("Race");
         var _class = ko.observable("");
 
         var str_base = ko.observable("");
@@ -416,6 +416,7 @@
 
             languages(character.languages);
             note(character.note);
+
         };
 
         var GetClass = function (classes) {
@@ -595,7 +596,12 @@
             return value;
         };
 
-       
+
+        var RaceModal = function () {
+            console.log("CLIOCK");
+            app.RaceModalState(!app.RaceModalState());
+        };
+
 
         return {
             name, age, alignment, deity, hair, eyes, weight, height, gender, homeland,
@@ -621,7 +627,9 @@
             SaveChanges, checkNull,
             copper, silver, gold, platinum, 
             damage_reduction, spell_resistance, resistance, immunity,
-            languages, note
+            languages, note,
+
+            RaceModal
         }
     };
 });

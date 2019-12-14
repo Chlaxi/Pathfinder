@@ -7,11 +7,13 @@
     var CurrentPlayer = ko.observable({ id: undefined, name: "" });
     var CurrentCharacter = ko.observable({ id: undefined });
 
+    var RaceModalState = ko.observable(false);
+
     var spellModal = ko.observable(spellModal);
 
-    var SetCharacter = function (_id) {
-        console.log("Current character set to: " + _id);
-        CurrentCharacter({ id : _id });
+    var SetCharacter = function (char) {
+        console.log("Current character set to: " + char);
+        CurrentCharacter({ id : char.id, race: char.race});
     }
 
     return {
@@ -21,6 +23,7 @@
         CurrentPlayer,
         CurrentCharacter,
         SetCharacter,
-        spellModal
+        spellModal,
+        RaceModalState
     };
 });

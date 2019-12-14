@@ -1,0 +1,17 @@
+﻿<div class="container" data-bind="GetRaces()">
+    <select data-bind="options: races, optionsText: 'name', value: selectedRace,
+                        optionsCaption: 'Choose a race'">
+    </select>
+    <div>
+        <h2>Race info</h2>
+        <div data-bind="with: selectedRace">
+            <h3 data-bind="text: name"></h3>
+            <div>
+                A <span data-bind="text: name"></span> gets the following bonuses:
+            </div>
+        </div>
+    </div>
+    <div>
+        <button data-bind="click: SetRace">Choose race</button>
+    </div>
+</div>
