@@ -1,4 +1,4 @@
-﻿define(["knockout", "app", "dataService"], function (ko, app, ds) {
+﻿define(["knockout", "app", "dataService", "spellModal"], function (ko, app, ds, spellModal) {
     return function (params) {
 
         var charId = undefined;
@@ -22,15 +22,17 @@
 
 
 
-        params.spell.subscribe(function (data) {
+        spellModal.CurrentSpell.subscribe(function (data) {
             console.log(JSON.stringify(data));
             GetSpell(data.spellId);
         });
+
         app.SpellLevel.subscribe(function (data) {
             console.log("Spell level set to ", data);
         });
 
         var GetSpell = async function (spellId) {
+
             await ds.GetSpell(spellId, function (_spell) {
                 console.log("Done", _spell);
                 spell(_spell);
@@ -51,24 +53,31 @@
 
                 var _components = (_spell.components === null) ? false : true;
                 components(_components);
+
                 var _range = (_spell.range === null) ? false : true;
                 range(_range);
+
                 var _target = (_spell.target === null) ? false : true;
                 target(_target);
+
                 var _area = (_spell.area === null) ? false : true;
                 area(_area);
+
                 var _effect = (_spell.effect === null) ? false : true;
                 effect(_effect);
+
                 var _savingThrow = (_spell.savingThrow === null) ? false : true;
                 savingThrow(_savingThrow);
+
                 var _duration = (_spell.duration === null) ? false : true;
                 duration(_duration);
 
-
+                console.log("The spell is now set to", spell());
             });
         };
 
         var Clear = function () {
+            school("");
             spell({ name: "Name" });
             castingTime(false);
             duration(false);

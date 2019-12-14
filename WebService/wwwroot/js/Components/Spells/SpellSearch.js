@@ -1,4 +1,4 @@
-﻿define(["knockout", "dataService"], function (ko, ds) {
+﻿define(["knockout", "app", "spellModal", "dataService"], function (ko, app, spellModal, ds) {
     return function (params) {
 
         var spellQuery = ko.observable("");
@@ -21,6 +21,7 @@
         var chooseSpell = function (spell) {
             currentSpell(spell);
             console.log("Choose a new spell", spell);
+            spellModal.CurrentSpell(spell);
         }
 
         return {

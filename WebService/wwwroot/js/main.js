@@ -6,8 +6,8 @@ require.config({
         //     jquery: "../lib/jquery/dist/jquery",
         knockout: "../lib/knockout/build/output/knockout-latest.debug",
         text: "../lib/requirejs-text/text",
-        dataService: "services/dataservice"
-
+        dataService: "services/dataservice",
+        spellModal:"components/spells/spellmodal"
     }
 });
 

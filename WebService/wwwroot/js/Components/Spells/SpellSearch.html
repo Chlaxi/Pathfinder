@@ -1,6 +1,5 @@
 ﻿<div class="spells">
     <h1>Spells</h1>
-    <div class="container">
 
         <div>
             <input data-bind="textInput: spellQuery" />
@@ -10,11 +9,7 @@
                         <span data-bind="text: $data.name" style="font-weight: bold"></span>
                         <p data-bind="text: $data.shortDescription"></p>
                     </div>
-
                 </li>
-
             </ul>
         </div>
-        <spell-info params="{spell: currentSpell}"></spell-info>
-    </div>
 </div>

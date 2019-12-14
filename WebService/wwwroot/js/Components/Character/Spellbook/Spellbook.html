@@ -34,7 +34,11 @@
 <div id="spellModal" class="modal" data-bind="style: { display: $component.isAddingSpell() ? 'block' : 'none'}">
     <div class="modal-content">
         <span class="close" data-bind="click: CloseSpellModal">X</span>
-        <spell></spell>
+        <div class="container">
+            <spell></spell>
+            <spell-info id="spellInfo"></spell-info>
+            <!--<spell-info params="{spell: currentSpell}"></spell-info>-->
+        </div>
     </div>
 
 </div>
