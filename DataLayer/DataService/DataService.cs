@@ -561,7 +561,7 @@ namespace DataLayer.DataService
                         where knownSpell.CharacterId.Equals(character.Id) && knownSpell.SpellId.Equals(spellIndex) && knownSpell.SpellLevel.Equals(spellLevel)
                         select knownSpell;
         
-            if(query.First() == null)
+            if(query.Count()==0 || query.First() == null)
             {
                 Console.WriteLine("No spell found for that character.");
                 return false;
