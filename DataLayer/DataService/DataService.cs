@@ -419,8 +419,17 @@ namespace DataLayer.DataService
 
         public Spellbook GetSpellBook(Character character)
         {
+
             using var db = new PathfinderContext();
             Console.WriteLine("------Getting Spellbook for the character {0}, who is a {1}", character.Id, character.Class.ToString());
+
+            Spellbook spellbook = new Spellbook();
+            spellbook.SpellLevels = new SpellLevel[10];
+            for (int i = 0; i < spellbook.SpellLevels.Length; i++)
+            {
+                spellbook.SpellLevels[i] = new SpellLevel(i);
+            }
+
 
             var query = from spells in db.KnownSpells
                         where spells.CharacterId.Equals(character.Id)
@@ -430,16 +439,10 @@ namespace DataLayer.DataService
             if(query.Count() == 0)
             {
                 Console.WriteLine("No spells found for this character");
-                return null;
+                return spellbook;
             }
             Console.WriteLine("Found {0} spells for the {1}",query.Count(), character.Name);
-            Spellbook spellbook = new Spellbook();
-            spellbook.SpellLevels = new SpellLevel[10];
-            for (int i = 0; i < spellbook.SpellLevels.Length; i++)
-            {
-                spellbook.SpellLevels[i] = new SpellLevel(i);
-            }
-            
+
             Console.WriteLine("----Adding spells to {0}", character.Name);
             foreach (var spell in query)
             {
