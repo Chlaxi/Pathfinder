@@ -28,7 +28,7 @@
             spellQuery,
             spells,
             currentSpell,
-            chooseSpell
+            chooseSpell,
 
         };
     };

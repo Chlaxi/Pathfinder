@@ -24,6 +24,7 @@
             characters.removeAll();
             app.Token = "";
             app.CurrentPlayer({});
+            app.CurrentCharacter({});
 
         };
 

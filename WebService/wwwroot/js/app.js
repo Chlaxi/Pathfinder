@@ -6,7 +6,7 @@
     var Token = ko.observable();
     var CurrentPlayer = ko.observable({ id: undefined, name: "" });
     var CurrentCharacter = ko.observable({ id: undefined });
-
+    var SpellLevel = ko.observable("");
     var SetCharacter = function (_id) {
         console.log("Current character set to: " + _id);
         CurrentCharacter({ id : _id });
@@ -18,7 +18,8 @@
         Token,
         CurrentPlayer,
         CurrentCharacter,
-        SetCharacter
+        SetCharacter,
+        SpellLevel
         
     };
 });

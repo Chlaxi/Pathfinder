@@ -1,0 +1,41 @@
+﻿<div>
+    <h1>Spellbook</h1>
+    <div data-bind="ifNot: hasSpellbook"><button>Add Spellbook</button></div>
+    <ul data-bind="foreach: spellLevels">
+        <li>
+            <div>
+                <h2>Level <span data-bind="text: $index"></span></h2>
+                <div>
+                    <span class="spellHeader">SpellDC </span><input type="text" placeholder="DC" data-bind="textInput: $data.spellDC" />
+                    <span class="spellHeader">Spells Known</span> <input type="text" placeholder="spellsKnown" data-bind="textInput: $data.spellsKnown" />
+                    <span class="spellHeader">Spells Per Day </span><input type="text" placeholder="Spells Per Day" data-bind="textInput: $data.spellsPerDay" />
+                    <span class="spellHeader">Spells Prepared </span> <input type="text" data-bind="textInput: $data.spellsPrepared" />
+                </div>
+                <button data-bind="click: function(data, event) {$component.AddSpellToSpellbook($data.level)}">Add Spell</button>
+            </div>
+            <ul data-bind="foreach: spells">
+                <li>
+
+                    <div data-bind="using: spell">
+                        <h3 data-bind="text: $data.name">Spell</h3>
+                        <div>
+                            <div data-bind="text: $data.shortDescription"></div>
+                        </div>
+                    </div>
+
+                    <div>Preparation: <span data-bind="text: $data.prepared"></span></div>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+
+
+<div id="spellModal" class="modal" data-bind="style: { display: $component.isAddingSpell() ? 'block' : 'none'}">
+    <div class="modal-content">
+        <span class="close" data-bind="click: CloseSpellModal">X</span>
+        <spell></spell>
+    </div>
+
+</div>

@@ -437,7 +437,7 @@ namespace DataLayer.DataService
             spellbook.SpellLevels = new SpellLevel[10];
             for (int i = 0; i < spellbook.SpellLevels.Length; i++)
             {
-                spellbook.SpellLevels[i] = new SpellLevel();
+                spellbook.SpellLevels[i] = new SpellLevel(i);
             }
             
             Console.WriteLine("----Adding spells to {0}", character.Name);

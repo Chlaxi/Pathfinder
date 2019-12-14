@@ -132,7 +132,59 @@
         var response = await fetch(url);
         var data = await response.json();
         callback(data);
-    }
+    };
+
+    var LoadSpellbook = async function (characterId, callback) {
+       // var url = "api/characters/" + characterId + "/spells/" + spellLevel;
+        var url = "api/characters/" + characterId + "/spells/";
+        /*var spell = {
+            SpellId: spellId,
+            SpellLevel: spellLevel
+        };*/
+
+        var response = await fetch(url, options = {
+            method: 'GET',
+            //body: JSON.stringify(spell),
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("Spellbook response", response);
+        if (response.status !== 200) {
+            console.log(response.statusText);
+            callback(null);
+            return;
+        }
+
+        var data = await response.json();
+        callback(data);
+    };
+
+    var AddSpell = async function (characterId, spellId, spellLevel, callback) {
+        var url = "api/characters/" + characterId +"/spells";
+
+        var spell = {
+            SpellId: spellId,
+            SpellLevel: spellLevel
+        };
+        console.log(spell);
+
+        var response = await fetch(url, options = {
+            method: 'POST',
+            body: JSON.stringify(spell),
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("Adding spell to spellbook: ", response.status, response.statusText);
+
+        var data = await response.json();
+        callback(data);
+    };
 
     return {
         Login,
@@ -141,6 +193,7 @@
         GetCharacter,
         UpdateCharacter,
         spellSearch,
-        GetSpell
+        GetSpell,
+        LoadSpellbook, AddSpell
     }
 });

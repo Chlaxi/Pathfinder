@@ -5,16 +5,20 @@
     <title>The Pathfinder Project</title>
     <style>
         /*Temporary style, to easily identify readonly fields in the character*/
-        .readonly{
-            background-color : #00aa00;
+        .readonly {
+            background-color: #00aa00;
         }
-        .container{
-            display:flex;
+
+        .container {
+            display: flex;
         }
-        .spellHeader{
-            font-weight : bold;
+
+        .spellHeader {
+            font-weight: bold;
         }
+
     </style>
+    <link href="js/Components/Spells/SpellModal.css" rel="stylesheet" />
 </head>
 <body>
     <h1>Welcome to the frontpage of the Pathfinder project! </h1>
@@ -26,11 +30,7 @@
 
         <player-front></player-front>
         <character></character>
-    </div>
-
-
-        <spell></spell>
-        
+    </div>        
 
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
 </body>

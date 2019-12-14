@@ -11,19 +11,21 @@ namespace DataLayer
 
     public class SpellLevel
     {
-        public SpellLevel()
+        public SpellLevel(int Level)
         {
+            this.Level = Level;
             //TODO: Get spells per day from the chracter
             SpellsKnown = 0;
             SpellsPerDay = 0; //Get from character
             Spells = new List<KnownSpell>(); 
                     }
-
+   
         public int SpellDC { get
             {
                 return 0;
             }
         }
+        public int Level { get; set; }
         public int SpellsKnown { get; set; }
         public int SpellsPerDay { get; set; }
         public int? SpellsPrepared { get; set; }

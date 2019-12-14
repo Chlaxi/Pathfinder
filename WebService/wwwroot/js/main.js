@@ -44,6 +44,12 @@ require(["knockout"], function (ko) {
         template: { require: "text!components/spells/spellinfo.html" }
     });
 
+
+    ko.components.register('spellbook', {
+        viewModel: { require: "components/character/spellbook/spellbook" },
+        template: { require: "text!components/character/spellbook/spellbook.html" }
+    });
+
 });
 
 require(["knockout", "app"], function (ko, app) {
