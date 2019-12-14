@@ -16,6 +16,9 @@
             return Number(value);
         };
 
+
+        var Character = ko.observable({});
+
         var name = ko.observable("");
         var age = ko.observable("");
         var alignment = ko.observable("");
@@ -416,7 +419,7 @@
 
             languages(character.languages);
             note(character.note);
-
+            Character(character);
         };
 
         var GetClass = function (classes) {
@@ -586,22 +589,22 @@
             //us typeof === number? 
             if (value === "" || value === null) {
                 value = -100;
-                console.log("Set " + value + " to null");
             }
             value=Number(value);
             if (isNaN(value)) {
                 value = -100;
-                console.log(value + " was NaN. Set to -100");
             }
             return value;
         };
 
 
         var RaceModal = function () {
-            console.log("CLIOCK");
             app.RaceModalState(!app.RaceModalState());
         };
 
+        var ClassModal = function () {
+            app.ClassModalState(!app.ClassModalState());
+        };
 
         return {
             name, age, alignment, deity, hair, eyes, weight, height, gender, homeland,
@@ -628,8 +631,8 @@
             copper, silver, gold, platinum, 
             damage_reduction, spell_resistance, resistance, immunity,
             languages, note,
-
-            RaceModal
+            Character,
+            RaceModal, ClassModal
         }
     };
 });

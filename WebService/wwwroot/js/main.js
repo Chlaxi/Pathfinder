@@ -1,6 +1,4 @@
-﻿
-
-require.config({
+﻿require.config({
     baseUrl: "js",
     paths: {
         //     jquery: "../lib/jquery/dist/jquery",
@@ -32,6 +30,11 @@ require(["knockout"], function (ko) {
     ko.components.register('race', {
         viewModel: { require: "components/character/race/raceinfo" },
         template: { require: "text!components/character/race/raceinfo.html" }
+    });
+
+    ko.components.register('classes', {
+        viewModel: { require: "components/character/race/class/classinfo" },
+        template: { require: "text!components/character/race/class/classinfo.html" }
     });
 
     ko.components.register('character', {

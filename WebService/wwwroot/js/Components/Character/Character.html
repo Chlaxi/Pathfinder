@@ -6,7 +6,7 @@
             <h1>Character Info</h1>
             <input type="text" placeholder="Name" data-bind="value: name" />
             <input type="text" placeholder="Alignment" data-bind="value: alignment" />
-            <input type="text" placeholder="Class and level" data-bind="value: _class" />
+            <input type="button" placeholder="Class and level" data-bind="value: _class, click: ClassModal" />
             <input type="text" placeholder="Deity" data-bind="value: deity" />
             <input type="text" placeholder="Homeland" data-bind="value: homeland" />
             <input type="button" placeholder="Race" data-bind="value: race, click: RaceModal" />
@@ -137,10 +137,10 @@
                 </div>
             </div>
             <div>
-            <input type="text" placeholder="damage_reduction" data-bind="textInput: damage_reduction" />
-            <input type="text" placeholder="spell_resistance" data-bind="textInput: spell_resistance" />
-            <input type="text" placeholder="resistances" data-bind="textInput: resistance" />
-            <input type="text" placeholder="immunity" data-bind="textInput: immunity" />
+                <input type="text" placeholder="damage_reduction" data-bind="textInput: damage_reduction" />
+                <input type="text" placeholder="spell_resistance" data-bind="textInput: spell_resistance" />
+                <input type="text" placeholder="resistances" data-bind="textInput: resistance" />
+                <input type="text" placeholder="immunity" data-bind="textInput: immunity" />
             </div>
             <div id="CMD">
                 <h2>Combat Maneuver Defence</h2>
@@ -196,7 +196,7 @@
         <input type="text" placeholder="Silver" data-bind="textInput: silver" />
         <input type="text" placeholder="Gold" data-bind="textInput: gold" />
         <input type="text" placeholder="Platinum" data-bind="textInput: platinum" />
-        
+
         <h1>Notes</h1>
         <textarea placeholder="Notes" data-bind="textInput: note"></textarea>
 
@@ -217,18 +217,25 @@
     </div>
 
 
-     <spellbook id="Spellbook"></spellbook>
+    <spellbook id="Spellbook"></spellbook>
 
 
-    
+
     <div id="Items">
         insert item component here
     </div>
 
     <div id="RaceModal" class="modal" data-bind="style: { display: $root.RaceModalState() ? 'block' : 'none'}">
-        <div  class="modal-content">
+        <div class="modal-content">
             <span class="close" data-bind="click: $component.RaceModal">X</span>
             <race></race>
+        </div>
+    </div>
+
+    <div id="ClassModal" class="modal" data-bind="style: { display: $root.ClassModalState() ? 'block' : 'none'}">
+        <div class="modal-content">
+            <span class="close" data-bind="click: $component.ClassModal">X</span>
+            <classes params="{character: $component.Character().class}"></classes>
         </div>
     </div>
 </main>

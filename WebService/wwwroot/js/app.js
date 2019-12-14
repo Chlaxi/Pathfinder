@@ -8,6 +8,7 @@
     var CurrentCharacter = ko.observable({ id: undefined });
 
     var RaceModalState = ko.observable(false);
+    var ClassModalState = ko.observable(false);
 
     var spellModal = ko.observable(spellModal);
 
@@ -24,6 +25,7 @@
         CurrentCharacter,
         SetCharacter,
         spellModal,
-        RaceModalState
+        RaceModalState,
+        ClassModalState
     };
 });

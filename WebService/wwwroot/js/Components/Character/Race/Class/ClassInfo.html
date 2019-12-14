@@ -1,0 +1,28 @@
+﻿<div class="container" data-bind="GetClasses()">
+    <form data-bind="submit: function(data) { SetClasses(level) }">
+        <select data-bind="options: classes, optionsText: 'name', value: currentClass,
+                            optionsCaption: 'Choose a class'">
+        </select>
+        <input type="number" min="1" max="20" value="1" data-bind="textInput: level" />
+        <button type="submit">Choose race</button>
+    </form>
+    <div>
+        <h1>Class info</h1>
+        <div>
+            <h2>Your classes</h2>
+            <ul data-bind="foreach: character">
+                <li>
+                    <h3><span data-bind="text: $data.className"></span> <span data-bind="text: $data.level"></span> </h3>
+                    <div>Description</div>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="with: currentClass">
+            <h3>New Class</h3>
+            <h3 data-bind="text: name"></h3>
+            <div>
+                A <span data-bind="text: name"></span> gets the following bonuses:
+            </div>
+        </div>
+    </div>
+</div>

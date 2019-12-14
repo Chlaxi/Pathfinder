@@ -109,6 +109,7 @@
         var data = await response.json();
         callback(data);
     };
+
     var SetRace = async function (charid, raceName, callback) {
         var url = "api/characters/" + charid + "/races/" + raceName;
         var response = await fetch(url, options = {
@@ -126,6 +127,33 @@
         var data = await response.json();
         callback(data);
     };
+
+    var GetClasses = async function (callback) {
+        var url = "api/classes"
+        var response = await fetch(url);
+        var data = await response.json();
+        callback(data);
+    };
+
+    var SetClass = async function (charid, className, level, callback) {
+        var url = "api/characters/" + charid + "/classes/" + className;
+        var param = "?level=" + level;
+        var response = await fetch(url+param, options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("class set status ", response.status, response.statusText);
+        if (response.status !== 200) {
+            callback(undefined);
+            return;
+        }
+        var data = await response.json();
+        callback(data);
+    };
+
 
     var UpdateCharacter = async function (id, character, callback) {
         console.log("Updating character with id " + id);
@@ -242,6 +270,7 @@
         spellSearch,
         GetSpell,
         LoadSpellbook, AddSpell, RemoveSpell,
-        GetRaces, SetRace
+        GetRaces, SetRace,
+        GetClasses, SetClass
     }
 });
