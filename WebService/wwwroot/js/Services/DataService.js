@@ -138,7 +138,9 @@
     var SetClass = async function (charid, className, level, callback) {
         var url = "api/characters/" + charid + "/classes/" + className;
         var param = "?level=" + level;
-        var response = await fetch(url+param, options = {
+        url += param;
+        console.log("Trying to set a class using the url"+url)
+        var response = await fetch(url, options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -154,6 +156,40 @@
         callback(data);
     };
 
+    var LevelUpClass = async function (charid, className, callback) {
+        var url = "api/characters/" + charid + "/classes/" + className +"/levelup";
+        var response = await fetch(url, options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("class set status ", response.status, response.statusText);
+        if (response.status !== 200) {
+            callback(undefined);
+            return;
+        }
+        var data = await response.json(); 
+        callback(data);
+    };
+
+    var RemoveClass = async function (charid, className, callback) {
+        var url = "api/characters/" + charid + "/classes/" + className;
+        var response = await fetch(url, options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("class set status ", response.status, response.statusText);
+        if (response.status !== 200) {
+            callback(undefined);
+            return;
+        }
+        callback(response);
+    };
 
     var UpdateCharacter = async function (id, character, callback) {
         console.log("Updating character with id " + id);
@@ -271,6 +307,6 @@
         GetSpell,
         LoadSpellbook, AddSpell, RemoveSpell,
         GetRaces, SetRace,
-        GetClasses, SetClass
+        GetClasses, SetClass, LevelUpClass, RemoveClass
     }
 });
