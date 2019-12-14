@@ -15,7 +15,7 @@
             <ul data-bind="foreach: spells">
                 <li>
 
-                    <div data-bind="using: spell">
+                    <div data-bind="using: spell, click: function(data){ $component.ShowSpellInfo($parent.level,$data)}">
                         <h3 data-bind="text: $data.name">Spell</h3>
                         <div>
                             <div data-bind="text: $data.shortDescription"></div>
@@ -23,6 +23,7 @@
                     </div>
 
                     <div>Preparation: <span data-bind="text: $data.prepared"></span></div>
+
                 </li>
             </ul>
         </li>
@@ -31,14 +32,15 @@
 </div>
 
 
-<div id="spellModal" class="modal" data-bind="style: { display: $component.isAddingSpell() ? 'block' : 'none'}">
+<div id="spellModal" class="modal" data-bind="style: { display: $root.spellModal().isOpen() ? 'block' : 'none'}">
     <div class="modal-content">
         <span class="close" data-bind="click: CloseSpellModal">X</span>
         <div class="container">
-            <spell></spell>
+            <spell data-bind="style: { display:  $root.spellModal().isAddingSpell() ? 'block' : 'none'}"></spell>
             <spell-info id="spellInfo"></spell-info>
-            <!--<spell-info params="{spell: currentSpell}"></spell-info>-->
+
+                <!--<spell-info params="{spell: currentSpell}"></spell-info>-->
+            </div>
         </div>
-    </div>
 
 </div>

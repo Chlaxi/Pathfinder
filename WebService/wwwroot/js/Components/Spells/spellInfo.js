@@ -27,7 +27,7 @@
             GetSpell(data.spellId);
         });
 
-        app.SpellLevel.subscribe(function (data) {
+        spellModal.SpellLevel.subscribe(function (data) {
             console.log("Spell level set to ", data);
         });
 
@@ -101,10 +101,10 @@
                 console.log("Spell not defined");
                 return;
             }
-            if (app.SpellLevel === null || app.SpellLevel === undefined) {
+            if (spellModal.SpellLevel === null || spellModal.SpellLevel === undefined) {
                 console.log("No spell level set");
             }
-            var spellLevel = Number(app.SpellLevel());
+            var spellLevel = Number(spellModal.SpellLevel());
             console.log(spellLevel);
             console.log("Adding spell" + spell().id + " at level ", spellLevel ," to " + charId);
 
@@ -115,10 +115,38 @@
             
         };
 
+        var RemoveSpell = async function () {
+            console.log(charId);
+            if (charId === null || charId === undefined) {
+                console.log("character not defined");
+                return;
+            }
+            console.log("Spell to add ", spell());
+            if (spell().id === null || spell().id === undefined) {
+                console.log("Spell not defined");
+                return;
+            }
+            if (spellModal.SpellLevel === null || spellModal.SpellLevel === undefined) {
+                console.log("No spell level set");
+            }
+            var spellLevel = Number(spellModal.SpellLevel());
+            console.log(spellLevel);
+            console.log("removing spell" + spell().id + " at level ", spellLevel, " to " + charId);
+
+            await ds.RemoveSpell(charId, spell().id, spellLevel, function (data) {
+                console.log(data);
+                //Show "spell removed" message, close module, refresh the spell level
+            });
+        };
+
+        var CloseModule = function (status) {
+            //Show status message, close module, refresh the spell level
+        };
+
         return {
             spell,
             school,
-            GetSpell, Clear, AddSpell,
+            GetSpell, Clear, AddSpell, RemoveSpell, CloseModule,
             castingTime, duration, components, range, target, area, effect, savingThrow
         };
 

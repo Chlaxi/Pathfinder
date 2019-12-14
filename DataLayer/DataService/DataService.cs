@@ -548,25 +548,29 @@ namespace DataLayer.DataService
         public bool RemoveSpellFromCharacter(Character character, int spellLevel, int spellIndex)
         {
             using var db = new PathfinderContext();
-            
-            KnownSpell spell = GetSpellFromSpellbook(character, spellLevel, spellIndex);
-            if (spell == null)
-                return false;
-            
 
+
+              //  KnownSpell spell = GetSpellFromSpellbook(character, spellLevel, spellIndex);
+            
+            
             Console.WriteLine("--------Trying to remove a spell to the character {0}", character.Name);
 
             //TODO Authorisation
 
-   /*         var query = from knownSpell in db.KnownSpells
-                        where knownSpell.CharacterId.Equals(character.Id) && knownSpell.SpellId.Equals(spellId) && knownSpell.SpellLevel.Equals(spellLevel)
+           var query = from knownSpell in db.KnownSpells
+                        where knownSpell.CharacterId.Equals(character.Id) && knownSpell.SpellId.Equals(spellIndex) && knownSpell.SpellLevel.Equals(spellLevel)
                         select knownSpell;
         
             if(query.First() == null)
             {
                 Console.WriteLine("No spell found for that character.");
                 return false;
-            }*/
+            }
+
+            KnownSpell spell = query.First();
+             if (spell == null)
+                return false;
+
 
             db.KnownSpells.Remove(spell);
             db.SaveChanges();

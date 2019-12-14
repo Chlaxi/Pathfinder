@@ -186,6 +186,20 @@
         callback(data);
     };
 
+    var RemoveSpell = async function (characterId, spellId, spellLevel, callback) {
+        var url = "api/characters/" + characterId + "/spells/" +spellLevel+"/"+spellId;
+        var response = await fetch(url, options = {
+            method: 'DELETE',
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        console.log("Was removing spell from spellbook a success? ", response.status, response.statusText);;
+        callback(response);
+    };
+
     return {
         Login,
         SignUp,
@@ -194,6 +208,6 @@
         UpdateCharacter,
         spellSearch,
         GetSpell,
-        LoadSpellbook, AddSpell
+        LoadSpellbook, AddSpell, RemoveSpell
     }
 });

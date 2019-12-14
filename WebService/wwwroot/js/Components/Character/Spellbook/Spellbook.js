@@ -1,4 +1,4 @@
-﻿define(["knockout", "app", "dataService"], function (ko, app, ds) {
+﻿define(["knockout", "app", "dataService", "spellModal"], function (ko, app, ds, spellModal) {
     return function (params) {
         var id = undefined;
         /*Subscribes to changes to the Current character in the application.
@@ -31,18 +31,29 @@
         var AddSpellToSpellbook = function (spellLevel) {
             console.log("Trying to add new spell to spell level " + spellLevel);
             //This should set current spell level, and open up the spell search modal 
-            app.SpellLevel(spellLevel);
-            isAddingSpell(true);
+            spellModal.SpellLevel(spellLevel);
+            spellModal.isOpen(true);
+            spellModal.isAddingSpell(true);
         };
 
+        var ShowSpellInfo = function(spellLevel, spell){
+            console.log("Showing " + spell +" at level "+spellLevel);
+            spellModal.isOpen(true);
+            spellModal.SpellLevel(spellLevel);
+            spellModal.CurrentSpell(spell);
+            spellModal.isAddingSpell(false);
+        }
+
         var CloseSpellModal = function () {
-            isAddingSpell(false);
-            app.SpellLevel(null);
+            spellModal.isOpen(false);
+            spellModal.isAddingSpell(false);
+            spellModal.SpellLevel(null);
+         //   spellModal.CurrentSpell(null);
             currentSpellLevel(null);
         }
 
         return {
-            GetSpellbook,
+            GetSpellbook, ShowSpellInfo,
             AddSpellToSpellbook, isAddingSpell, CloseSpellModal,
             hasSpellbook, spellbook, spellLevels
         };
