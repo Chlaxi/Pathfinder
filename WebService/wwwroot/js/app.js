@@ -2,45 +2,73 @@
 
 
     var menuElements = ko.observableArray([
+
+        ]);
+
+    var sheetMenuElements = ko.observableArray([
+        {
+            name: "Character",
+            link: "#CharacterInfo",
+            icon: "glyphicon glyphicon-log-in"
+        },
+        {
+            name: "Abilities",
+            link: "#Abilities",
+            icon: "glyphicon glyphicon-log-in"
+        },
+        {
+            name: "Offense",
+            link: "#Offense",
+            icon: "glyphicon glyphicon-log-in"
+        },
+        {
+            name: "Defensive",
+            link: "#Defensive",
+            icon: "glyphicon glyphicon-log-in"
+        },
+        {
+            name: "Feats",
+            link: "#Feats",
+            icon: "glyphicon glyphicon-book"
+        },
+        {
+            name: "Items",
+            link: "#Items",
+            icon: "glyphicon glyphicon-book"
+        },
+        {
+            name: "Spellsbook",
+            link: "#Spellbook",
+            icon: "glyphicon glyphicon-book"
+        },
+    ]);
+
+    var loginMenuElements = ko.observableArray([
         {
             name: "Login",
-            component: "login-comp"
+            component: "login-comp",
+            icon: "glyphicon glyphicon-log-in"
         },
         {
             name: "Sign Up",
-            component: "signup-comp"
+            component: "signup-comp",
+            icon: "glyphicon glyphicon-user"
         }
     ]);
+
     var LoggedIn = ko.observable(false);
 
      LoggedIn.subscribe(function (state) {
          console.log("beep bop", state);
          if (!state) {
-             menuElements([
-                 {
-                     name: "Login",
-                     component: "login-comp"
-                 },
-                 {
-                     name: "Sign Up",
-                     component: "signup-comp"
-                 }
-             ]);
              ChangeContent(menu = { name: "Login", component: "login-comp"});
          }
          else {
-             menuElements([
-                 {
-                     name: "Characters",
-                     component: "player-front"
-                 }
-
-             ]);
              ChangeContent(menu = {name: "character",component: "player-front"});
          }
      });
 
-    var currentMenu = ko.observable(menuElements()[0]);
+    var currentMenu = ko.observable(loginMenuElements()[0]);
     var currentComponent = ko.observable(currentMenu().component);
 
     var ChangeContent = function (menu) {
@@ -76,6 +104,11 @@
         CurrentCharacter({ id: char.id, race: char.race });
     };
 
+    var CloseSheet = function () {
+        CurrentCharacter({});
+        sheetInfo(sheet = { active: false, id: null });
+    };
+
     var Logout = function () {
         LoggedIn(false);
         Token = "";
@@ -85,7 +118,8 @@
     };
 
     return {
-        currentComponent, menuElements, ChangeContent, isSelected,
+        currentComponent, menuElements, loginMenuElements, ChangeContent, isSelected,
+        sheetMenuElements,
         LoggedIn,
         currentParams,
         Token,
@@ -95,7 +129,7 @@
         spellModal,
         RaceModalState,
         ClassModalState,
-        sheetInfo, GoToSheet
-        , Logout
+        sheetInfo, GoToSheet,
+        Logout, CloseSheet
     };
 });
