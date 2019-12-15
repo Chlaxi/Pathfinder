@@ -4,117 +4,257 @@
 
         <div id="CharacterInfo" class="container">
             <h1>Character Info</h1>
-            <div class="row col-xs-12 col-md-6">
-                <div class="col-xs-5 col-sm-5">
-                    <input type="text" placeholder="Name" data-bind="value: name" />
-                    <label>Name</label>
+            <div class="row">
+                <div class="row col-12 col-lg-6">
+                    <div class="col-5 col-sm-5">
+                        <input type="text" placeholder="Name" data-bind="value: name" />
+                        <label>Name</label>
+                    </div>
+                    <div class="col-7 col-sm-7">
+                        <input type="button" placeholder="Race" data-bind="value: race, click: RaceModal" />
+                        <label>Race</label>
+                    </div>
+                    <div class="col-8 col-sm-9">
+                        <input type="button" placeholder="Class and level" data-bind="value: _class, click: ClassModal" />
+                        <label>Class</label>
+                    </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="Alignment" data-bind="value: alignment" />
+                        <label>Alignment</label>
+                    </div>
                 </div>
-                <div class="col-xs-7 col-sm-7">
-                    <input type="button" placeholder="Race" data-bind="value: race, click: RaceModal" />
-                    <label>Race</label>
-                </div>
-                <div class="col-xs-8 col-sm-9">
-                    <input type="button" placeholder="Class and level" data-bind="value: _class, click: ClassModal" />
-                    <label>Class</label>
-                </div>
-                <div class="col-xs-4 col-sm-3">
-                    <input type="text" placeholder="Alignment" data-bind="value: alignment" />
-                    <label>Alignment</label>
-                </div>
-            </div>
-            <div class="row col-xs-12 col-md-6">
-                <div class="col-xs-3">
-                    <input type="text" placeholder="Deity" data-bind="value: deity" />
-                    <label>Deity</label>
-                </div>
+                <div class="row col-12 col-lg-6">
+                    <div class="col-6 col-sm-3">
+                        <input type="text" placeholder="Deity" data-bind="value: deity" />
+                        <label>Deity</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="Homeland" data-bind="value: homeland" />
-                    <label>Homeland</label>
-                </div>
+                    <div class="col-6 col-sm-3">
+                        <input type="text" placeholder="Homeland" data-bind="value: homeland" />
+                        <label>Homeland</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="hair" data-bind="value: hair" />
-                    <label>hair</label>
-                </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="hair" data-bind="value: hair" />
+                        <label>hair</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="eyes" data-bind="value: eyes" />
-                    <label>eyes</label>
-                </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="eyes" data-bind="value: eyes" />
+                        <label>eyes</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="age" data-bind="value: age" />
-                    <label>age</label>
-                </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="gender" data-bind="value: gender" />
+                        <label>gender</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="weight" data-bind="value: weight" />
-                    <label>weight</label>
-                </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="weight" data-bind="value: weight" />
+                        <label>weight</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="height" data-bind="value: height" />
-                    <label>height</label>
-                </div>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="height" data-bind="value: height" />
+                        <label>height</label>
+                    </div>
 
-                <div class="col-xs-3">
-                    <input type="text" placeholder="gender" data-bind="value: gender" />
-                    <label>gender</label>
+                    <div class="col-4 col-sm-3">
+                        <input type="text" placeholder="age" data-bind="value: age" />
+                        <label>age</label>
+                    </div>
                 </div>
-
             </div>
         </div>
 
-        <div id="Abilities">
+        <div id="Abilities" class="container">
             <h1>Ability Scores</h1>
-            <div id="Strength">
-                <h2>Strength</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: str_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: str_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: str_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: str_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: str_tempMod" readonly />
-            </div>
-            <div id="Dexterity">
-                <h2>Dexterity</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: dex_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: dex_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: dex_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: dex_tempMod" readonly />
-            </div>
-            <div id="Constitution">
-                <h2>Constitution</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: con_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: con_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: con_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: con_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: con_tempMod" readonly />
-            </div>
-            <div id="Intelligence">
-                <h2>Intelligence</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: int_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: int_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: int_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: int_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: int_tempMod" readonly />
-            </div>
-            <div id="Wisdom">
-                <h2>Wisdom</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: wis_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: wis_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: wis_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: wis_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: wis_tempMod" readonly />
-            </div>
-            <div id="Charisma">
-                <h2>Charisma</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: cha_total" readonly /> =
-                <input type="text" placeholder="Base Score" data-bind="textInput: cha_base" /> +
-                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: cha_baseMod" readonly />
-                <input type="text" placeholder="Temp Score" data-bind="textInput: cha_temp" /> +
-                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: cha_tempMod" readonly />
+            <div class="row">
+                <div id="Strength" class="col-12">
+                    <h2>Strength</h2>
+                    <div class="row">
+                        <div>
+                            <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: str_total" readonly />-->
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: str_base" />
+                                <label>Ability Score</label>
+                            </div>
+
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: str_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: str_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: str_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Dexterity" class="col-12">
+                    <h2>Dexterity</h2>
+                    <div class="row">
+                        <div>
+                            <div>
+                                <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly />-->
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: dex_base" />
+                                <label>Ability Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: dex_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <!--Temp-->
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: dex_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: dex_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Constitution" class="col-12">
+                    <h2>Constitution</h2>
+                    <div class="row">
+                        <div>
+                            <div>
+                                <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly />-->
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: con_base" />
+                                <label>Ability Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: con_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <!--Temp-->
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: con_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: con_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Intelligence" class="col-12">
+                    <h2>Intelligence</h2>
+                    <div class="row">
+                        <div>
+                            <div>
+                                <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly />-->
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: int_base" />
+                                <label>Ability Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: int_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <!--Temp-->
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: int_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: int_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Wisdom" class="col-12">
+                    <h2>Wisdom</h2>
+                    <div class="row">
+                        <div>
+                            <div>
+                                <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly />-->
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: wis_base" />
+                                <label>Ability Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: wis_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <!--Temp-->
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: wis_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: wis_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Charisma" class="col-12">
+                    <h2>Charisma</h2>
+                    <div class="row">
+                        <div>
+                            <div>
+                                <!--<input class="readonly" type="text" placeholder="Total" data-bind="value: dex_total" readonly />-->
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Base Score" data-bind="textInput: cha_base" />
+                                <label>Ability Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Base Mod" data-bind="value: cha_baseMod" readonly />
+                                <label>Ability Modifier</label>
+                            </div>
+                        </div>
+                        <!--Temp-->
+                        <div class="row col-6">
+                            <div class="col-6">
+                                <input type="text" placeholder="Temp Score" data-bind="textInput: cha_temp" />
+                                <label>Temporary Score</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="readonly" type="text" placeholder="Temp Mod" data-bind="value: cha_tempMod" readonly />
+                                <label>Temporary Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

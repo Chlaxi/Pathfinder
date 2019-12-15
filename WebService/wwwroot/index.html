@@ -1,71 +1,51 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <title>The Pathfinder Project</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 
     <link href="js/Components/Spells/SpellModal.css" rel="stylesheet" />
     <link href="PathfinderStyle.css" rel="stylesheet" />
     <style>
         /*Temporary style, to easily identify readonly fields in the character*/
-        .readonly {
-            background-color: #00aa00;
-        }
-
-        .spellHeader {
-            font-weight: bold;
-        }
     </style>
-    <title>The Pathfinder Project</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <nav class="navbar navbar-inverse sticky">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Pathfinder</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav" data-bind="foreach: menuElements()">
-                    <li>
-                        <a href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="nav navbar-nav" data-bind="foreach: menuElements()">
+                <li class="nav-item">
+                    <a href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
+                        <span data-bind="text: name"></span>
+                    </a>
+                </li>
+            </ul>
+            <div data-bind="if: sheetInfo().active">
+                <ul class="navbar-nav" data-bind="foreach: sheetMenuElements()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bind="attr: { href: link}">
                             <span data-bind="text: name"></span>
                         </a>
                     </li>
                 </ul>
-                <div data-bind="if: sheetInfo().active">
-                    <ul class="nav navbar-nav" data-bind="foreach: sheetMenuElements()">
-                        <li>
-                            <a href="#" data-bind="attr: { href: link}">
-                                <span data-bind="text: name"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Page 1-1</a></li>
-            <li><a href="#">Page 1-2</a></li>
-            <li><a href="#">Page 1-3</a></li>
-        </ul>
-    </li> -->
-
-
-
+            </div>
+            <div class="ml-auto">
                 <div data-bind="ifnot: LoggedIn">
-                    <ul class="nav navbar-nav navbar-right" data-bind="foreach: loginMenuElements()">
-                        <li>
-                            <a href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
+                    <ul class="navbar-nav" data-bind="foreach: loginMenuElements()">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
                                 <span data-bind="class: icon"></span> <span data-bind="text: name"></span>
                             </a>
                         </li>
@@ -73,43 +53,19 @@
                     </ul>
                 </div>
                 <div data-bind="if: LoggedIn">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li data-bind="if: sheetInfo().active">
-                            <a href="#" data-bind="click: CloseSheet"><span class="glyphicon glyphicon-user"></span>Change Character</a>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" data-bind="if: sheetInfo().active">
+                            <a class="nav-link" href="#" data-bind="click: CloseSheet"><span class="glyphicon glyphicon-user"></span>Change Character</a>
                         </li>
-                        <li><a href="#" data-bind="click: Logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-
+                        <li class="nav-item"><a class="nav-link" href="#" data-bind="click: Logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
+    <!--<div data-bind="component: {name: currentComponent}"></div>-->
+    <character></character>
 
-
-    <!--<div class="collapse navbar-collapse" id="navbarNav">
-           <ul class="nav navbar-nav mr-auto" data-bind="foreach: menuElements()">
-               <li class="nav-item" data-bind="css: $parent.isSelected($data)">
-                   <a class="nav-link" href="#" data-bind="click: $parent.ChangeContent($data)">
-                       <span data-bind="text: name"></span>
-                   </a>
-           </ul>
-           <span class="nav-item" data-bind="if: LoggedIn, click: Logout">Logout</span>
-       </div>
-        -->
-
-
-    <div data-bind="component: {name: currentComponent}"></div>
-    <!-- <div   data-bind="ifnot: LoggedIn">
-         <login-comp></login-comp>
-         <signup-comp></signup-comp>
-     </div>
-     <div data-bind="if: LoggedIn">
-
-         <player-front></player-front>
-         <character></character>
-     </div>
-        -->
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
-
 </body>
 </html>

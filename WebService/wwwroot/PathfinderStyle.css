@@ -7,7 +7,6 @@
     border : none;
     border-bottom : 1px solid rgba(84, 75, 49, .7);
     font-family: Caudex, times, serif;
-    padding: 5px;
     background-color: #00000000;
     font-size: 16px;
     margin: 0px;
@@ -25,8 +24,18 @@ label {
     line-height: 20px;
     height: 20px;
     text-align: center;
-    margin: 0;
+
+    padding-bottom: 3em;
     cursor: default
+}
+
+
+.characterSheet .readonly {
+    background-color: #daf2d8;
+}
+
+.spellHeader {
+    font-weight: bold;
 }
 
 .sticky {
@@ -40,7 +49,7 @@ label {
 */
 @media screen and (min-width:576px) {
     body {
-        background-color: green;
+        background-color: darkseagreen;
     }
 }
 /*
@@ -48,7 +57,7 @@ label {
 */
 @media screen and (min-width:768px ){
     body {
-        background-color: blue;
+        background-color: aliceblue;
     }
 }
 /*
@@ -64,6 +73,6 @@ label {
 */
 @media screen and (min-width:1200px) {
     body {
-        background-color: red;
+        background-color: palevioletred;
     }
 }
