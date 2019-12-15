@@ -4,9 +4,7 @@
         var characters = ko.observableArray([]);
 
         var GetPlayerInfo = function (id) {
-            console.log("Getting characters for " + id);
             if (id === undefined) {
-                console.log("id undefined");
                 return;
             }
             ds.getPlayer(id, function (data) {
@@ -18,19 +16,12 @@
             });
         };
 
-        var Logout = function () {
-            console.log("Logging out");
-            app.LoggedIn(false);
+        app.LoggedIn.subscribe(function (state) {
             characters.removeAll();
-            app.Token = "";
-            app.CurrentPlayer({});
-            app.CurrentCharacter({});
-
-        };
+        });
 
         return {
             GetPlayerInfo,
-            Logout,
             characters
         };
     };

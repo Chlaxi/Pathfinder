@@ -12,10 +12,24 @@
 
     var spellModal = ko.observable(spellModal);
 
+    var sheetInfo = ko.observable({});
+    var GoToSheet = function (data) {
+        sheetInfo(sheet = { active: true, id: data.id });
+        //ChangeContent(menu = {name: "character sheet",component: "character"});
+
+    };
+
     var SetCharacter = function (char) {
-        console.log("Current character set to: " + char);
-        CurrentCharacter({ id : char.id, race: char.race});
-    }
+        CurrentCharacter({ id: char.id, race: char.race });
+    };
+
+    var Logout = function () {
+        LoggedIn(false);
+        Token = "";
+        CurrentPlayer({});
+        CurrentCharacter({});
+        sheetInfo(sheet = { active: false, id: null });
+    };
 
     return {
         LoggedIn,
@@ -26,6 +40,8 @@
         SetCharacter,
         spellModal,
         RaceModalState,
-        ClassModalState
+        ClassModalState,
+        sheetInfo, GoToSheet
+        , Logout
     };
 });

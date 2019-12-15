@@ -3,7 +3,6 @@
 
         var charId = undefined;
         app.CurrentCharacter.subscribe(function (data) {
-            console.log("Spells will be added to: ", JSON.stringify(data))
             charId = data.id;
         });
 
@@ -24,18 +23,15 @@
             if (data ==="" || data === null) {
                 return;
             }
-            console.log(JSON.stringify(data));
             GetSpell(data.spellId);
         });
 
         spellModal.SpellLevel.subscribe(function (data) {
-            console.log("Spell level set to ", data);
         });
 
         var GetSpell = async function (spellId) {
 
             await ds.GetSpell(spellId, function (_spell) {
-                console.log("Done", _spell);
                 spell(_spell);
 
                 var schoolString = _spell.school;
@@ -72,8 +68,6 @@
 
                 var _duration = (_spell.duration === null) ? false : true;
                 duration(_duration);
-
-                console.log("The spell is now set to", spell());
             });
         };
 
@@ -92,22 +86,16 @@
         };
 
         var AddSpell = async function () {
-            console.log(charId);
             if (charId === null || charId === undefined) {
-                console.log("character not defined");
                 return;
             }
-            console.log("Spell to add ", spell());
             if (spell().id === null || spell().id === undefined) {
-                console.log("Spell not defined");
                 return;
             }
             if (spellModal.SpellLevel === null || spellModal.SpellLevel === undefined) {
-                console.log("No spell level set");
+                return;
             }
             var spellLevel = Number(spellModal.SpellLevel());
-            console.log(spellLevel);
-            console.log("Adding spell" + spell().id + " at level ", spellLevel ," to " + charId);
 
             await ds.AddSpell(charId, spell().id, spellLevel, function (success) {
                 if (success) {
@@ -123,23 +111,16 @@
         };
 
         var RemoveSpell = async function () {
-            console.log(charId);
             if (charId === null || charId === undefined) {
-                console.log("character not defined");
                 return;
             }
-            console.log("Spell to add ", spell());
             if (spell().id === null || spell().id === undefined) {
-                console.log("Spell not defined");
                 return;
             }
             if (spellModal.SpellLevel === null || spellModal.SpellLevel === undefined) {
-                console.log("No spell level set");
+                return;
             }
             var spellLevel = Number(spellModal.SpellLevel());
-            console.log(spellLevel);
-            console.log("removing spell" + spell().id + " at level ", spellLevel, " to " + charId);
-
             await ds.RemoveSpell(charId, spell().id, spellLevel, function (success) {
                 if (success) {
                     var status = "Successfully removed " + spell().name;

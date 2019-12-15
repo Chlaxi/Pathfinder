@@ -1,10 +1,10 @@
 ﻿<div>
-    <button data-bind="click: Logout">Log out</button>
+    <button data-bind="click: $root.Logout">Log out</button>
     <div data-bind="using: GetPlayerInfo($root.CurrentPlayer().id)">
         <h1><span data-bind="text: $root.CurrentPlayer().name"></span>'s Characters</h1>
         <ul data-bind="foreach: $parent.characters">
             <li class="simpleCharacter">
-                <div data-bind="click: function(data, event) {$root.SetCharacter($data) } ">
+                <div data-bind="click: function(data, event) {$root.GoToSheet($data) } ">
                     <div>
                         <h2 data-bind="text: $data.name" style="font-weight: bold"></h2>
                         <span data-bind="text: $data.race"></span> <span data-bind="text: $data.classes"></span>

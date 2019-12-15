@@ -22,12 +22,9 @@
             return;
         }
         const data = await response.json();
-        console.log('Success:', JSON.stringify(data));
-
         var token = await data.token;
         SetToken(token);
         options.headers.Authorization += token;
-        console.log(options.headers.Authorization);
 
         callback(data);
     }
@@ -47,7 +44,6 @@
             return;
         }
         const data = await response.json();
-        console.log("succes: New player created ", JSON.stringify(data));
         SetToken(data.token);
         callback(data);
 
@@ -63,13 +59,12 @@
                 'Authorization': app.token
             }
         });
-        console.log(response.status + " : " + response.statusText);
         if (response.status !== 200) {
             callback(undefined);
             return;
         }
         var data = await response.json();
-        console.log(data);
+
         callback(data);
     };
 
@@ -93,13 +88,11 @@
                 'Authorization': app.token
             }
         });
-        console.log(response.status + " : " + response.statusText);
         if (response.status !== 200) {
             callback(undefined);
             return;
         }
         var data = await response.json();
-        console.log(data);
         callback(data);
     };
 
@@ -239,7 +232,6 @@
                 'Authorization': app.token
             }
         });
-        console.log("Spellbook response", response);
         if (response.status !== 200) {
             console.log(response.statusText);
             callback(null);

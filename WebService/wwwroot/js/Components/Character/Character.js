@@ -3,10 +3,13 @@
         var id = undefined;
         /*Subscribes to changes to the Current character in the application.
         When a chagne is made, we call the GetCharacter dunction, to get the information.*/
-        app.CurrentCharacter.subscribe(function (data) {
-            console.log(JSON.stringify(data));
-            GetCharacter(data.id);
-            id = data.id;
+
+        app.sheetInfo.subscribe(function (data) {
+            console.log("Sheet info", data);
+            if (data.active) {
+                GetCharacter(data.id);
+                id = data.id;
+            }
         });
 
         var setNull = function (value) {
@@ -309,14 +312,11 @@
 
 
         var GetCharacter = async function (id) {
-            console.log("Getting character with id " + id);
-
             var character = undefined;
             var classInfo;
             await ds.GetCharacter(id, function callback(_character) {
                 character = _character;
 
-                console.log("Character loaded", _character);
             });
             classInfo = GetClassInfo(character.class);
             //TODO: Add all mapping from the character. See console for the character object's fields
@@ -420,6 +420,8 @@
             languages(character.languages);
             note(character.note);
             Character(character);
+
+            app.CurrentCharacter(character);
         };
 
         var GetClass = function (classes) {
@@ -445,7 +447,7 @@
             classes.forEach(function (item, index) {
 
                 var levelInfo = item.class.levelInfo[item.level-1]
-                console.log(levelInfo);
+
                 for (var i = 0; i < item.class.levelInfo.length; i++) {
                     classInfo.specials += item.class.levelInfo[i].specials;
                 }
@@ -456,21 +458,16 @@
                     //TODO: Remove debugs
                     if (classInfo.bab.length < levelInfo.baseAttackBonus.length) {
                         classInfo.bab.push(levelInfo.baseAttackBonus[i]);
-                        console.log("bab at index " + i + " was set to " + classInfo.bab[i]);
                         continue;
                     }
                     classInfo.bab[i] += levelInfo.baseAttackBonus[i];
-                    console.log("bab at index " + i + " was set to " + classInfo.bab[i]);
                 }
 
             });
-            console.log("The character had the following data from their classes:");
-            console.log(classInfo);
             return classInfo;
         }
 
         var SaveChanges = async function () {
-            console.log("Current character is: " + id);
             var character = {
                 Name: name(),
                 Gender: gender(),

@@ -11,12 +11,10 @@
             var password = loginPassword();
 
             if (username === undefined) {
-                console.log("undefined username");
                 LoginFailed("Please insert a Username");
                 return;
             }
             if (password === undefined) {
-                console.log("undefined password");
                 LoginFailed("Please insert a password");
                 return;
             }
@@ -27,7 +25,6 @@
             }
             console.log(creds);
             await ds.Login(creds, function (result) {
-                console.log("Checking log in result: " + JSON.stringify(result));
                 if (result !== undefined) {
                     LoginFailed("");
                     app.LoggedIn(true);
