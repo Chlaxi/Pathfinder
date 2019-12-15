@@ -16,13 +16,31 @@
         .spellHeader {
             font-weight: bold;
         }
-
     </style>
+    <link href="../lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="js/Components/Spells/SpellModal.css" rel="stylesheet" />
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto" data-bind="foreach: menuElements()">
+                <li class="nav-item" data-bind="css: $parent.isSelected($data)">
+                    <a class="nav-link" href="#" data-bind="click: $parent.ChangeContent($data)">
+                        <span data-bind="text: name"></span>
+                    </a>
+            </ul>
+            <span class="nav-item" data-bind="if: LoggedIn, click: Logout">Logout</span>
+        </div>
+    </nav>
+    
     <h1>Welcome to the frontpage of the Pathfinder project! </h1>
-    <div   data-bind="ifnot: LoggedIn">
+
+    <div data-bind="component: {name: currentComponent}"></div>
+   <!-- <div   data-bind="ifnot: LoggedIn">
         <login-comp></login-comp>
         <signup-comp></signup-comp>
     </div>
@@ -31,7 +49,7 @@
         <player-front></player-front>
         <character></character>
     </div>        
-
+       -->
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
 </body>
 </html>

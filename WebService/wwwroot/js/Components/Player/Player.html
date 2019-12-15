@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div data-bind="style: { display: $root.sheetInfo().active ? 'none' : 'block'}">
     <button data-bind="click: $root.Logout">Log out</button>
     <div data-bind="using: GetPlayerInfo($root.CurrentPlayer().id)">
         <h1><span data-bind="text: $root.CurrentPlayer().name"></span>'s Characters</h1>
@@ -16,3 +16,4 @@
         </ul>
     </div>
 </div>
+<character data-bind="style: { display: $root.sheetInfo().active ? 'block' : 'none'}"></character>
