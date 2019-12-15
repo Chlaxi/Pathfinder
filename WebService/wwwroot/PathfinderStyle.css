@@ -1,9 +1,69 @@
 ﻿body {
+    background-color: white;
+}
 
+
+.characterSheet input {
+    border : none;
+    border-bottom : 1px solid rgba(84, 75, 49, .7);
+    font-family: Caudex, times, serif;
+    padding: 5px;
+    background-color: #00000000;
+    font-size: 16px;
+    margin: 0px;
+    width: 95%;
+    text-align: left
+}
+
+grouping {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+label {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+    margin: 0;
+    cursor: default
 }
 
 .sticky {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    top: 0;
+    top:0;
+    z-index:1;
+}
+/*
+    xs
+*/
+@media screen and (min-width:576px) {
+    body {
+        background-color: green;
+    }
+}
+/*
+    sm
+*/
+@media screen and (min-width:768px ){
+    body {
+        background-color: blue;
+    }
+}
+/*
+    md
+*/
+@media screen and (min-width:992px) {
+    body {
+        background-color: floralwhite;
+    }
+}
+/*
+    xl
+*/
+@media screen and (min-width:1200px) {
+    body {
+        background-color: red;
+    }
 }
