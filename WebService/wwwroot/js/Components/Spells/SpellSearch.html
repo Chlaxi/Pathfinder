@@ -1,21 +1,26 @@
 ﻿<div class="spells">
     <h3>Search</h3>
 
-        <div>
-            <input placeholder="Spell.." data-bind="textInput: spellQuery" />
-            <ul class="row" data-bind="foreach: pageList">
-                <li class="spellElement col-md-6">
-                    <div data-bind="click: function(data, event) {$parent.chooseSpell($data)}">
-                        <span data-bind="text: $data.name" style="font-weight: bold"></span>
-                        <p data-bind="text: $data.shortDescription"></p>
-                    </div>
-                </li>
-            </ul>
-            <div>
-                <span id="last" data-bind="click: lastPage">last</span>
-                <span id="previous" data-bind="click: previousPage">previous</span>
-                <span id="next" data-bind="click: nextPage">next</span>
-                <span id="first" data-bind="click: firstPage">first</span>
+    <div>
+        <input placeholder="Spell.." data-bind="textInput: spellQuery" />
+        <ul class="row" data-bind="foreach: pageList">
+            <li class="spellElement col-md-6">
+                <div data-bind="click: function(data, event) {$parent.chooseSpell($data)}">
+                    <span data-bind="text: $data.name" style="font-weight: bold"></span>
+                    <p data-bind="text: $data.shortDescription"></p>
+                </div>
+            </li>
+        </ul>
+        <div class="row col-12">
+            <div class="col justify-content-start">
+                <button id="first"  class="btn btn-outline-dark btn-sm" data-bind="click: firstPage">first</button>
+                <button id="previous" class="btn btn-outline-dark btn-sm" data-bind="click: previousPage">previous</button>
+            </div>
+            <div class="w-50"></div>
+            <div class="col justify-content-end">
+                <button id="next" class="btn btn-outline-dark btn-sm" data-bind="click: nextPage">next</button>
+                <button id="last" class="btn btn-outline-dark btn-sm" data-bind="click: lastPage">last</button>
             </div>
         </div>
+    </div>
 </div>

@@ -44,7 +44,11 @@
             var begin = ((currentPage - 1) * 10);
             var end = begin + numberPerPage;
             pageList(spells().slice(begin, end));
-           // check();         // determines the states of the pagination buttons
+
+            document.getElementById("next").disabled = currentPage == numberOfPages ? true : false;
+            document.getElementById("previous").disabled = currentPage == 1 ? true : false;
+            document.getElementById("first").disabled = currentPage == 1 ? true : false;
+            document.getElementById("last").disabled = currentPage == numberOfPages ? true : false;
         };
 
         var firstPage = function () {
