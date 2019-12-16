@@ -31,7 +31,7 @@ namespace WebService.Controllers
             return GetPlayerDTO(player);
         }
 
-        [HttpPost("{playerid}")]
+        [HttpPost("{playerid}/character")]
         public ActionResult CreateNewCharacter(int playerid, string characterName)
         {
             if (!AuthService.AuthorizePlayer(HttpContext, playerid)) return BadRequest("Wrong player");
@@ -47,6 +47,24 @@ namespace WebService.Controllers
             return CreatedAtRoute(nameof(CharacterController.GetCharacter), new { characterid = character.Id }, new SimpleCharacterDTO(character));
         }
 
+        [HttpDelete("{playerid}/character/{characterId}")]
+        public ActionResult DeleteCharacter(int playerid, int characterId)
+        {
+
+            if (!AuthService.AuthorizePlayer(HttpContext, playerid)) return BadRequest("Wrong player");
+
+            Player player = ds.GetPlayer(playerid);
+            if (player == null) return NotFound("Player doesn't exist");
+
+
+
+            //TODO FIX
+            bool result = ds.DeleteCharacter(player.Id, characterId);
+            if (!result) BadRequest("Something went wrong");
+
+
+            return Ok("Character Removed");
+        }
 
         public PlayerDTO GetPlayerDTO(Player player)
         {

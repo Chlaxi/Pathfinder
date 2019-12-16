@@ -12,4 +12,8 @@ namespace DataLayer
         //TODO add the relevant fields
 
     }
+    public class RemoveCharacterQuery
+    {
+        public bool Success { get; set; }
+    }
 }

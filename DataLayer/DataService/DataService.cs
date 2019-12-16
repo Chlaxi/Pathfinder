@@ -257,6 +257,24 @@ namespace DataLayer.DataService
             return character;
         }
 
+        public bool DeleteCharacter(int playerId, int characterId)
+        {
+            using var db = new PathfinderContext();
+
+            var character = db.Characters.Find(characterId);
+            if (character == null)
+            {
+                
+                return false;
+            }
+            Console.WriteLine("Removeing character with ID" + characterId);
+            db.RemoveCharacterQuery.FromSqlRaw("select * from remove_character({0})", characterId);
+            db.Characters.Remove(character);
+            db.SaveChanges();
+            return true;
+
+        }
+
         public List<Character> GetCharactersByPlayer(int playerId)
         {
             Console.WriteLine("------------\n Getting characters from player");

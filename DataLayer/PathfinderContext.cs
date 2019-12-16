@@ -26,6 +26,7 @@ namespace DataLayer
 
 
         public DbQuery<SpellSearchResult> SpellSearchResults { get; set; }
+        public DbQuery<RemoveCharacterQuery> RemoveCharacterQuery { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

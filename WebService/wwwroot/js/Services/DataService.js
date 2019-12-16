@@ -79,6 +79,39 @@
         callback(data);
     };
 
+    var AddCharacter = async function (id, characterName, callback) {
+        url= "api/players/" + id + "/character";
+        url += "?characterName=" + characterName;
+        var response = await fetch(url, options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        if (response.status !== 201) {
+            callback(undefined);
+            return;
+        }
+        var data = await response.json();
+        callback(data);
+    };
+    var RemoveCharacter = async function (playerId, characterId, callback) {
+        url = "api/players/" + playerId + "/character/"+characterId;
+        var response = await fetch(url, options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': app.token
+            }
+        });
+        if (response.status !== 200) {
+            callback(false);
+            return;
+        }
+        callback(true);
+    };
+
     var GetCharacter = async function (id, callback) {
         console.log("Retriving character information with id " + id);
         var url = "api/characters/" + id;
@@ -293,7 +326,7 @@
         Login,
         SignUp,
         getPlayer,
-        GetCharacter,
+        GetCharacter, AddCharacter, RemoveCharacter,
         UpdateCharacter,
         spellSearch,
         GetSpell,
