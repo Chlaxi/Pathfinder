@@ -10,9 +10,16 @@
                     </div>
 
                 </div>
-
+                <button data-bind="click: function(data, event) { $component.RemoveCharacter($data) }">Remove Character</button>
             </li>
         </ul>
+    </div>
+    <div>
+        <h1>Add Character</h1>
+        <form data-bind="submit: AddCharacter">
+            <input type="text" placeholder="Name" data-bind="value: NewCharName" />
+            <input type="submit" value="Create Character"/>
+        </form>
     </div>
 </div>
 <character data-bind="style: { display: $root.sheetInfo().active ? 'block' : 'none'}"></character>
