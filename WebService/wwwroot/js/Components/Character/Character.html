@@ -5,7 +5,7 @@
         <div id="CharacterInfo" class="container">
             <h1>Character Info</h1>
             <div class="row">
-                <div class="row col-12 col-lg-6">
+                <div class="row col-12 col-md-6">
                     <div class="col-5 col-sm-5">
                         <input type="text" placeholder="Name" data-bind="value: name" />
                         <label>Name</label>
@@ -14,52 +14,52 @@
                         <input type="button" placeholder="Race" data-bind="value: race, click: RaceModal" />
                         <label>Race</label>
                     </div>
-                    <div class="col-8 col-sm-9">
+                    <div class="col-8 col-sm-8">
                         <input type="button" placeholder="Class and level" data-bind="value: _class, click: ClassModal" />
                         <label>Class</label>
                     </div>
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-4">
                         <input type="text" placeholder="Alignment" data-bind="value: alignment" />
                         <label>Alignment</label>
                     </div>
                 </div>
-                <div class="row col-12 col-lg-6">
-                    <div class="col-6 col-sm-3">
+                <div class="row col-12 col-md-6">
+                    <div class="col-6 col-sm-3 order-md-1">
                         <input type="text" placeholder="Deity" data-bind="value: deity" />
                         <label>Deity</label>
                     </div>
 
-                    <div class="col-6 col-sm-3">
+                    <div class="col-6 col-sm-3 order-md-5">
                         <input type="text" placeholder="Homeland" data-bind="value: homeland" />
                         <label>Homeland</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-6">
                         <input type="text" placeholder="hair" data-bind="value: hair" />
                         <label>hair</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-7">
                         <input type="text" placeholder="eyes" data-bind="value: eyes" />
                         <label>eyes</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-8">
                         <input type="text" placeholder="gender" data-bind="value: gender" />
                         <label>gender</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-2">
                         <input type="text" placeholder="weight" data-bind="value: weight" />
                         <label>weight</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-3">
                         <input type="text" placeholder="height" data-bind="value: height" />
                         <label>height</label>
                     </div>
 
-                    <div class="col-4 col-sm-3">
+                    <div class="col-4 col-sm-3 order-md-4">
                         <input type="text" placeholder="age" data-bind="value: age" />
                         <label>age</label>
                     </div>
@@ -70,7 +70,7 @@
         <div id="Abilities" class="container">
             <h1>Ability Scores</h1>
             <div class="row">
-                <div id="Strength" class="col-12">
+                <div id="Strength" class="col-12  col-md-6 order-md-1 col-xl-4 order-xl-1 box">
                     <h2>Strength</h2>
                     <div class="row">
                         <div>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="Dexterity" class="col-12">
+                <div id="Dexterity" class="col-12  col-md-6 order-md-3 col-xl-4 order-xl-2 box">
                     <h2>Dexterity</h2>
                     <div class="row">
                         <div>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="Constitution" class="col-12">
+                <div id="Constitution" class="col-12  col-md-6 order-md-5 col-xl-4 order-xl-3 box">
                     <h2>Constitution</h2>
                     <div class="row">
                         <div>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="Intelligence" class="col-12">
+                <div id="Intelligence" class="col-12 col-md-6 order-md-2 col-xl-4 order-xl-4 box">
                     <h2>Intelligence</h2>
                     <div class="row">
                         <div>
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="Wisdom" class="col-12">
+                <div id="Wisdom" class="col-12 col-md-6 order-md-4 col-xl-4 order-xl-5 box">
                     <h2>Wisdom</h2>
                     <div class="row">
                         <div>
@@ -224,7 +224,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="Charisma" class="col-12">
+                <div id="Charisma" class="col-12  col-md-6 order-md-6 col-xl-4 order-xl-6 box">
                     <h2>Charisma</h2>
                     <div class="row">
                         <div>
@@ -257,137 +257,468 @@
                 </div>
             </div>
         </div>
-
         <div id="Defensive">
             <h1>Defensive</h1>
             <div id="HP">
                 <h2>Hit Points</h2>
-                <input type="text" placeholder="Current HP" data-bind="textInput: hp_current" />
-                <input type="text" placeholder="Max HP" data-bind="textInput: hp_total" />
-                <input type="text" placeholder="Non-Lethal" data-bind="textInput: hp_non_lethal" />
-                <textarea placeholder="Wounds" data-bind="textInput: hp_wounds"></textarea>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" placeholder="Current HP" data-bind="textInput: hp_current" />
+                        <label>Current Hit Points</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="Max HP" data-bind="textInput: hp_total" />
+                        <label>Max Hit Points</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" placeholder="Non-Lethal" data-bind="textInput: hp_non_lethal" />
+                        <label>Non-Lethal Damage</label>
+                    </div>
+                    <div class="col-8">
+                        <textarea placeholder="Wounds" data-bind="textInput: hp_wounds"></textarea>
+                    </div>
+                </div>
             </div>
             <div id="Initiative">
                 <h2>Initiative</h2>
-                <input class="readonly" type="text" placeholder="Total" readonly data-bind="value: initiative" /> =
-                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
-                <input type="text" placeholder="misc" data-bind="textInput: initiative_misc" />
+                <div class="row">
+                    <div class="col-4">
+                        <input class="readonly" type="text" placeholder="Total" readonly data-bind="value: initiative" />
+                        <label>Total</label>
+                    </div>
+                    <div class="align-content-between">=</div>
+                    <div class="col-3">
+                        <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly />
+                        <label>Dexterity</label>
+                    </div>
+                    <div class="align-content-between">+</div>
+                    <div class="col-3">
+                        <input type="text" placeholder="misc" data-bind="textInput: initiative_misc" />
+                        <label>Misc Modifier</label>
+                    </div>
+                </div>
             </div>
-        </div>
-            <div>
+            <div id="ArmourClass">
                 <h2>Armour Class</h2>
-                <input class="readonly" type="text" placeholder="Total AC" data-bind="value: ac_total" readonly /> = 10 +
-                <input type="text" placeholder="Armour" data-bind="textInput: ac_armour" /> +
-                <input type="text" placeholder="Shield" data-bind="textInput: ac_shield" /> +
-                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
-                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-                <input type="text" placeholder="Natural" data-bind="textInput: ac_natural" /> +
-                <input type="text" placeholder="Deflection" data-bind="textInput: ac_deflection" /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: ac_misc" />
-                <h2>Touch</h2>
-                <input class="readonly" type="text" placeholder="Total Touch" data-bind="value: ac_touch_total" readonly />
-                <h2>Flat-Footed</h2>
-                <input class="readonly" type="text" placeholder="Total Flat-Footed" data-bind="value: ac_ff_total" readonly />
+                <div class="row">
+                    <div class="row col-12 col-md-8">
+
+                        <div class="col-2 vert-centered">
+                            <input class="readonly" type="text" placeholder="Total AC" data-bind="value: ac_total" readonly />
+                            <label>Total</label>
+                        </div>
+
+                        <div class="align-content-start vert-centered"><label>= 10 +</label></div>
+                        <div class="w-auto"></div>
+                        <div class="row col">
+
+                            <div class="col-4 col-md-3">
+                                <input type="text" placeholder="Armour" data-bind="textInput: ac_armour" />
+                                <label>Armour</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-4">
+                                <input type="text" placeholder="Shield" data-bind="textInput: ac_shield" />
+                                <label>Shield</label>
+                            </div>
+
+                            <span class="alig col-mdn-content-between"><label>+</label></span>
+                            <div class="col-4">
+                                <input type="text" class="readonly" placeholder="Dex" data-bind="value: dex_total" readonly />
+                                <label>Dex</label>
+                            </div>
+
+                            <div class="align-content-between"> <label>+</label> </div>
+
+                            <div class="col-3">
+                                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly />
+                                <label>Size</label>
+                            </div>
+                            <div class="align-content-between">
+                                <label>+</label>
+                            </div> 
+                            <div class="col-3">
+                                <input type="text" placeholder="Natural" data-bind="textInput: ac_natural" />
+                                <label>Nautral Armour</label>
+                            </div>
+                            <span class="align-content-between"><label>+</label></span>
+                            <div class="col-3">
+                                <input type="text" placeholder="Deflection" data-bind="textInput: ac_deflection" />
+                                <label>Deflection</label>
+                            </div>
+                            <span class="col-auto align-content-between">
+                                <label>+</label>
+                            </span>
+                            <div class="col-3">
+                                <input type="text" placeholder="Misc" data-bind="textInput: ac_misc" />
+                                <label>Misc Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 col-md-4 split-md-left">
+                        <div class="col-6 col-md-12">
+                            <h3>Touch</h3>
+                            <input class="readonly" type="text" placeholder="Total Touch" data-bind="value: ac_touch_total" readonly />
+                        </div>
+                        <div class="col-6 col-md-12">
+                            <h3>Flat-Footed</h3>
+                            <input class="readonly" type="text" placeholder="Total Flat-Footed" data-bind="value: ac_ff_total" readonly />
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div>
                 <h1>Saves</h1>
                 <div id="Fortitude">
                     <h2>Foritude</h2>
-                    <input class="readonly" type="text" placeholder="Total" data-bind="value: fort_total" readonly /> =
-                    <input class="readonly" type="text" placeholder="Base" data-bind="value: fort_base" readonly /> +
-                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: con_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="value: fort_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="value: fort_misc" />
-                    <input type="text" placeholder="Temp" data-bind="value: fort_temp" />
-                    <textarea placeholder="Note" data-bind="textInput: fort_note"></textarea>
+                    <div class="row">
+                        <div class="col-2 vert-centered">
+                            <input class="readonly" type="text" placeholder="Total" data-bind="value: fort_total" readonly />
+                            <label>Total</label>
+                        </div>
+                        <div class="align-content-between vert-centered"><label>=</label></div>
+                        <div class="row col-10">
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Base" data-bind="value: fort_base" readonly />
+                                <label>Base</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Ability" data-bind="value: con_total" readonly />
+                                <label>Constitution</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Magic" data-bind="textInput: fort_magic" />
+                                <label>Magic modifier</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Misc" data-bind="textInput: fort_misc" />
+                                <label>Misc Modifier</label>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <input type="text" placeholder="Temp" data-bind="textInput: fort_temp" />
+                            <label>Temporary Score</label>
+                        </div>
+                        <div class="col-6">
+                            <textarea placeholder="Note" data-bind="textInput: fort_note"></textarea>
+                        </div>
+
+                    </div>
                 </div>
                 <div id="Reflex">
                     <h2>Reflex</h2>
-                    <input class="readonly" type="text" placeholder="Total" data-bind="value: ref_total" readonly /> =
-                    <input class="readonly" type="text" placeholder="Base" data-bind="value: ref_base" readonly /> +
-                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: dex_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="value: ref_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="value: ref_misc" />
-                    <input type="text" placeholder="Temp" data-bind="textInput: ref_temp" />
-                    <textarea placeholder="Note" data-bind="textInput: ref_note"></textarea>
+                    <div class="row">
+                        <div class="col-2 vert-centered">
+                            <input class="readonly" type="text" placeholder="Total" data-bind="value: ref_total" readonly />
+                            <label>Total</label>
+                        </div>
+                        <div class="align-content-between vert-centered"><label>=</label></div>
+                        <div class="row col-10">
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Base" data-bind="value: ref_base" readonly />
+                                <label>Base</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Ability" data-bind="value: dex_total" readonly />
+                                <label>Dexterity</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Magic" data-bind="textInput: ref_magic" />
+                                <label>Magic modifier</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Misc" data-bind="textInput: ref_misc" />
+                                <label>Misc Modifier</label>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <input type="text" placeholder="Temp" data-bind="textInput: ref_temp" />
+                            <label>Temporary Score</label>
+                        </div>
+                        <div class="col-6">
+                            <textarea placeholder="Note" data-bind="textInput: ref_note"></textarea>
+                        </div>
+
+                    </div>
                 </div>
                 <div id="Will">
                     <h2>Will</h2>
-                    <input class="readonly" type="text" placeholder="Total" data-bind="value: will_total" readonly /> =
-                    <input class="readonly" type="text" placeholder="Base" data-bind="value: will_base" readonly /> +
-                    <input class="readonly" type="text" placeholder="Ability" data-bind="value: wis_total" readonly /> +
-                    <input type="text" placeholder="Magic" data-bind="value: will_magic" /> +
-                    <input type="text" placeholder="Misc" data-bind="value: will_misc" />
-                    <input type="text" placeholder="Temp" data-bind="value: will_temp" />
-                    <textarea placeholder="Note" data-bind="textInput: will_note"></textarea>
+                    <div class="row">
+                        <div class="col-2 vert-centered">
+                            <input class="readonly" type="text" placeholder="Total" data-bind="value: will_total" readonly />
+                            <label>Total</label>
+                        </div>
+                        <div class="align-content-between vert-centered"><label>=</label></div>
+                        <div class="row col-10">
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Base" data-bind="value: will_base" readonly />
+                                <label>Base</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input class="readonly" type="text" placeholder="Ability" data-bind="value: wis_total" readonly />
+                                <label>Wisdom</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Magic" data-bind="textInput: will_magic" />
+                                <label>Magic modifier</label>
+                            </div>
+
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-5 col-md">
+                                <input type="text" placeholder="Misc" data-bind="textInput: will_misc" />
+                                <label>Misc Modifier</label>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <input type="text" placeholder="Temp" data-bind="textInput: will_temp" />
+                            <label>Temporary Score</label>
+                        </div>
+                        <div class="col-6">
+                            <textarea placeholder="Note" data-bind="textInput: will_note"></textarea>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div>
-                <input type="text" placeholder="damage_reduction" data-bind="textInput: damage_reduction" />
-                <input type="text" placeholder="spell_resistance" data-bind="textInput: spell_resistance" />
-                <input type="text" placeholder="resistances" data-bind="textInput: resistance" />
-                <input type="text" placeholder="immunity" data-bind="textInput: immunity" />
+                <h1>Resistances</h1>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" placeholder="damage_reduction" data-bind="textInput: damage_reduction" />
+                        <label>Damage Reduction</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="element/-" data-bind="textInput: spell_resistance" />
+                        <label>Spell Resistance</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="resistances" data-bind="textInput: resistance" />
+                        <label>Resistance</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="immunity" data-bind="textInput: immunity" />
+                        <label>Immunity</label>
+                    </div>
+                </div>
             </div>
             <div id="CMD">
                 <h2>Combat Maneuver Defence</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: cmd_total" readonly /> = 10 +
-                <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
-                <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
-                <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly /> +
-                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
-                <input type="text" placeholder="Temp" data-bind="textInput: cmd_temp" />
-                <textarea type="text" placeholder="Notes" data-bind="textInput: cmd_note"></textarea>
+                <div class="row">
+                    <div class="col col-xl-2 vert-centered">
+                        <input class="readonly" type="text" placeholder="Total" data-bind="value: cmd_total" readonly />
+                        <label>Total</label>
+                    </div>
+                    <div class="align-content-between vert-centered"><label>=10+</label></div>
+                    <div class="row col-9 col-xl">
+                        <div class="col-3 col-xl">
+                            <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly />
+                            <label>Base Attack Bonus</label>
+                        </div>
+                        <div class="align-content-between"><label>+</label></div>
+                        <div class="col-3 col-xl">
+                            <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly />
+                            <label>Strength</label>
+                        </div>
+                        <div class="align-content-between"><label>+</label></div>
+                        <div class="col-3 col-xl">
+                            <input class="readonly" type="text" placeholder="Dex" data-bind="value: dex_total" readonly />
+                            <label>Dexterity</label>
+                        </div>
+                        <div class="align-content-between"><label>+</label></div>
+                        <div class="col-3 col-xl">
+                            <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly />
+                            <label>Size Modifier</label>
+                        </div>
+                        <div class="align-content-between"><label>+</label></div>
+                        <div class="col-3 col-xl">
+                            <input type="text" placeholder="Misc" data-bind="textInput: cmd_misc" />
+                            <label>Misc</label>
+                        </div>
+                    </div>
+                    <div class="col-5 col-xl-2">
+                        <input type="text" placeholder="Temp" data-bind="textInput: cmd_temp" />
+                        <label>Temporary</label>
+                    </div>
+                    <div class="col-7 col-xl-12">
+                        <textarea type="text" placeholder="Notes" data-bind="textInput: cmd_note"></textarea>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div id="Offense">
+                <h1>Offense</h1>
+                <div id="Speed">
+                    <h2>Speed</h2>
+                    <div class="row">
+                        <div class="row col-12">
+                            <div class="col-4">
+                                <input class="readonly" type="text" placeholder="Total" data-bind="value: speed_total" readonly />
+                                <label>Total</label>
+                            </div>
+                            <div class="align-content-between"><label>=</label></div>
+                            <div class="col">
+                                <input class="readonly" type="text" placeholder="Base" data-bind="value: speed_base" readonly />
+                                <label>Base Speed</label>
+                            </div>
+                            <div class="align-content-between"><label>+</label></div>
+                            <div class="col-4">
+                                <input type="text" placeholder="Modifier" data-bind="textInput: speed_mod" />
+                                <label>Modifier</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" placeholder="Armour" data-bind="textInput: speed_armour_total" />
+                                <label>Armour</label>
+                            </div>
+
+                            <div class="col-4">
+                                <input type="text" placeholder="Temporary Modifier" data-bind="textInput: speed_tempBase" />
+                                <label>Temorary Speed</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" placeholder="Temporary (notes)" data-bind="textInput: speed_temporary" />
+                                <label>Notes</label>
+                            </div>
+
+                        </div>
+                        <div class="row col-12">
+
+                            <div class="col-3">
+                                <input type="text" placeholder="Fly" data-bind="textInput: speed_fly" />
+                                <label>Modifier</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" placeholder="Climb" data-bind="textInput: speed_climb" />
+                                <label>Modifier</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" placeholder="Burrow" data-bind="textInput: speed_burrow" />
+                                <label>Modifier</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" placeholder="Swim" data-bind="textInput: speed_swim" />
+                                <label>Modifier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="BAB">
+                    <h2>Base Attack Bonus</h2>
+                    <div class="row col-12">
+                        <div class="col-12">
+                            <input class="readonly" type="text" placeholder="Total" data-bind="value: bab" readonly />
+                            <label>Base Attack Bonus</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="readonly" type="text" placeholder="Ranged" data-bind="value: bab_ranged" readonly/>
+                            <label>Ranged Attack Bonus</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="readonly" type="text" placeholder="Melee" data-bind="value: bab_melee" readonly/>
+                            <label>Melee Attack Bonus</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="CMB">
+                    <h2>Combat Maneuver Bonus</h2>
+                    <div class="row">
+                        <div class="col-4 col-xl-2  vert-centered">
+                            <input class="readonly" type="text" placeholder="Total" data-bind="value: cmb_total" readonly />
+                            <label>Total</label>
+                        </div>
+                        <div class="align-content-between vert-centered"><label>=</label></div>
+                        <div class="row col-8 col-xl">
+                            <div class="col-4 col-xl">
+                                <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly />
+                                <label>Base Attack Bonus</label>
+                            </div>
+                            <div class="align-content-between"><label>+</label></div>
+                            <div class="col-4 col-xl">
+                                <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly />
+                                <label>Strength</label>
+                            </div>
+                            <div class="align-content-between"><label>+</label></div>
+
+                            <div class="col-4 col-xl">
+                                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly />
+                                <label>Size Modifier</label>
+                            </div>
+                            <div class="align-content-between"><label>+</label></div>
+                            <div class="col-4 col-xl">
+                                <input type="text" placeholder="Misc" data-bind="textInput: cmb_misc" />
+                                <label>Misc</label>
+                            </div>
+                        </div>
+                        <div class="col-5 col-xl-2">
+                            <input type="text" placeholder="Temp" data-bind="textInput: cmb_temp" />
+                            <label>Temporary</label>
+                        </div>
+                        <div class="col-7 col-xl-12">
+                            <textarea type="text" placeholder="Notes" data-bind="textInput: cmb_note"></textarea>
+                            <label>Notes</label>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-        </header>
-
-        <div id="Offense">
-            <h1>Offense</h1>
-            <div id="Speed">
-                <h2>Speed</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: speed_total" readonly /> =
-                <input class="readonly" type="text" placeholder="Base" data-bind="value: speed_base" readonly /> +
-                <input type="text" placeholder="Modifier" data-bind="textInput: speed_mod" />
-                <input type="text" placeholder="Temporary Modifier" data-bind="textInput: speed_tempBase" />
-                <input type="text" placeholder="Temporary (notes)" data-bind="textInput: speed_temporary" />
-                <input type="text" placeholder="Fly" data-bind="textInput: speed_fly" />
-                <input type="text" placeholder="Climb" data-bind="textInput: speed_climb" />
-                <input type="text" placeholder="Burrow" data-bind="textInput: speed_burrow" />
-                <input type="text" placeholder="Swim" data-bind="textInput: speed_swim" />
-                <input type="text" placeholder="Armour" data-bind="textInput: speed_armour_total" />
+            <div>
+                <input type="text" placeholder="Languages" data-bind="textInput: languages" />
             </div>
-            <div id="BAB">
-                <h2>Base Attack Bonus</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: bab" readonly />
-                <input class="readonly" type="text" placeholder="Ranged" readonly />
-                <input class="readonly" type="text" placeholder="Melee" readonly />
+            <div id="Money" class="row">
+                <div class="col-3">
+                    <input type="text" placeholder="Copper" data-bind="textInput: copper" />
+                    <label>Copper</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" placeholder="Silver" data-bind="textInput: silver" />
+                    <label>Silver</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" placeholder="Gold" data-bind="textInput: gold" />
+                    <label>Gold</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" placeholder="Platinum" data-bind="textInput: platinum" />
+                    <label>Platinum</label>
+                </div>
             </div>
-            <div id="CMB">
-                <h2>Combat Maneuver Bonus</h2>
-                <input class="readonly" type="text" placeholder="Total" data-bind="value: cmb_total" readonly /> =
-                <input class="readonly" type="text" placeholder="BaB" data-bind="value: bab_highest" readonly /> +
-                <input class="readonly" type="text" placeholder="Str" data-bind="value: str_total" readonly /> +
-                <input class="readonly" type="text" placeholder="Size" data-bind="value: size_defensive" readonly /> +
-                <input type="text" placeholder="Misc" data-bind="textInput: cmb_misc" />
-                <input type="text" placeholder="Temp" data-bind="textInput: cmb_temp" />
-                <textarea type="text" placeholder="Notes" data-bind="textInput: cmb_note"></textarea>
-            </div>
+                <h1>Notes</h1>
+                <textarea placeholder="Notes" data-bind="textInput: note"></textarea>
 
-        </div>
-
-        <input type="text" placeholder="Languages" data-bind="textInput: languages" />
-
-        <input type="text" placeholder="Copper" data-bind="textInput: copper" />
-        <input type="text" placeholder="Silver" data-bind="textInput: silver" />
-        <input type="text" placeholder="Gold" data-bind="textInput: gold" />
-        <input type="text" placeholder="Platinum" data-bind="textInput: platinum" />
-
-        <h1>Notes</h1>
-        <textarea placeholder="Notes" data-bind="textInput: note"></textarea>
-
-        <input type="submit" value="Save changes" />
-    </form>
+                <input type="submit" value="Save changes" />
+</form>
 
     <div id="Weapons">
         <h2>Weapons</h2>

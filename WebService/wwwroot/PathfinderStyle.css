@@ -1,17 +1,27 @@
 ﻿body {
     background-color: white;
 }
+textarea{
+    width:100%;
+}
 
+.characterSheet h1, h2, h3 {
+    text-align: center;
+}
+
+.box {
+    border: solid rgba(0,0,0,0.1);
+}
 
 .characterSheet input {
-    border : none;
-    border-bottom : 1px solid rgba(84, 75, 49, .7);
+    border: none;
+    border-bottom: 1px solid rgba(84, 75, 49, .7);
     font-family: Caudex, times, serif;
     background-color: #00000000;
     font-size: 16px;
     margin: 0px;
     width: 95%;
-    text-align: left
+    text-align: center;
 }
 
 grouping {
@@ -44,29 +54,65 @@ label {
     top:0;
     z-index:1;
 }
+
+.vert-centered {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.split-right {
+    border-right: inset rgba(0,0,0,0.3);
+}
+.split-left {
+    border-left: inset rgba(0,0,0,0.3);
+}
+
+
 /*
-    xs
+    sm
 */
 @media screen and (min-width:576px) {
     body {
         background-color: darkseagreen;
     }
-}
-/*
-    sm
-*/
-@media screen and (min-width:768px ){
-    body {
-        background-color: aliceblue;
+    .split-sm-right {
+        border-right: inset rgba(0,0,0,0.3);
+    }
+    .split-sm-left {
+        border-left: inset rgba(0,0,0,0.3);
     }
 }
 /*
     md
 */
+@media screen and (min-width:768px ){
+    body {
+        background-color: aliceblue;
+    }
+    .split-md-right {
+        border-right: 1px inset rgba(0,0,0,0.3);
+        ;
+    }
+    .split-md-left {
+        border-left: 1px inset rgba(0,0,0,0.3);
+    }
+}
+/*
+    lg
+*/
 @media screen and (min-width:992px) {
     body {
         background-color: floralwhite;
+
     }
+    .split-lg-right {
+        border-right: inset rgba(0,0,0,0.3);
+        
+    }
+    .split-lg-left {
+        border-left: inset rgba(0,0,0,0.3);
+        
+    }
+
 }
 /*
     xl

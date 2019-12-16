@@ -180,20 +180,48 @@
             }
         });
 
-        var bab = ko.observableArray("");
+        var bab = ko.observableArray([]);
         var bab_highest = ko.computed(function () {
+            console.log("Bab", bab());
             if (bab == undefined || bab == "") {
                 return "";
             } else {
                 //TODO: Check what happens, when the bab is an array. Should only use the first index
                 //return bab(); //Maybe do some string splitting, and take the first array value?
+                console.log("There's ", bab().length, "eleemnt in bab");
                 if (bab.length < 0) {
                     console.log("highest bab is not set");
                     return "";
                 }
-                console.log("Base attack Bonus: " + bab()[0]);
-                return bab()[0];
+                console.log("Base attack Bonus: " + bab()[bab().length-1]);
+                return bab()[bab().length - 1];
             }
+        });
+        var bab_ranged = ko.computed(function () {
+            var result = "";
+            var dex = dex_total();
+            if (dex_total() === null) dex = 0;
+            bab().forEach(function (item, index) {
+                result += Number(item + dex).toString();
+                if (index !== bab.length -1) {
+                    result += ", ";
+                }
+            });
+                
+            return result;
+        });
+        var bab_melee = ko.computed(function () {
+            var result = "";
+            var str = str_total();
+            if (str_total() === null) str = 0;
+            bab().forEach(function (item, index) {
+                result += Number(item + str).toString();
+                if (index !== bab.length - 1) {
+                    result += ", ";
+                }
+            });
+
+            return result;
         });
 
         var hp_current = ko.observable("");
@@ -613,7 +641,7 @@
             int_base, int_temp, int_baseMod, int_tempMod, int_total,
             wis_base, wis_temp, wis_baseMod, wis_tempMod, wis_total,
             cha_base, cha_temp, cha_baseMod, cha_tempMod, cha_total,
-            bab, bab_highest,
+            bab, bab_highest, bab_ranged, bab_melee,
             hp_current, hp_total, hp_non_lethal, hp_wounds,
             initiative, initiative_misc,
             ac_total, size_defensive, ac_armour, ac_shield, ac_natural, ac_deflection, ac_misc,
