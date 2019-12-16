@@ -1,15 +1,21 @@
 ﻿<div class="spells">
-    <h1>Spells</h1>
+    <h3>Search</h3>
 
         <div>
-            <input data-bind="textInput: spellQuery" />
-            <ul data-bind="foreach: spells">
-                <li class="spellElement">
+            <input placeholder="Spell.." data-bind="textInput: spellQuery" />
+            <ul class="row" data-bind="foreach: pageList">
+                <li class="spellElement col-md-6">
                     <div data-bind="click: function(data, event) {$parent.chooseSpell($data)}">
                         <span data-bind="text: $data.name" style="font-weight: bold"></span>
                         <p data-bind="text: $data.shortDescription"></p>
                     </div>
                 </li>
             </ul>
+            <div>
+                <span id="last" data-bind="click: lastPage">last</span>
+                <span id="previous" data-bind="click: previousPage">previous</span>
+                <span id="next" data-bind="click: nextPage">next</span>
+                <span id="first" data-bind="click: firstPage">first</span>
+            </div>
         </div>
 </div>

@@ -36,8 +36,9 @@
     <div class="modal-content">
         <span class="close" data-bind="click: CloseSpellModal">X</span>
         <div class="container">
-            <spell data-bind="style: { display:  $root.spellModal().isAddingSpell() ? 'block' : 'none'}"></spell>
             <spell-info id="spellInfo"></spell-info>
+            <spell data-bind="style: { display:  $root.spellModal().isAddingSpell() ? 'block' : 'none'}"></spell>
+            
             </div>
         </div>
 
