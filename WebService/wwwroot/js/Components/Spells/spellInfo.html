@@ -1,4 +1,4 @@
-﻿<div data-bind="GetSpell()">
+﻿<div data-bind="GetSpell(), if: spellFound">
     <div data-bind="with: spell">
         <div>
             <h1 data-bind="text: $data.name"> Spell Name</h1>
@@ -42,7 +42,7 @@
             <div data-bind="if: $root.spellModal().isAddingSpell">
                 <button class="btn btn-outline-dark btn-sm" data-bind="click: $parent.AddSpell">Add Spell</button>
             </div>
-            <div data-bind="ifnot: $root.spellModal().isAddingSpell">
+            <div data-bind="if: $root.spellModal().isRemovingSpells">
                 <button class="btn btn-outline-dark btn-sm" data-bind="click: $parent.RemoveSpell">Remove Spell</button>
             </div>
         </div>

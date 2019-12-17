@@ -1,6 +1,6 @@
 ﻿<div>
     <h1>Spellbook</h1>
-    <ul class="row unstyled" data-bind="foreach: spellLevels">
+    <ul class="row list-unstyled" data-bind="foreach: spellLevels">
         <li class="col-12 col-md-6">
             <div>
                 <h2>Level <span data-bind="text: $index"></span></h2>
@@ -25,7 +25,7 @@
                 </div>
 
             </div>
-            <ul class="row unstyled" data-bind="foreach: spells">
+            <ul class="row list-unstyled" data-bind="foreach: spells">
                 <li class="box col-6">
 
                     <div data-bind="using: spell, click: function(data){ $component.ShowSpellInfo($parent.level,$data)}">
@@ -49,12 +49,9 @@
 
 <div id="spellModal" class="modal" data-bind="style: { display: $root.spellModal().isOpen() ? 'block' : 'none'}">
     <div class="modal-content">
-        <span class="close" data-bind="click: CloseSpellModal">X</span>
+        <span class="close" data-bind="click: $root.spellModal().CloseModule">X</span>
         <div class="container">
-            <spell-info id="spellInfo"></spell-info>
-            <spell data-bind="style: { display:  $root.spellModal().isAddingSpell() ? 'block' : 'none'}"></spell>
-            
-            </div>
+            <spell-modal></spell-modal>
         </div>
-
+    </div>
 </div>

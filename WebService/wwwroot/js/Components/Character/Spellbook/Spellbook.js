@@ -35,6 +35,8 @@
             spellModal.SpellLevel(spellLevel);
             spellModal.isOpen(true);
             spellModal.isAddingSpell(true);
+            spellModal.showSearch(true);
+            spellModal.isRemovingSpells(false);
         };
 
         var ShowSpellInfo = function(spellLevel, spell){
@@ -42,6 +44,8 @@
             spellModal.SpellLevel(spellLevel);
             spellModal.CurrentSpell(spell);
             spellModal.isAddingSpell(false);
+            spellModal.showSearch(false);
+            spellModal.isRemovingSpells(true);
         }
 
         var CloseSpellModal = function () {

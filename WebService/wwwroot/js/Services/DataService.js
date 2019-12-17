@@ -31,7 +31,7 @@
 
     var SignUp = async function (user, callback) {
         var options = {
-            method: 'POST', // or 'PUT'
+            method: 'POST', 
             body: JSON.stringify(user), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json',
@@ -241,11 +241,17 @@
     };
 
     var GetSpell = async function (spellId, callback) {
+        console.log(spellId);
+        if (spellId === undefined || spellId === null) {
+            return;
+        }
         console.log("Trying to find spell with id: " + spellId);
         url = "api/spells/" + spellId;
         var response = await fetch(url);
-        var data = await response.json();
-        callback(data);
+        if (response.ok) {
+            var data = await response.json();
+            callback(data);
+        }
     };
 
     var LoadSpellbook = async function (characterId, callback) {

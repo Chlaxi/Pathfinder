@@ -1,7 +1,7 @@
 ﻿<div data-bind="style: { display: $root.sheetInfo().active ? 'none' : 'block'}">
     <div data-bind="using: GetPlayerInfo($root.CurrentPlayer().id)">
         <h1><span data-bind="text: $root.CurrentPlayer().name"></span>'s Characters</h1>
-        <ul data-bind="foreach: $parent.characters">
+        <ul class="list-unstyled" data-bind="foreach: $parent.characters">
             <li class="simpleCharacter">
                 <div data-bind="click: function(data, event) {$root.GoToSheet($data) } ">
                     <div>
@@ -10,7 +10,7 @@
                     </div>
 
                 </div>
-                <button data-bind="click: function(data, event) { $component.RemoveCharacter($data) }">Remove Character</button>
+                <button class="btn btn-outline-danger" data-bind="click: function(data, event) { $component.RemoveCharacter($data) }">Remove Character</button>
             </li>
         </ul>
     </div>
@@ -18,7 +18,7 @@
         <h1>Add Character</h1>
         <form data-bind="submit: AddCharacter">
             <input type="text" placeholder="Name" data-bind="value: NewCharName" />
-            <input type="submit" value="Create Character"/>
+            <input class="btn btn-dark" type="submit" value="Create Character"/>
         </form>
     </div>
 </div>

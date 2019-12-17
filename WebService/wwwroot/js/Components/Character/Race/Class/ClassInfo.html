@@ -9,7 +9,6 @@
                     <div class="col">
                         <div >
                             <div>
-                                a <span data-bind="text: $data.className"> bla bla bla</span>
                                   <div class="row">
                                       <div class="col-">Bonuses for level <span data-bind="text: $data.level"></span>: </div>
                                       <table class="table table-borderless col" data-bind="using: $data.class.levelInfo[$data.level-1]">
@@ -53,7 +52,7 @@
             <select class="col" data-bind="options: classes, optionsText: 'name', value: currentClass,
                             optionsCaption: 'Choose a class'">
             </select>
-            <input class="col" type="number" min="1" max="20" value="1" data-bind="textInput: level" />
+            <input class="col-3 col-sm" type="number" min="1" max="20" value="1" data-bind="textInput: level" />
             <button class="col btn btn-outline-dark" type="submit">Choose race</button>
         </form>
     </div>

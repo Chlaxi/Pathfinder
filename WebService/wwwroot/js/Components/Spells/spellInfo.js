@@ -6,7 +6,8 @@
             charId = data.id;
         });
 
-        var spell = ko.observable({ name: "Name" });
+        var spellFound = ko.observable(false);
+        var spell = ko.observable({});
 
         var school = ko.observable("");
         var castingTime = ko.observable(false);
@@ -21,6 +22,7 @@
 
         spellModal.CurrentSpell.subscribe(function (data) {
             if (data ==="" || data === null) {
+                Clear();
                 return;
             }
             GetSpell(data.spellId);
@@ -33,7 +35,7 @@
 
             await ds.GetSpell(spellId, function (_spell) {
                 spell(_spell);
-
+                spellFound(true);
                 var schoolString = _spell.school;
 
                 if (_spell.subSchool !== "" && _spell.subSchool !== null) {
@@ -72,8 +74,9 @@
         };
 
         var Clear = function () {
+            spellFound(false);
             school("");
-            spell({ name: "Name" });
+            spell({});
             castingTime(false);
             duration(false);
             components(false);
@@ -141,7 +144,7 @@
         };
 
         return {
-            spell,
+            spell, spellFound,
             school,
             GetSpell, Clear, AddSpell, RemoveSpell, CloseModule,
             castingTime, duration, components, range, target, area, effect, savingThrow

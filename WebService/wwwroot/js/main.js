@@ -4,7 +4,7 @@
         knockout: "../lib/knockout/build/output/knockout-latest.debug",
         text: "../lib/requirejs-text/text",
         dataService: "services/dataservice",
-        spellModal: "components/spells/spellmodal",
+        spellModal: "services/spellmodal",
     }
 });
 
@@ -57,6 +57,10 @@ require(["knockout"], function (ko) {
         viewModel: { require: "components/character/spellbook/spellbook" },
         template: { require: "text!components/character/spellbook/spellbook.html" }
     });
+    ko.components.register('spell-modal', {
+        template: { require: "text!components/spells/spellmodal.html" }
+    });
+
 
 
 });

@@ -2,7 +2,11 @@
 
 
     var menuElements = ko.observableArray([
-
+        {
+            name: "Spells",
+            component: "spell-modal",
+            icon: "glyphicon glyphicon-book"
+        }
         ]);
 
     var sheetMenuElements = ko.observableArray([
@@ -75,6 +79,7 @@
         console.log("MENU", menu);
         currentMenu(menu.name);
         currentComponent(menu.component);
+        isSelected(menu);
     }
 
     var isSelected = function (menu) {
@@ -92,7 +97,7 @@
 
     var spellModal = ko.observable(spellModal);
 
-    var sheetInfo = ko.observable({});
+    var sheetInfo = ko.observable(sheet = { active: false, id: null });
     var GoToSheet = function (data) {
         //ChangeContent(menu = { name: "character sheet", component: "character" });
         sheetInfo(sheet = { active: true, id: data.id });
@@ -105,7 +110,11 @@
     };
 
     var CloseSheet = function () {
-        CurrentCharacter({});
+        if (sheetInfo().active === false || sheetInfo()===undefined) {
+            ChangeContent(menu = { name: "character", component: "player-front" });
+            return;
+        }
+        CurrentCharacter({ active: false});
         sheetInfo(sheet = { active: false, id: null });
     };
 

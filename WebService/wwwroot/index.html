@@ -4,14 +4,9 @@
     <title>The Pathfinder Project</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-
-    <link href="js/Components/Spells/SpellModal.css" rel="stylesheet" />
     <link href="PathfinderStyle.css" rel="stylesheet" />
-    <style>
-        /*Temporary style, to easily identify readonly fields in the character*/
-    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -20,22 +15,24 @@
 <body>
 
     <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#component">Pathfinder</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="nav navbar-nav" data-bind="foreach: menuElements()">
-                <li class="nav-item">
-                    <a href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
-                        <span data-bind="text: name"></span>
-                    </a>
-                </li>
-            </ul>
             <div data-bind="if: sheetInfo().active">
                 <ul class="navbar-nav" data-bind="foreach: sheetMenuElements()">
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-bind="attr: { href: link}">
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-bind="ifnot: sheetInfo().active">
+                <ul class="nav navbar-nav" data-bind="foreach: menuElements()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bind="click: function(){$parent.ChangeContent($data)}">
                             <span data-bind="text: name"></span>
                         </a>
                     </li>
@@ -54,7 +51,7 @@
                 </div>
                 <div data-bind="if: LoggedIn">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item" data-bind="if: sheetInfo().active">
+                        <li class="nav-item">
                             <a class="nav-link" href="#" data-bind="click: CloseSheet"><span class="glyphicon glyphicon-user"></span>Change Character</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#" data-bind="click: Logout">Logout</a></li>
@@ -63,8 +60,7 @@
             </div>
         </div>
     </nav>
-    <div data-bind="component: {name: currentComponent}"></div>
-    
+    <div id="component" class="container" data-bind="component: {name: currentComponent}"></div>
 
     <script data-main="js/main.js" src="lib/requirejs/require.js"></script>
 </body>
