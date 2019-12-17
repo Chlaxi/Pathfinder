@@ -13,6 +13,7 @@
             charId = data.id;
             GetRaces()
             currentRace(data.race);
+            selectedRace(currentRace);
         });
 
         var GetRaces = async function () {
@@ -26,7 +27,6 @@
                 await ds.SetRace(charId, selectedRace().name, function (data) {
                     app.RaceModalState(false);
                     app.SetCharacter({ id: charId, race: data.name });
-                    
                 });
             }
             

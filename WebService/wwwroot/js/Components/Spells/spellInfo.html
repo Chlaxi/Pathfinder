@@ -40,10 +40,10 @@
         </div>
         <div>
             <div data-bind="if: $root.spellModal().isAddingSpell">
-                <button data-bind="click: $parent.AddSpell">Add Spell</button>
+                <button class="btn btn-outline-dark btn-sm" data-bind="click: $parent.AddSpell">Add Spell</button>
             </div>
             <div data-bind="ifnot: $root.spellModal().isAddingSpell">
-                <button data-bind="click: $parent.RemoveSpell">Remove Spell</button>
+                <button class="btn btn-outline-dark btn-sm" data-bind="click: $parent.RemoveSpell">Remove Spell</button>
             </div>
         </div>
     </div>

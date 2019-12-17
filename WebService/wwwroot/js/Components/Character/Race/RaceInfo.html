@@ -1,17 +1,29 @@
-﻿<div class="container" data-bind="GetRaces()">
-    <select data-bind="options: races, optionsText: 'name', value: selectedRace,
-                        optionsCaption: 'Choose a race'">
-    </select>
-    <div>
-        <h2>Race info</h2>
-        <div data-bind="with: selectedRace">
+﻿<div data-bind="GetRaces()">
+
+    <div class="w-100">
+        <h1>Race info</h1>
+        <div class="w-100" data-bind="with: currentRace">
             <h3 data-bind="text: name"></h3>
             <div>
                 A <span data-bind="text: name"></span> gets the following bonuses:
             </div>
         </div>
     </div>
-    <div>
-        <button data-bind="click: SetRace">Choose race</button>
+    <div class="row w-100">
+        <select class="col-6" data-bind="options: races, optionsText: 'name', value: selectedRace,
+                        optionsCaption: 'Choose a race'">
+        </select>
+        <div class="col-6">
+            <button class="btn btn-dark btn-sm" data-bind="click: SetRace">Choose race</button>
+        </div>
+        <div class="w-100" data-bind="if: selectedRace != currentRace">
+            <div  data-bind="with: selectedRace">
+                <h3 data-bind="text: name"></h3>
+                <div>
+                    A <span data-bind="text: name"></span> gets the following bonuses:
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>

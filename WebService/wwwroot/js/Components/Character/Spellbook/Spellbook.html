@@ -1,19 +1,32 @@
 ﻿<div>
     <h1>Spellbook</h1>
-    <ul data-bind="foreach: spellLevels">
-        <li>
+    <ul class="row unstyled" data-bind="foreach: spellLevels">
+        <li class="col-12 col-md-6">
             <div>
                 <h2>Level <span data-bind="text: $index"></span></h2>
-                <div>
-                    <span class="spellHeader">SpellDC </span><input type="text" placeholder="DC" data-bind="textInput: $data.spellDC" />
-                    <span class="spellHeader">Spells Known</span> <input type="text" placeholder="spellsKnown" data-bind="textInput: $data.spellsKnown" />
-                    <span class="spellHeader">Spells Per Day </span><input type="text" placeholder="Spells Per Day" data-bind="textInput: $data.spellsPerDay" />
-                    <span class="spellHeader">Spells Prepared </span> <input type="text" data-bind="textInput: $data.spellsPrepared" />
+                <button class="btn btn-dark btn-sm w-100" data-bind="click: function(data, event) {$component.AddSpellToSpellbook($data.level)}">Add Spell</button>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <input type="text" placeholder="DC" data-bind="textInput: $data.spellDC" />
+                        <label class="spellHeader">SpellDC </label>
+                    </div>
+                    <div class="form-group col-3">
+                        <input type="text" placeholder="spellsKnown" data-bind="textInput: $data.spellsKnown" />
+                        <label class="spellHeader">Spells Known</label>
+                    </div>
+                    <div class="form-group col-3">
+                        <input type="text" placeholder="Spells Per Day" data-bind="textInput: $data.spellsPerDay" />
+                        <label class="spellHeader">Spells Per Day </label>
+                    </div>
+                    <div class="form-group col-3">
+                        <input type="text" data-bind="textInput: $data.spellsPrepared" />
+                        <label class="spellHeader">Spells Prepared </label>
+                    </div>
                 </div>
-                <button data-bind="click: function(data, event) {$component.AddSpellToSpellbook($data.level)}">Add Spell</button>
+
             </div>
-            <ul data-bind="foreach: spells">
-                <li>
+            <ul class="row unstyled" data-bind="foreach: spells">
+                <li class="box col-6">
 
                     <div data-bind="using: spell, click: function(data){ $component.ShowSpellInfo($parent.level,$data)}">
                         <h3 data-bind="text: $data.name">Spell</h3>
@@ -26,7 +39,9 @@
 
                 </li>
             </ul>
+           
         </li>
+
 
     </ul>
 </div>

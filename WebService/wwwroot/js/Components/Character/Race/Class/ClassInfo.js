@@ -11,7 +11,7 @@
         params.character.subscribe(function (data) {
             character(data);
             ownedClasses(data);
-
+           // console.log("Classes:", ownedClasses());
             
         });
 
@@ -37,13 +37,21 @@
                    // app.RaceModalState(false);
                    // app.SetCharacter({ id: charId, race: data.name });
                     level(1);
+                    console.log("DATA", data);
+                    console.log(classes());
+                    var newClass = undefined;
+
+                    newClass = GetLevelInfo(data.name, data.level);
+
                     var newClass = {
                         characterId: charId,
                         className: data.name,
-                        level: data.level
-                    }
+                        level: data.level,
+                        class: newClass
+                    };
 
                     ownedClasses.push(newClass);
+                 
                 });
             }
 
@@ -61,14 +69,31 @@
 
             await ds.LevelUpClass(charId, data.className, function (callback) {
                 if (callback !== null) {
-
-                    var updatedClass = data;
-                    updatedClass.level = callback.level;
+                    data.level = callback.level;
+                    data.class = GetLevelInfo(data.className,data.level);
                     ownedClasses.remove(data)
-                    ownedClasses.push(updatedClass);
+                    ownedClasses.push(data);
                 }
             });
         };
+
+        var GetLevelInfo = function (className, level) {
+            for (var i = 0; i < classes().length; i++) {
+                var newClass = undefined;
+                if (classes()[i].name == className) {
+                    console.log("class found!", classes()[i]);
+                    newClass = classes()[i];
+
+                    for (var i = newClass.levelInfo.length; i > level; i--) {
+                        var removed = newClass.levelInfo.pop();
+                        console.log("Pop:", removed.level);
+                    }
+                    console.log(newClass);
+                    return newClass;
+
+                }
+            }
+        }
 
         return {
             classes, currentClass, level, character, ownedClasses,

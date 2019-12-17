@@ -3,12 +3,39 @@
         <h1>Class info</h1>
         <div>
             <h2>Your classes</h2>
-            <ul data-bind="foreach: ownedClasses">
-                <li>
+            <ul class="list-unstyled" data-bind="foreach: ownedClasses">
+                <li class="box">
                     <h3><span data-bind="text: $data.className"></span> <span data-bind="text: $data.level"></span> </h3>
-                    <div>Description</div>
-                    <button data-bind="click: function(data){ $component.LevelUp($data)}">Level Up</button>
-                    <button data-bind="click: function(data){ $component.RemoveClass($data)}">Remove</button>
+                    <div class="col">
+                        <div >
+                            <div>
+                                a <span data-bind="text: $data.className"> bla bla bla</span>
+                                  <div class="row">
+                                      <div class="col-">Bonuses for level <span data-bind="text: $data.level"></span>: </div>
+                                      <table class="table table-borderless col" data-bind="using: $data.class.levelInfo[$data.level-1]">
+                                          <tr>
+                                              <th>BAB</th>
+                                              <th>Fortitude</th>
+                                              <th>Reflex</th>
+                                              <th>Wisdom</th>
+                                          </tr>
+                                          <tr>
+                                              <td data-bind="text: baseAttackBonus"></td>
+                                              <td data-bind="text: baseFortitude"></td>
+                                              <td data-bind="text: baseReflex"></td>
+                                              <td data-bind="text: baseWill"></td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="w-100">
+                        <div class="align-content-end justify-content-end">
+                            <button class="btn btn-dark" data-bind="click: function(data){ $component.LevelUp($data)}">Level Up</button>
+                            <button class="btn btn-danger" data-bind="click: function(data){ $component.RemoveClass($data)}">Remove</button>
+                        </div>
+                    </footer>
                 </li>
             </ul>
         </div>
@@ -21,12 +48,13 @@
     </div>
     <div>
         <h4>New Class</h4>
-        <form data-bind="submit: function(data) { SetClasses(level) }">
-            <select data-bind="options: classes, optionsText: 'name', value: currentClass,
+        <form class="form-row" data-bind="submit: function(data) { SetClasses(level) }">
+            
+            <select class="col" data-bind="options: classes, optionsText: 'name', value: currentClass,
                             optionsCaption: 'Choose a class'">
             </select>
-            <input type="number" min="1" max="20" value="1" data-bind="textInput: level" />
-            <button type="submit">Choose race</button>
+            <input class="col" type="number" min="1" max="20" value="1" data-bind="textInput: level" />
+            <button class="col btn btn-outline-dark" type="submit">Choose race</button>
         </form>
     </div>
 </div>
